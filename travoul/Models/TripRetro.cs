@@ -2,10 +2,10 @@
 
 namespace travoul.Models
 {
-    public class Retro
+    public class TripRetro
     {
         [Key]
-        public int RetroId { get; set; }
+        public int TripRetroId { get; set; }
 
         [Required]
         public int TripId { get; set; }

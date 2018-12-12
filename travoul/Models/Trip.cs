@@ -38,8 +38,8 @@ namespace travoul.Models
 
         public virtual ICollection<TripTravelType> TripTravelTypes { get; set; }
 
-        public virtual ICollection<VisitLocation> VisitLocations { get; set; }
+        public virtual ICollection<TripVisitLocation> TripVisitLocations { get; set; }
 
-        public virtual ICollection<Retro> Retros { get; set; }
+        public virtual ICollection<TripRetro> TripRetros { get; set; }
     }
 }
