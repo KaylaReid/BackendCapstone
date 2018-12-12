@@ -26,6 +26,43 @@ namespace travoul.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Restrict deletion of related TravelType when TripTravelTypes entry is removed
+            modelBuilder.Entity<TravelType>()
+                .HasMany(t => t.TripTravelTypes)
+                .WithOne(l => l.TravelType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Restrict deletion of related Trip when TripTravelTypes entry is removed
+            modelBuilder.Entity<Trip>()
+                .HasMany(t => t.TripTravelTypes)
+                .WithOne(l => l.Trip)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Restrict deletion of related LocationType when TripVisitLocations entry is removed
+            modelBuilder.Entity<LocationType>()
+                .HasMany(t => t.TripVisitLocations)
+                .WithOne(l => l.LocationType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Restrict deletion of related Trip when TripVisitLocations entry is removed
+            modelBuilder.Entity<Trip>()
+                .HasMany(t => t.TripVisitLocations)
+                .WithOne(l => l.Trip)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Restrict deletion of related RetroType when TripRetros entry is removed
+            modelBuilder.Entity<RetroType>()
+                .HasMany(t => t.TripRetros)
+                .WithOne(l => l.RetroType)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Restrict deletion of related Trip when TripRetros entry is removed
+            modelBuilder.Entity<Trip>()
+                .HasMany(t => t.TripRetros)
+                .WithOne(l => l.Trip)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             ApplicationUser Kayla = new ApplicationUser
             {
                 FirstName = "Kayla",
