@@ -17,7 +17,6 @@ namespace travoul.Models
         [Required]
         public int ContinentId { get; set; }
 
-        [Required]
         public Continent Continent { get; set; }
 
         [Required]
@@ -35,7 +34,7 @@ namespace travoul.Models
         public string Budget { get; set; }
 
         [Required]
-        public bool PreTrip { get; set; }
+        public bool IsPreTrip { get; set; }
 
         public virtual ICollection<TripTravelType> TripTravelTypes { get; set; }
 

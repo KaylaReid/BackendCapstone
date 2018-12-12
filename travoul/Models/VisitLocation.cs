@@ -24,6 +24,6 @@ namespace travoul.Models
         public string Description { get; set; }
 
         [Required]
-        public bool Completed { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

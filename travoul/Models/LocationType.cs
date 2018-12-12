@@ -11,7 +11,6 @@ namespace travoul.Models
         [Required]
         public string Type { get; set; }
 
-        //Do I need this?
         public virtual ICollection<VisitLocation> VisitLocations { get; set; }
     }
 }
