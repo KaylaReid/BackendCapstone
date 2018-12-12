@@ -276,6 +276,140 @@ namespace travoul.Data
                     TravelTypeId = 3
                 }
             );
+            modelBuilder.Entity<TripRetro>().HasData(
+                new TripRetro()
+                {
+                    TripRetroId = 1,
+                    TripId = 1,
+                    RetroTypeId = 1,
+                    Description = "It was sooooo amazing!!!!"
+                },
+                new TripRetro()
+                {
+                    TripRetroId = 2,
+                    TripId = 1,
+                    RetroTypeId = 2,
+                    Description = "It was Hot!!!!"
+                },
+                new TripRetro()
+                {
+                    TripRetroId = 3,
+                    TripId = 2,
+                    RetroTypeId = 1,
+                    Description = "It was sooooo amazing!!!!"
+                },
+                new TripRetro()
+                {
+                    TripRetroId = 4,
+                    TripId = 2,
+                    RetroTypeId = 2,
+                    Description = "It was Hot!!!!"
+                },
+                new TripRetro()
+                {
+                    TripRetroId = 5,
+                    TripId = 3,
+                    RetroTypeId = 1,
+                    Description = "It was sooooo amazing!!!!"
+                },
+                new TripRetro()
+                {
+                    TripRetroId = 6,
+                    TripId = 3,
+                    RetroTypeId = 2,
+                    Description = "It was Hot!!!!"
+                },
+                new TripRetro()
+                {
+                    TripRetroId = 7,
+                    TripId = 4,
+                    RetroTypeId = 1,
+                    Description = "It was sooooo amazing!!!!"
+                },
+                new TripRetro()
+                {
+                    TripRetroId = 8,
+                    TripId = 4,
+                    RetroTypeId = 2,
+                    Description = "It was Hot!!!!"
+                }
+            );
+
+            modelBuilder.Entity<TripVisitLocation>().HasData(
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 1,
+                    TripId = 1,
+                    LocationTypeId = 1,
+                    Name = "The three broomsticks",
+                    Description = "Yummy food joint that sells butter beer",
+                    IsCompleted = true
+                },
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 2,
+                    TripId = 1,
+                    LocationTypeId = 2,
+                    Name = "castle",
+                    Description = "its sooo pretty",
+                    IsCompleted = true
+                },
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 3,
+                    TripId = 2,
+                    LocationTypeId = 2,
+                    Name = "Safari",
+                    Description = "See an elephant",
+                    IsCompleted = false
+                },
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 4,
+                    TripId = 1,
+                    LocationTypeId = 1,
+                    Name = "Donut Place",
+                    Description = "They have the pink donut thing from the show",
+                    IsCompleted = false
+                },
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 5,
+                    TripId = 3,
+                    LocationTypeId = 1,
+                    Name = "The three broomsticks",
+                    Description = "Yummy food joint that sells butter beer",
+                    IsCompleted = true
+                },
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 6,
+                    TripId = 3,
+                    LocationTypeId = 2,
+                    Name = "HP world",
+                    Description = "Its soooo pretty",
+                    IsCompleted = true
+                },
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 7,
+                    TripId = 4,
+                    LocationTypeId = 2,
+                    Name = "flee market",
+                    Description = "they have awesome stuff",
+                    IsCompleted = false
+                },
+                new TripVisitLocation()
+                {
+                    TripVisitLocationId = 8,
+                    TripId = 4,
+                    LocationTypeId = 2,
+                    Name = "H and T's house",
+                    Description = "can't wait to see their cute place",
+                    IsCompleted = false
+                }
+            );
+
         }
     }
 }
