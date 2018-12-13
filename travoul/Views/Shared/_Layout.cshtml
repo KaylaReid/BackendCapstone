@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using travoul.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -29,11 +35,24 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Travoul</a>
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="home" asp-action="index">home</a></li>
-                    <li><a asp-area="" asp-controller="home" asp-action="about">about</a></li>
-                    <li><a asp-area="" asp-controller="home" asp-action="contact">contact</a></li>
-                </ul>*@
+                <ul class="nav navbar-nav">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li>
+                            <a asp-area="" asp-controller="Trips" asp-action="Index">My Trips</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="Trips" asp-action="Create">Plan the next one</a>
+                        </li>
+                        <li>
+                            <a asp-area="" asp-controller="" asp-action="">Planned Trips</a>
+                        </li>
+
+                    }
+                    @*<li><a asp-area="" asp-controller="home" asp-action="index">home</a></li>
+        <li><a asp-area="" asp-controller="home" asp-action="about">about</a></li>
+        <li><a asp-area="" asp-controller="home" asp-action="contact">contact</a></li>*@
+                </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>

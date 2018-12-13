@@ -355,20 +355,6 @@ namespace travoul.Data
                     TripId = 3,
                     RetroTypeId = 2,
                     Description = "It was Hot!!!!"
-                },
-                new TripRetro()
-                {
-                    TripRetroId = 7,
-                    TripId = 4,
-                    RetroTypeId = 1,
-                    Description = "It was sooooo amazing!!!!"
-                },
-                new TripRetro()
-                {
-                    TripRetroId = 8,
-                    TripId = 4,
-                    RetroTypeId = 2,
-                    Description = "It was Hot!!!!"
                 }
             );
 

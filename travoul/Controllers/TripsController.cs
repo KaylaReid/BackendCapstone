@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using travoul.Data;
 using travoul.Models;
+using travoul.Models.ViewModels;
 
 namespace travoul.Controllers
 {
@@ -43,11 +44,11 @@ namespace travoul.Controllers
         {
             var User = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.Trip
+            var UserTrips = _context.Trip
                 .Include(t => t.Continent)
-                .Where(t => t.UserId == User.Id);
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == false).ToListAsync();
 
-            return View(await applicationDbContext.ToListAsync());
+            return View(await UserTrips);
         }
 
         // GET: Trips/Details/5
@@ -77,11 +78,38 @@ namespace travoul.Controllers
         }
 
         // GET: Trips/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code");
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-            return View();
+
+            List<Continent> AllContinents = await _context.Continent.ToListAsync();
+
+            List<SelectListItem> allContinentOptions = new List<SelectListItem>();
+
+            foreach(Continent c in AllContinents) 
+            {
+                SelectListItem sli = new SelectListItem();
+                sli.Text = c.Name;
+                sli.Value = c.ContinentId.ToString();
+                allContinentOptions.Add(sli);
+            };
+
+            SelectListItem defaultSli = new SelectListItem
+            {
+                Text = "Select Continent",
+                Value = "0"
+            };
+
+            allContinentOptions.Insert(0, defaultSli);
+
+            CreateTripViewModel viewmodel = new CreateTripViewModel
+            {
+                AllContinentOptions = allContinentOptions
+            };
+            //ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Name");
+            //ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+
+
+            return View(viewmodel);
         }
 
         // POST: Trips/Create
@@ -89,17 +117,24 @@ namespace travoul.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
+        public async Task<IActionResult> Create(CreateTripViewModel viewmodel)
         {
+
+            ModelState.Remove("Trip.User");
+            ModelState.Remove("Trip.UserId");
+            
+            ApplicationUser user = await GetCurrentUserAsync();
+
+            viewmodel.Trip.UserId = user.Id;
+
             if (ModelState.IsValid)
             {
-                _context.Add(trip);
+                _context.Add(viewmodel.Trip);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-            return View(trip);
+
+            return View(viewmodel);
         }
 
         // GET: Trips/Edit/5
