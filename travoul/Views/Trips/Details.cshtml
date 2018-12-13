@@ -11,16 +11,16 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.User.Id)
+            @Html.DisplayFor(model => model.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Continent)
+            Continent
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Continent.Code)
+            @Html.DisplayFor(model => model.Continent.Name)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Location)
@@ -41,22 +41,31 @@
             @Html.DisplayFor(model => model.Accommodation)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Budget)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Budget)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsPreTrip)
-        </dt>
+        <dt>Travel Type</dt>
         <dd>
-            @Html.DisplayFor(model => model.IsPreTrip)
+            <ul>
+                @foreach (var TripTT in Model.TripTravelTypes)
+                {
+                    <li>@string.Format(TripTT.TravelType.Type)</li>
+                }
+            </ul>
+        </dd>
+        <dt>Things I wanted to do</dt>
+        <dd>
+            <ul>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Food" && TripL.IsCompleted == true)
+                    {
+                        <li>@string.Format(TripL.Name): @string.Format(TripL.Description)</li>
+                    }
+                }
+            </ul>
         </dd>
     </dl>
 </div>
