@@ -31,7 +31,7 @@ namespace travoul.Models
         [Required]
         public string Title { get; set; }
 
-        public string Budget { get; set; }
+        public double? Budget { get; set; }
 
         [Required]
         public bool IsPreTrip { get; set; }

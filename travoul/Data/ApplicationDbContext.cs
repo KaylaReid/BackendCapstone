@@ -222,7 +222,7 @@ namespace travoul.Data
                     TripDates = "5/20/17-5/26/17",
                     Accommodation = "Cabana Bay",
                     Title = "1st Harry Potter World Trip",
-                    Budget = "",
+                    Budget = null,
                     IsPreTrip = false
                 },
                 new Trip()
@@ -234,7 +234,7 @@ namespace travoul.Data
                     TripDates = "2010",
                     Accommodation = "Campus",
                     Title = "Mission Trip",
-                    Budget = "",
+                    Budget = 2000.00,
                     IsPreTrip = false
                 },
                 new Trip()
@@ -246,7 +246,7 @@ namespace travoul.Data
                     TripDates = "5/20/17-5/26/17",
                     Accommodation = "Cabana Bay",
                     Title = "1st Harry Potter World Trip/Engagement Trip",
-                    Budget = "",
+                    Budget = null,
                     IsPreTrip = false
                 },
                 new Trip()
@@ -258,7 +258,7 @@ namespace travoul.Data
                     TripDates = "2019",
                     Accommodation = "Airbnb",
                     Title = "Visit H & T Trip",
-                    Budget = "",
+                    Budget = null,
                     IsPreTrip = true
                 }
             );
