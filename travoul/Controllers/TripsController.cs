@@ -61,7 +61,13 @@ namespace travoul.Controllers
             var trip = await _context.Trip
                 .Include(t => t.Continent)
                 .Include(t => t.User)
-                .FirstOrDefaultAsync(m => m.TripId == id);
+                .Include(t => t.TripTravelTypes)
+                .ThenInclude(tt => tt.TravelType)
+                .Include(t => t.TripVisitLocations)
+                .ThenInclude(tvl => tvl.LocationType)
+                .Include(t => t.TripRetros)
+                .ThenInclude(tr => tr.RetroType)
+                .FirstOrDefaultAsync(t => t.TripId == id);
             if (trip == null)
             {
                 return NotFound();
