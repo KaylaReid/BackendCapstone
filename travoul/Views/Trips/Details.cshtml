@@ -58,11 +58,41 @@
         <dt>Things I wanted to do</dt>
         <dd>
             <ul>
+                <h4>Food</h4>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Food")
+                    {
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                    }
+                }
+                <h4>Places</h4>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Place")
+                    {
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                    }
+                }
+            </ul>
+        </dd>
+        <dt>Things I did do</dt>
+        <dd>
+            <ul>
+                <h4>Food</h4>
                 @foreach (var TripL in Model.TripVisitLocations)
                 {
                     if (TripL.LocationType.Type == "Food" && TripL.IsCompleted == true)
                     {
-                        <li>@string.Format(TripL.Name): @string.Format(TripL.Description)</li>
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                    }
+                }
+                <h4>Places</h4>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Place" && TripL.IsCompleted == true)
+                    {
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
                     }
                 }
             </ul>
