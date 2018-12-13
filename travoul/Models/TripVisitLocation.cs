@@ -2,10 +2,10 @@
 
 namespace travoul.Models
 {
-    public class VisitLocation
+    public class TripVisitLocation
     {
         [Key]
-        public int VisitLocationId { get; set; }
+        public int TripVisitLocationId { get; set; }
 
         [Required]
         public int TripId { get; set; }
@@ -20,7 +20,6 @@ namespace travoul.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
         [Required]

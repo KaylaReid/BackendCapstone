@@ -11,6 +11,6 @@ namespace travoul.Models
         [Required]
         public string Type { get; set; }
 
-        public virtual ICollection<Retro> Retros { get; set; }
+        public virtual ICollection<TripRetro> TripRetros { get; set; }
     }
 }

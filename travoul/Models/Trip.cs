@@ -31,15 +31,15 @@ namespace travoul.Models
         [Required]
         public string Title { get; set; }
 
-        public string Budget { get; set; }
+        public double? Budget { get; set; }
 
         [Required]
         public bool IsPreTrip { get; set; }
 
         public virtual ICollection<TripTravelType> TripTravelTypes { get; set; }
 
-        public virtual ICollection<VisitLocation> VisitLocations { get; set; }
+        public virtual ICollection<TripVisitLocation> TripVisitLocations { get; set; }
 
-        public virtual ICollection<Retro> Retros { get; set; }
+        public virtual ICollection<TripRetro> TripRetros { get; set; }
     }
 }
