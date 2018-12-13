@@ -65,6 +65,8 @@ namespace travoul.Controllers
                 .ThenInclude(tt => tt.TravelType)
                 .Include(t => t.TripVisitLocations)
                 .ThenInclude(tvl => tvl.LocationType)
+                .Include(t => t.TripRetros)
+                .ThenInclude(tr => tr.RetroType)
                 .FirstOrDefaultAsync(t => t.TripId == id);
             if (trip == null)
             {

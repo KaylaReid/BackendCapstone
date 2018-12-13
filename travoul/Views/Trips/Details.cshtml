@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<h3>Details for @Html.DisplayFor(model => model.Title)</h3>
 
 <div>
-    <h4>Trip</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -55,6 +54,7 @@
                 }
             </ul>
         </dd>
+        <hr />
         <dt>Things I wanted to do</dt>
         <dd>
             <ul>
@@ -97,6 +97,24 @@
                 }
             </ul>
         </dd>
+        <hr />
+        <dt>What I'd do again</dt>
+        @foreach (var TripR in Model.TripRetros)
+        {
+            if (TripR.RetroTypeId == 1)
+            {
+                <dd>@string.Format(TripR.Description)</dd>
+            }
+        }
+        <br />
+        <dt>What I'd do different</dt>
+        @foreach (var TripR in Model.TripRetros)
+        {
+            if (TripR.RetroTypeId == 2)
+            {
+                <dd>@string.Format(TripR.Description)</dd>
+            }
+        }
     </dl>
 </div>
 <div>
