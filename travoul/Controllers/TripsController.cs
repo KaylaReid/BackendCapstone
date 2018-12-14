@@ -105,8 +105,17 @@ namespace travoul.Controllers
             {
                 AllContinentOptions = allContinentOptions
             };
-            //ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Name");
-            //ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+
+            //get TravelTypes
+            viewmodel.AllTravelTypes = _context.TravelType
+                .AsEnumerable()
+                .Select(li => new SelectListItem
+                {
+                    Text = li.Type,
+                    Value = li.TravelTypeId.ToString()
+                }).ToList();
+            ;
+
 
 
             return View(viewmodel);
@@ -126,11 +135,35 @@ namespace travoul.Controllers
             ApplicationUser user = await GetCurrentUserAsync();
 
             viewmodel.Trip.UserId = user.Id;
+            viewmodel.Trip.IsPreTrip = true;
 
+        //    foreach (something in something)
+        //    {
+        //        TravelTripType newTTT = new TravelTripType()
+        //        {
+        //            TripId = ,
+
+        //        }
+
+        //    _context.Add(newTTT)
+        //}
+        //    saveasync
             if (ModelState.IsValid)
             {
                 _context.Add(viewmodel.Trip);
                 await _context.SaveChangesAsync();
+                foreach (int TypeId in viewmodel.SelectedTravelTypeIds)
+                {
+                    TripTravelType newTripTT = new TripTravelType()
+                    {
+                        TripId = viewmodel.Trip.TripId,
+                        TravelTypeId = TypeId
+                    };
+
+                    _context.Add(newTripTT);
+                }
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
 

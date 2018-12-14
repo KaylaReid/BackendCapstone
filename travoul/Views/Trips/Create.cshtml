@@ -12,6 +12,11 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Trip.Title" class="control-label"></label>
+                <input asp-for="Trip.Title" class="form-control" />
+                <span asp-validation-for="Trip.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Trip.ContinentId" class="control-label"></label>
                 <select asp-for="Trip.ContinentId" class="form-control" asp-items="Model.AllContinentOptions"></select>
                 <span asp-validation-for="Trip.ContinentId" class="text-danger"></span>
@@ -32,15 +37,21 @@
                 <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.Title" class="control-label"></label>
-                <input asp-for="Trip.Title" class="form-control" />
-                <span asp-validation-for="Trip.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Trip.Budget" class="control-label"></label>
                 <input asp-for="Trip.Budget" class="form-control" />
                 <span asp-validation-for="Trip.Budget" class="text-danger"></span>
             </div>
+            @foreach (var item in Model.AllTravelTypes)
+            { 
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" />
+                            @item.Text
+                        </label>
+                    </div>
+                </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>

@@ -14,6 +14,12 @@ namespace travoul.Models.ViewModels
         public Trip Trip { get; set; }
 
         public List<SelectListItem> AllContinentOptions { get; set; }
-        
+
+        public List<SelectListItem> AllTravelTypes { get; set; }
+
+       // public List<TravelType> AllTravelTypes { get; set; }
+
+        public List<int> SelectedTravelTypeIds { get; set; }
+
     }
 }
