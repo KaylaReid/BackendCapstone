@@ -12,34 +12,37 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Trip.Title" class="control-label"></label>
-                <input asp-for="Trip.Title" class="form-control" />
+                <label asp-for="Trip.Title" class="control-label">What do you want to call this trip?</label>
+                <input asp-for="Trip.Title" class="form-control" placeholder="Title"/>
                 <span asp-validation-for="Trip.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.ContinentId" class="control-label"></label>
+                <label asp-for="Trip.ContinentId" class="control-label">Continent</label>
                 <select asp-for="Trip.ContinentId" class="form-control" asp-items="Model.AllContinentOptions"></select>
                 <span asp-validation-for="Trip.ContinentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.Location" class="control-label"></label>
-                <input asp-for="Trip.Location" class="form-control" />
+                <label asp-for="Trip.Location" class="control-label">Where are you taveling?</label>
+                <input asp-for="Trip.Location" class="form-control" placeholder="Location"/>
                 <span asp-validation-for="Trip.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.TripDates" class="control-label"></label>
-                <input asp-for="Trip.TripDates" class="form-control" />
+                <label asp-for="Trip.TripDates" class="control-label">What are the trip dates?</label>
+                <input asp-for="Trip.TripDates" class="form-control" placeholder="Ex. 12/1/2018-12/10/18"/>
                 <span asp-validation-for="Trip.TripDates" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.Accommodation" class="control-label"></label>
-                <input asp-for="Trip.Accommodation" class="form-control" />
+                <label asp-for="Trip.Accommodation" class="control-label">Where will you be staying?</label>
+                <input asp-for="Trip.Accommodation" class="form-control" placeholder="Accommodation"/>
                 <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.Budget" class="control-label"></label>
-                <input asp-for="Trip.Budget" class="form-control" />
+                <label asp-for="Trip.Budget" class="control-label">Budget for the trip</label>
+                <input asp-for="Trip.Budget" class="form-control" placeholder="1500"/>
                 <span asp-validation-for="Trip.Budget" class="text-danger"></span>
+            </div>
+            <div>
+                <label class="control-label">Select how you'll be traveling</label>
             </div>
             @foreach (var item in Model.AllTravelTypes)
             { 

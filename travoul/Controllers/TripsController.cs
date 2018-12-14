@@ -163,21 +163,10 @@ namespace travoul.Controllers
             viewmodel.Trip.UserId = user.Id;
             viewmodel.Trip.IsPreTrip = true;
 
-        //    foreach (something in something)
-        //    {
-        //        TravelTripType newTTT = new TravelTripType()
-        //        {
-        //            TripId = ,
-
-        //        }
-
-        //    _context.Add(newTTT)
-        //}
-        //    saveasync
             if (ModelState.IsValid)
             {
                 _context.Add(viewmodel.Trip);
-                await _context.SaveChangesAsync();
+               // await _context.SaveChangesAsync();
                 foreach (int TypeId in viewmodel.SelectedTravelTypeIds)
                 {
                     TripTravelType newTripTT = new TripTravelType()
