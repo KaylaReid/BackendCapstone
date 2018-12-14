@@ -9,17 +9,20 @@ namespace travoul.Models.ViewModels
 {
     public class CreateTripViewModel
     {
-        
-
         public Trip Trip { get; set; }
 
         public List<SelectListItem> AllContinentOptions { get; set; }
 
+        //for TravelTypes
         public List<SelectListItem> AllTravelTypes { get; set; }
 
-       // public List<TravelType> AllTravelTypes { get; set; }
-
         public List<int> SelectedTravelTypeIds { get; set; }
+
+        //for visitLocations
+        public List<TripVisitLocation> EnteredTripVisitLocations { get; set; }
+
+        public List<int> SelectedVisitTypeId { get; set; }
+
 
     }
 }

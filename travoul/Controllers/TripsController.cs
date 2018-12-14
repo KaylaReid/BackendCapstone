@@ -142,7 +142,9 @@ namespace travoul.Controllers
                 }).ToList();
             ;
 
-
+            ViewData["scripts"] = new List<string>() {
+                "visitLocation"
+            };
 
             return View(viewmodel);
         }
@@ -155,6 +157,10 @@ namespace travoul.Controllers
         public async Task<IActionResult> Create(CreateTripViewModel viewmodel)
         {
 
+            //ViewData["scripts"] = new List<string>() {
+            //    "visitLocation"
+            //};
+
             ModelState.Remove("Trip.User");
             ModelState.Remove("Trip.UserId");
             
@@ -166,7 +172,8 @@ namespace travoul.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(viewmodel.Trip);
-               // await _context.SaveChangesAsync();
+                
+               //makes joiner table for TripTravelType
                 foreach (int TypeId in viewmodel.SelectedTravelTypeIds)
                 {
                     TripTravelType newTripTT = new TripTravelType()
@@ -176,6 +183,20 @@ namespace travoul.Controllers
                     };
 
                     _context.Add(newTripTT);
+                }
+                //makes joiner table for TripVisitLocation
+                foreach (TripVisitLocation TVL in viewmodel.EnteredTripVisitLocations)
+                {
+                    TripVisitLocation newTVL = new TripVisitLocation()
+                    {
+                        TripId = viewmodel.Trip.TripId,
+                        LocationTypeId = TVL.LocationTypeId,
+                        Name = TVL.Name,
+                        Description = TVL.Description,
+                        IsCompleted = false
+                    };
+
+                    _context.Add(newTVL);
                 }
                 await _context.SaveChangesAsync();
 

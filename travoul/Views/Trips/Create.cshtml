@@ -13,7 +13,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Trip.Title" class="control-label">What do you want to call this trip?</label>
-                <input asp-for="Trip.Title" class="form-control" placeholder="Title"/>
+                <input asp-for="Trip.Title" class="form-control" placeholder="Title" />
                 <span asp-validation-for="Trip.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -23,38 +23,151 @@
             </div>
             <div class="form-group">
                 <label asp-for="Trip.Location" class="control-label">Where are you taveling?</label>
-                <input asp-for="Trip.Location" class="form-control" placeholder="Location"/>
+                <input asp-for="Trip.Location" class="form-control" placeholder="Location" />
                 <span asp-validation-for="Trip.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Trip.TripDates" class="control-label">What are the trip dates?</label>
-                <input asp-for="Trip.TripDates" class="form-control" placeholder="Ex. 12/1/2018-12/10/18"/>
+                <input asp-for="Trip.TripDates" class="form-control" placeholder="Ex. 12/1/2018-12/10/18" />
                 <span asp-validation-for="Trip.TripDates" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Trip.Accommodation" class="control-label">Where will you be staying?</label>
-                <input asp-for="Trip.Accommodation" class="form-control" placeholder="Accommodation"/>
+                <input asp-for="Trip.Accommodation" class="form-control" placeholder="Accommodation" />
                 <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Trip.Budget" class="control-label">Budget for the trip</label>
-                <input asp-for="Trip.Budget" class="form-control" placeholder="1500"/>
+                <input asp-for="Trip.Budget" class="form-control" placeholder="1500" />
                 <span asp-validation-for="Trip.Budget" class="text-danger"></span>
             </div>
             <div>
                 <label class="control-label">Select how you'll be traveling</label>
             </div>
-            @foreach (var item in Model.AllTravelTypes)
-            { 
-                <div class="form-group">
-                    <div class="checkbox">
+            <div>
+                @foreach (var item in Model.AllTravelTypes)
+                {
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" />
+                                @item.Text
+                            </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="visit-locations-container">
+                <div class="food">
+                    <h3>Food</h3>
+                    <div>
                         <label>
-                            <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" />
-                            @item.Text
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
                         </label>
                     </div>
                 </div>
-            }
+                    <button type=button class="add-more-food">Add More Food Places</button>
+                <hr />
+                <div class="place">
+                    <h3>Places</h3>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Name
+                            <input type="text" />
+                        </label>
+                        <label>
+                            Description
+                            <input type="text" />
+                        </label>
+                    </div>
+                    <button class="add-more-places">Add More Places</button>
+                </div>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
