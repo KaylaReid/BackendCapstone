@@ -29,17 +29,19 @@ namespace travoul.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        //----------came with
+        // GET: PlannedTrips --trips planned for the future
+        public async Task<IActionResult> PlannedTrips()
+        {
+            var User = await GetCurrentUserAsync();
 
-        //private readonly ApplicationDbContext _context;
+            var UserTrips = _context.Trip
+                .Include(t => t.Continent)
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == true).ToListAsync();
 
-        //public TripsController(ApplicationDbContext context)
-        //{
-        //    _context = context;
-        //}
+            return View(await UserTrips);
+        }
 
-
-        // GET: Trips
+        // GET: MyTrips --all finished trips
         public async Task<IActionResult> Index()
         {
             var User = await GetCurrentUserAsync();
@@ -51,7 +53,7 @@ namespace travoul.Controllers
             return View(await UserTrips);
         }
 
-        // GET: Trips/Details/5
+        // GET: MyTrips/Details/5  --get details for finsihed trips
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -68,6 +70,30 @@ namespace travoul.Controllers
                 .ThenInclude(tvl => tvl.LocationType)
                 .Include(t => t.TripRetros)
                 .ThenInclude(tr => tr.RetroType)
+                .FirstOrDefaultAsync(t => t.TripId == id);
+            if (trip == null)
+            {
+                return NotFound();
+            }
+
+            return View(trip);
+        }
+
+        // GET: PlannedTrip/Details/5  --get details for future trips
+        public async Task<IActionResult> PlannedTripDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var trip = await _context.Trip
+                .Include(t => t.Continent)
+                .Include(t => t.User)
+                .Include(t => t.TripTravelTypes)
+                .ThenInclude(tt => tt.TravelType)
+                .Include(t => t.TripVisitLocations)
+                .ThenInclude(tvl => tvl.LocationType)
                 .FirstOrDefaultAsync(t => t.TripId == id);
             if (trip == null)
             {
