@@ -19,6 +19,11 @@ const selectFood = document.querySelector(".add-more-food").addEventListener("cl
     newFoodDiv.appendChild(document.createElement("br"))
     document.querySelector(".food").appendChild(newFoodDiv)
 })
+
+let getFoodValues = () => {
+    console.log("Dope food")
+}
+
 // for places 
 const selectPlaces = document.querySelector(".add-more-places").addEventListener("click", e => {
 
@@ -41,6 +46,9 @@ const selectPlaces = document.querySelector(".add-more-places").addEventListener
     document.querySelector(".places").appendChild(newPlacesDiv)
 })
 
+let getPlacesValues = () => {
+    console.log("Dope place")
+}
 
 //fetch("http://localhost:5000/Trips/Create")
 
