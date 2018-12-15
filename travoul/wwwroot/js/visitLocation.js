@@ -1,6 +1,5 @@
-﻿
-
-const select = document.querySelector(".add-more-food").addEventListener("click", e => {
+﻿//for FoodPlaces
+const selectFood = document.querySelector(".add-more-food").addEventListener("click", e => {
 
 
     let newFoodDiv = document.createDocumentFragment()
@@ -20,11 +19,30 @@ const select = document.querySelector(".add-more-food").addEventListener("click"
     newFoodDiv.appendChild(document.createElement("br"))
     document.querySelector(".food").appendChild(newFoodDiv)
 })
+// for places 
+const selectPlaces = document.querySelector(".add-more-places").addEventListener("click", e => {
+
+
+    let newPlacesDiv = document.createDocumentFragment()
+    let nameInput = document.createElement("input")
+    let nameLabel = document.createElement("label")
+    nameLabel.textContent = "Name "
+
+    let desctiptionInput = document.createElement("input")
+    let descriptionLabel = document.createElement("label")
+    descriptionLabel.textContent = "Description "
+
+    newPlacesDiv.appendChild(nameLabel)
+    newPlacesDiv.appendChild(nameInput)
+    newPlacesDiv.appendChild(document.createElement("br"))
+    newPlacesDiv.appendChild(descriptionLabel)
+    newPlacesDiv.appendChild(desctiptionInput)
+    newPlacesDiv.appendChild(document.createElement("br"))
+    document.querySelector(".places").appendChild(newPlacesDiv)
+})
 
 
 //fetch("http://localhost:5000/Trips/Create")
-
-
 
 //    .then(res => res.json())
 //    .then(songs => {

@@ -4,9 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Trip</h4>
+<h3>Editing Trip</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,9 +12,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TripId" />
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ContinentId" class="control-label"></label>
@@ -39,21 +37,9 @@
                 <span asp-validation-for="Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Budget" class="control-label"></label>
                 <input asp-for="Budget" class="form-control" />
                 <span asp-validation-for="Budget" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsPreTrip" /> @Html.DisplayNameFor(model => model.IsPreTrip)
-                    </label>
-                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />

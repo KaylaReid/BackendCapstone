@@ -106,7 +106,7 @@ namespace travoul.Controllers
         // GET: Trips/Create
         public async Task<IActionResult> Create()
         {
-
+            //get continents to build out drop down in viewmodel
             List<Continent> AllContinents = await _context.Continent.ToListAsync();
 
             List<SelectListItem> allContinentOptions = new List<SelectListItem>();
@@ -132,7 +132,7 @@ namespace travoul.Controllers
                 AllContinentOptions = allContinentOptions
             };
 
-            //get TravelTypes
+            //get TravelTypes to build out secect checkboxes in the the viewmodel
             viewmodel.AllTravelTypes = _context.TravelType
                 .AsEnumerable()
                 .Select(li => new SelectListItem
@@ -157,10 +157,6 @@ namespace travoul.Controllers
         public async Task<IActionResult> Create(CreateTripViewModel viewmodel)
         {
 
-            //ViewData["scripts"] = new List<string>() {
-            //    "visitLocation"
-            //};
-
             ModelState.Remove("Trip.User");
             ModelState.Remove("Trip.UserId");
             
@@ -177,7 +173,7 @@ namespace travoul.Controllers
                 foreach (int TypeId in viewmodel.SelectedTravelTypeIds)
                 {
                     TripTravelType newTripTT = new TripTravelType()
-                    {
+                    {   //pulls tripid out of context bag 
                         TripId = viewmodel.Trip.TripId,
                         TravelTypeId = TypeId
                     };
@@ -185,19 +181,19 @@ namespace travoul.Controllers
                     _context.Add(newTripTT);
                 }
                 //makes joiner table for TripVisitLocation
-                foreach (TripVisitLocation TVL in viewmodel.EnteredTripVisitLocations)
-                {
-                    TripVisitLocation newTVL = new TripVisitLocation()
-                    {
-                        TripId = viewmodel.Trip.TripId,
-                        LocationTypeId = TVL.LocationTypeId,
-                        Name = TVL.Name,
-                        Description = TVL.Description,
-                        IsCompleted = false
-                    };
+                //foreach (TripVisitLocation TVL in viewmodel.EnteredTripVisitLocations)
+                //{
+                //    TripVisitLocation newTVL = new TripVisitLocation()
+                //    {
+                //        TripId = viewmodel.Trip.TripId,
+                //        LocationTypeId = TVL.LocationTypeId,
+                //        Name = TVL.Name,
+                //        Description = TVL.Description,
+                //        IsCompleted = false
+                //    };
 
-                    _context.Add(newTVL);
-                }
+                //    _context.Add(newTVL);
+                //}
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
