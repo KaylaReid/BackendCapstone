@@ -135,12 +135,13 @@ namespace travoul.Controllers
             };
 
             //get TravelTypes to build out secect checkboxes in the the viewmodel
-            viewmodel.AllTravelTypes = await _context.TravelType
+            viewmodel.AllTravelTypes = _context.TravelType
+                .AsEnumerable()
                 .Select(li => new SelectListItem
                 {
                     Text = li.Type,
                     Value = li.TravelTypeId.ToString()
-                }).ToListAsync();
+                }).ToList();
             ;
 
             viewmodel.LocationTypes = await _context.LocationType.ToListAsync();
@@ -188,23 +189,46 @@ namespace travoul.Controllers
                         _context.Add(newTripTT);
                     }
                 }
-                //makes joiner table for TripVisitLocation
-                //foreach (TripVisitLocation TVL in viewmodel.EnteredTripVisitLocations)
-                //{
-                //    TripVisitLocation newTVL = new TripVisitLocation()
-                //    {
-                //        TripId = viewmodel.Trip.TripId,
-                //        LocationTypeId = TVL.LocationTypeId,
-                //        Name = TVL.Name,
-                //        Description = TVL.Description,
-                //        IsCompleted = false
-                //    };
 
-                //    _context.Add(newTVL);
-                //}
+                //this runs though all the inputed food places and makes a joiner table for it
+                if (viewmodel.EnteredTripFoodLocations != null)
+                {
+                    foreach (TripVisitLocation foodL in viewmodel.EnteredTripFoodLocations)
+                    {
+                        TripVisitLocation newTripVL = new TripVisitLocation()
+                        {
+                            TripId = viewmodel.Trip.TripId,
+                            LocationTypeId = 1,
+                            Name = foodL.Name,
+                            Description = foodL.Description,
+                            IsCompleted = false
+                        };
+
+                        _context.Add(newTripVL);
+                    }
+                }
+
+                //this runs though all the inputed food places and makes a joiner table for it
+                if (viewmodel.EnteredTripVisitLocations != null)
+                {
+                    foreach (TripVisitLocation placeL in viewmodel.EnteredTripVisitLocations)
+                    {
+                        TripVisitLocation newTripVL = new TripVisitLocation()
+                        {
+                            TripId = viewmodel.Trip.TripId,
+                            LocationTypeId = 2,
+                            Name = placeL.Name,
+                            Description = placeL.Description,
+                            IsCompleted = false
+                        };
+
+                        _context.Add(newTripVL);
+                    }
+                }
+           
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("PlannedTrips", "Trips");
             }
 
             return View(viewmodel);
