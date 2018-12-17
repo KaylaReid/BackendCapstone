@@ -9,10 +9,7 @@ namespace travoul.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public ApplicationUser() 
-        { 
-
-        }
+        public ApplicationUser() {  }
 
         [Required]
         [Display(Name = "First Name")]

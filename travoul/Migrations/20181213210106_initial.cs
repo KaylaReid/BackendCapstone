@@ -329,8 +329,8 @@ namespace travoul.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "State", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "5e20ae08-ca70-4d9b-9af2-d4cca26b4a31", 0, "Nashville", "be923da8-bfd4-45d2-838f-10768a6373d7", "kayla@kayla.com", true, "Kayla", "Reid", false, null, "KAYLA@KAYLA.COM", "KAYLA@KAYLA.COM", "AQAAAAEAACcQAAAAEIwZMOwWY+VxOz+UEKjIu0HK1TfOuTcTnonLp3qzD07Dq5Hdc9H0VDqZPOGFQKTyZg==", null, false, "7760da35-37d8-4f4a-a84a-e14a1cd98dbe", "TN", false, "kayla@kayla.com" },
-                    { "64dcf5cc-fc48-41d6-b39f-861ca6fa089f", 0, "Nashville", "996814ba-9033-4c56-b10f-85afc98d3ef5", "ricky@ricky.com", true, "Ricky", "Bruner", false, null, "RICKY@RICKY.COM", "RICKY@RICKY.COM", "AQAAAAEAACcQAAAAEOymcCLJtmUG/+tbfAKOhZTGw3lGgy4SeBhGNJRXvcknacn6Ubm299IkmuhHyl3qLg==", null, false, "63b65426-357f-4baf-a90c-034ce3a97a81", "TN", false, "ricky@ricky.com" }
+                    { "32c1d491-5df4-49e1-8cc1-6447588952d7", 0, "Nashville", "dd21e85b-9e40-4aa6-998a-f052d504a171", "kayla@kayla.com", true, "Kayla", "Reid", false, null, "KAYLA@KAYLA.COM", "KAYLA@KAYLA.COM", "AQAAAAEAACcQAAAAEHUM5GEW7Z6B/0nrvJgKJ87KeyZWevH42Fks2uQehXa/h9KRMKz4mONSEAYhq26Ixg==", null, false, "336af88e-f91b-4a2b-a774-ca00f73e0b92", "TN", false, "kayla@kayla.com" },
+                    { "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3", 0, "Nashville", "17b96150-0fc4-483e-ad73-047d8603b6a7", "ricky@ricky.com", true, "Ricky", "Bruner", false, null, "RICKY@RICKY.COM", "RICKY@RICKY.COM", "AQAAAAEAACcQAAAAEIaDBY7zAT5RpEb7mTcQeSJwuz/VUACyW2MSxCVwDITYnjVHhiDOZcOhN83aL+rQcg==", null, false, "3e2b2889-a9fe-4777-82b2-d47ac0769559", "TN", false, "ricky@ricky.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -385,10 +385,10 @@ namespace travoul.Migrations
                 columns: new[] { "TripId", "Accommodation", "Budget", "ContinentId", "IsPreTrip", "Location", "Title", "TripDates", "UserId" },
                 values: new object[,]
                 {
-                    { 2, "Campus", 2000.0, 1, false, "Uganda", "Mission Trip", "2010", "5e20ae08-ca70-4d9b-9af2-d4cca26b4a31" },
-                    { 1, "Cabana Bay", null, 5, false, "Orlando Flordia", "1st Harry Potter World Trip", "5/20/17-5/26/17", "5e20ae08-ca70-4d9b-9af2-d4cca26b4a31" },
-                    { 3, "Cabana Bay", null, 5, false, "Orlando Flordia", "1st Harry Potter World Trip/Engagement Trip", "5/20/17-5/26/17", "64dcf5cc-fc48-41d6-b39f-861ca6fa089f" },
-                    { 4, "Airbnb", null, 5, true, "Portland OR", "Visit H & T Trip", "2019", "64dcf5cc-fc48-41d6-b39f-861ca6fa089f" }
+                    { 2, "Campus", 2000.0, 1, false, "Uganda", "Mission Trip", "2010", "32c1d491-5df4-49e1-8cc1-6447588952d7" },
+                    { 1, "Cabana Bay", null, 5, false, "Orlando Flordia", "1st Harry Potter World Trip", "5/20/17-5/26/17", "32c1d491-5df4-49e1-8cc1-6447588952d7" },
+                    { 3, "Cabana Bay", null, 5, false, "Orlando Flordia", "1st Harry Potter World Trip/Engagement Trip", "5/20/17-5/26/17", "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3" },
+                    { 4, "Airbnb", null, 5, true, "Portland OR", "Visit H & T Trip", "2019", "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3" }
                 });
 
             migrationBuilder.InsertData(
@@ -398,12 +398,10 @@ namespace travoul.Migrations
                 {
                     { 3, "It was sooooo amazing!!!!", 1, 2 },
                     { 4, "It was Hot!!!!", 2, 2 },
-                    { 6, "It was Hot!!!!", 2, 3 },
-                    { 5, "It was sooooo amazing!!!!", 1, 3 },
                     { 1, "It was sooooo amazing!!!!", 1, 1 },
                     { 2, "It was Hot!!!!", 2, 1 },
-                    { 7, "It was sooooo amazing!!!!", 1, 4 },
-                    { 8, "It was Hot!!!!", 2, 4 }
+                    { 5, "It was sooooo amazing!!!!", 1, 3 },
+                    { 6, "It was Hot!!!!", 2, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -411,14 +409,14 @@ namespace travoul.Migrations
                 columns: new[] { "TripTravelTypeId", "TravelTypeId", "TripId" },
                 values: new object[,]
                 {
-                    { 5, 2, 3 },
-                    { 2, 4, 1 },
-                    { 6, 4, 3 },
-                    { 1, 2, 1 },
-                    { 8, 3, 4 },
-                    { 4, 8, 2 },
                     { 3, 2, 2 },
-                    { 7, 2, 4 }
+                    { 4, 8, 2 },
+                    { 8, 3, 4 },
+                    { 1, 2, 1 },
+                    { 2, 4, 1 },
+                    { 7, 2, 4 },
+                    { 5, 2, 3 },
+                    { 6, 4, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -427,12 +425,12 @@ namespace travoul.Migrations
                 values: new object[,]
                 {
                     { 6, "Its soooo pretty", true, 2, "HP world", 3 },
-                    { 4, "They have the pink donut thing from the show", false, 1, "Donut Place", 1 },
-                    { 7, "they have awesome stuff", false, 2, "flee market", 4 },
+                    { 5, "Yummy food joint that sells butter beer", true, 1, "The three broomsticks", 3 },
                     { 2, "its sooo pretty", true, 2, "castle", 1 },
+                    { 7, "they have awesome stuff", false, 2, "flee market", 4 },
                     { 1, "Yummy food joint that sells butter beer", true, 1, "The three broomsticks", 1 },
                     { 3, "See an elephant", false, 2, "Safari", 2 },
-                    { 5, "Yummy food joint that sells butter beer", true, 1, "The three broomsticks", 3 },
+                    { 4, "They have the pink donut thing from the show", false, 1, "Donut Place", 1 },
                     { 8, "can't wait to see their cute place", false, 2, "H and T's house", 4 }
                 });
 

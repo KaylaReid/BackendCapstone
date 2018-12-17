@@ -15,6 +15,7 @@ namespace travoul.Models
         public ApplicationUser User { get; set; }
 
         [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Please Select a Continent")]
         public int ContinentId { get; set; }
 
         public Continent Continent { get; set; }
