@@ -58,116 +58,98 @@
                 }
             </div>
             <div class="visit-locations-container">
-                <div class="food">
-                    <h3>Food</h3>
+                @*@foreach (LocationType l in Model.LocationTypes)
+                {
+                    <div class="@l.Type">
+                        <h3>@l.Type</h3>
+                        @for (var i = 0; i < 3; i++)
+                        {
+                            <div>
+                                <div>
+                                    <label for=@l.Type-name-@(i + 1)>Name</label>
+                                    <input asp-for="@Model.EnteredTripFoodLocations[i].Name" type="text" id=@l.Type-name-@(i + 1) />
+                                </div>
+                                <div>
+                                    <label id=@l.Type-desc-@(i + 1)>Description</label>
+                                    <input asp-for="@Model.EnteredTripFoodLocations[i].Description" type="text" id=@l.Type-desc-@(i + 1) />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <button type=button class="add-more-@l.Type">Add More @l.Type Places</button>
+                    <hr />
+                }*@
+                <div class="Food">
+                <h3>Food</h3>
+                <div>
                     <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
+                        <label for="Food-name-1">Name</label>
+                        <input asp-for="@Model.EnteredTripFoodLocations[0].Name" type="text" id="Food-name-1"/>
                     </div>
                     <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
+                        <label for="Food-desc-1">Description</label>
+                        <input asp-for="@Model.EnteredTripFoodLocations[0].Description" type="text" id="Food-desc-1"/>
                     </div>
                 </div>
-                <button type=button class="add-more-food">Add More Food Places</button>
-                <hr />
-                <div class="places">
-                    <h3>Places</h3>
+                <div>
                     <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
+                        <label for="Food-name-2">Name</label>
+                        <input asp-for="@Model.EnteredTripFoodLocations[1].Name" type="text" id="Food-name-2" />
                     </div>
                     <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
+                        <label for="Food-desc-2">Description</label>
+                        <input asp-for="@Model.EnteredTripFoodLocations[1].Description" type="text" id="Food-desc-2" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label for="Food-name-3">Name</label>
+                        <input asp-for="@Model.EnteredTripFoodLocations[2].Name" type="text" id="Food-name-3" />
                     </div>
                     <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Name
-                            <input type="text" />
-                        </label>
-                        <label>
-                            Description
-                            <input type="text" />
-                        </label>
+                        <label for="Food-desc-3">Description</label>
+                        <input asp-for="@Model.EnteredTripFoodLocations[2].Description" type="text" id="Food-desc-3" />
                     </div>
                 </div>
             </div>
-            <button type=button class="add-more-places">Add More Places</button>
+            <button type=button class="add-more-food">Add More Food Places</button>
+            <hr />
+            <div class="Places">
+                <h3>Places</h3>
+                <div>
+                    <div>
+                        <label for="visit-name-1">Name</label>
+                        <input asp-for="@Model.EnteredTripVisitLocations[0].Name" type="text" id="visit-name-1" />
+                    </div>
+                    <div>
+                        <label for="visit-desc-1">Description</label>
+                        <input asp-for="@Model.EnteredTripVisitLocations[0].Description" type="text" id="visit-desc-1" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label for="visit-name-2">Name</label>
+                        <input asp-for="@Model.EnteredTripVisitLocations[1].Name" type="text" id="visit-name-2" />
+                    </div>
+                    <div>
+                        <label for="visit-desc-2">Description</label>
+                        <input asp-for="@Model.EnteredTripVisitLocations[1].Description" type="text" id="visit-desc-2" />
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <label for="visit-name-3">Name</label>
+                        <input asp-for="@Model.EnteredTripVisitLocations[2].Name" type="text" id="visit-name-3" />
+                    </div>
+                    <div>
+                        <label for="visit-desc-3">Description</label>
+                        <input asp-for="@Model.EnteredTripVisitLocations[2].Description" type="text" id="visit-desc-3" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type=button class="add-more-places">Add More Places to Visit</button>
+            </div>
             <hr />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

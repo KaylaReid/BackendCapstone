@@ -109,6 +109,7 @@ namespace travoul.Controllers
             //get continents to build out drop down in viewmodel
             List<Continent> AllContinents = await _context.Continent.ToListAsync();
 
+
             List<SelectListItem> allContinentOptions = new List<SelectListItem>();
 
             foreach(Continent c in AllContinents) 
@@ -118,6 +119,7 @@ namespace travoul.Controllers
                 sli.Value = c.ContinentId.ToString();
                 allContinentOptions.Add(sli);
             };
+
 
             SelectListItem defaultSli = new SelectListItem
             {
@@ -133,14 +135,16 @@ namespace travoul.Controllers
             };
 
             //get TravelTypes to build out secect checkboxes in the the viewmodel
-            viewmodel.AllTravelTypes = _context.TravelType
-                .AsEnumerable()
+            viewmodel.AllTravelTypes = await _context.TravelType
                 .Select(li => new SelectListItem
                 {
                     Text = li.Type,
                     Value = li.TravelTypeId.ToString()
-                }).ToList();
+                }).ToListAsync();
             ;
+
+            viewmodel.LocationTypes = await _context.LocationType.ToListAsync();
+
 
             ViewData["scripts"] = new List<string>() {
                 "visitLocation"
@@ -168,17 +172,21 @@ namespace travoul.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(viewmodel.Trip);
-                
-               //makes joiner table for TripTravelType
-                foreach (int TypeId in viewmodel.SelectedTravelTypeIds)
-                {
-                    TripTravelType newTripTT = new TripTravelType()
-                    {   //pulls tripid out of context bag 
-                        TripId = viewmodel.Trip.TripId,
-                        TravelTypeId = TypeId
-                    };
 
-                    _context.Add(newTripTT);
+                //checks to see if there are selectedTravelTypeIds to loop over 
+                if (viewmodel.SelectedTravelTypeIds != null)
+                { 
+                //makes joiner table for TripTravelType 
+                    foreach (int TypeId in viewmodel.SelectedTravelTypeIds)
+                    {
+                        TripTravelType newTripTT = new TripTravelType()
+                        {   //pulls tripid out of context bag 
+                            TripId = viewmodel.Trip.TripId,
+                            TravelTypeId = TypeId
+                        };
+
+                        _context.Add(newTripTT);
+                    }
                 }
                 //makes joiner table for TripVisitLocation
                 //foreach (TripVisitLocation TVL in viewmodel.EnteredTripVisitLocations)

@@ -45,38 +45,39 @@
         <dd>
             @Html.DisplayFor(model => model.Budget)
         </dd>
-        <dt>Travel Type</dt>
-        <dd>
-            <ul>
-                @foreach (var TripTT in Model.TripTravelTypes)
-                {
-                <li>@TripTT.TravelType.Type</li>
-                }
-            </ul>
-        </dd>
-        <hr />
-        <h4>Things I want to do and places I want to eat on this trip</h4>
-        <dd>
-            <ul>
-                <h4>Food</h4>
-                @foreach (var TripL in Model.TripVisitLocations)
-                {
-                    if (TripL.LocationType.Type == "Food")
+            <dt>Travel Type</dt>
+            <dd>
+                <ul>
+                    @foreach (var TripTT in Model.TripTravelTypes)
                     {
-                <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                        <li>@TripTT.TravelType.Type</li>
                     }
-                }
-                <h4>Places</h4>
-                @foreach (var TripL in Model.TripVisitLocations)
-                {
-                    if (TripL.LocationType.Type == "Place")
+                </ul>
+            </dd>
+            <hr />
+            <h4>Things I want to do and places I want to eat on this trip</h4>
+            <dd>
+                <ul>
+                    <h4>Food</h4>
+                    @foreach (var TripL in Model.TripVisitLocations)
                     {
-                <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                        if (TripL.LocationType.Type == "Food")
+                        {
+                            <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                        }
                     }
-                }
-            </ul>
-        </dd>
-    </dl>
+
+                    <h4>Places</h4>
+                    @foreach (var TripL in Model.TripVisitLocations)
+                    {
+                        if (TripL.LocationType.Type == "Place")
+                        {
+                            <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                        }
+                    }
+                </ul>
+            </dd>
+        </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.TripId">Edit</a> |
