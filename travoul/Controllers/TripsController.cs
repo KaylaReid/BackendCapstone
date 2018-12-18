@@ -145,7 +145,7 @@ namespace travoul.Controllers
                 }).ToList();
             ;
 
-            viewmodel.LocationTypes = await _context.LocationType.ToListAsync();
+           // viewmodel.LocationTypes = await _context.LocationType.ToListAsync();
 
 
             ViewData["scripts"] = new List<string>() {
@@ -236,7 +236,7 @@ namespace travoul.Controllers
         }
         // ------------------------------------------------------------------------END OF CREATE
 
-
+        //-----------------------------------------------------------------------START PLANNED TRIPS EDIT
         // GET: Trips/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -291,6 +291,62 @@ namespace travoul.Controllers
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
             return View(trip);
         }
+        //----------------------------------------------------------END PLANNED TRIPS EDIT
+  
+        // GET: Trips/Edit/5
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var trip = await _context.Trip.FindAsync(id);
+        //    if (trip == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
+        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
+        //    return View(trip);
+        //}
+
+        // POST: Trips/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
+        //{
+        //    if (id != trip.TripId)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(trip);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!TripExists(trip.TripId))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
+        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
+        //    return View(trip);
+        //}
 
         //------------------------------------------------------------------START OF PLANNED TRIPS DELETE
         // GET: Trips/Delete/5
