@@ -236,7 +236,7 @@ namespace travoul.Controllers
         }
         // ------------------------------------------------------------------------END OF CREATE
 
-        //-----------------------------------------------------------------------START PLANNED TRIPS EDIT
+        //-----------------------------------------------------------------------START PLANNED TRIP EDIT
         // GET: Trips/Edit/5
         public async Task<IActionResult> PlannedTripEdit(int? id)
         {
@@ -245,11 +245,16 @@ namespace travoul.Controllers
                 return NotFound();
             }
 
-            var trip = await _context.Trip.FindAsync(id);
+            var trip = await _context.Trip
+            .Include(t => t.TripTravelTypes)
+            .Include(t => t.TripVisitLocations)
+            .FirstOrDefaultAsync(t => t.TripId == id);
+
             if (trip == null)
             {
                 return NotFound();
             }
+
             ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
             return View(trip);
@@ -291,7 +296,7 @@ namespace travoul.Controllers
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
             return View(trip);
         }
-        //----------------------------------------------------------END PLANNED TRIPS EDIT
+        //----------------------------------------------------------END PLANNED TRIP EDIT
   
         // GET: Trips/Edit/5
         //public async Task<IActionResult> Edit(int? id)
@@ -348,7 +353,7 @@ namespace travoul.Controllers
         //    return View(trip);
         //}
 
-        //------------------------------------------------------------------START OF PLANNED TRIPS DELETE
+        //------------------------------------------------------------------START OF PLANNED TRIP DELETE
         // GET: Trips/Delete/5
         public async Task<IActionResult> PlannedTripDelete(int? id)
         {
@@ -403,7 +408,7 @@ namespace travoul.Controllers
             return RedirectToAction("PlannedTrips", "Trips");
         }
 
-        //-------------------------------------------------------------------END OF DELETE PLANNED TRIPS 
+        //-------------------------------------------------------------------END OF PLANNED TRIP DELETE 
 
         //public async Task<IActionResult> Delete(int? id)
         //{
