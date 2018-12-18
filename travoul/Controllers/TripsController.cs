@@ -268,6 +268,37 @@ namespace travoul.Controllers
                 Trip = trip
             };
 
+
+
+            //get TravelTypes
+            var AllTravelTypes = _context.TravelType
+            .ToList();
+
+            //get a list of the travelTypes for this trip
+            var PrevSelectedTravelTypes = _context.TripTravelType
+                .Include(t => t.TravelType)
+                .Where(t => t.TripId == trip.TripId)
+                .Select(t => t.TravelType)
+                .ToList();
+            //makes an empty list to hold selectListItems
+            List<SelectListItem> DisplayTripTravelTypes = new List<SelectListItem>();
+
+            //this loops over allTravelTypes
+            //any returns a bool of true or false base on if the condition that was passed in is met
+            //I use the bool value it returns to set the checked value on the selectListItems for my check boxes
+            foreach (var TravelType in AllTravelTypes)
+            {   
+                var newList = PrevSelectedTravelTypes.Any(item => item.TravelTypeId == TravelType.TravelTypeId);
+                DisplayTripTravelTypes.Add(new SelectListItem
+                {
+                    Text = TravelType.Type,
+                    Value = TravelType.TravelTypeId.ToString(),
+                    Selected = newList
+                });
+            }
+
+            viewmodel.AllTravelTypes = DisplayTripTravelTypes;
+
             return View(viewmodel);
         }
 

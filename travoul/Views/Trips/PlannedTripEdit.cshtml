@@ -33,13 +33,27 @@
             </div>
             <div class="form-group">
                 <label asp-for="Trip.Accommodation" class="control-label"></label>
-                <input asp-for="Trip.Accommodation"Accommodation" class="form-control" />
+                <input asp-for="Trip.Accommodation" Accommodation" class="form-control" />
                 <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Trip.Budget" class="control-label"></label>
-                <input asp-for="Trip.Budget"Budget" class="form-control" />
+                <input asp-for="Trip.Budget" Budget" class="form-control" />
                 <span asp-validation-for="Trip.Budget" class="text-danger"></span>
+            </div>
+            <p>Travel Types</p>
+            <div>
+                @foreach (var item in Model.AllTravelTypes)
+                {
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" checked="@item.Selected"/>
+                                @item.Text
+                            </label>
+                        </div>
+                    </div>
+                }
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
