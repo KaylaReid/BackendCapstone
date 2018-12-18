@@ -1,45 +1,45 @@
-﻿@model travoul.Models.Trip
+﻿@model travoul.Models.ViewModels.EditPlannedTripViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h3>Editing @Model.Title</h3>
+<h3>Editing @Model.Trip.Title</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-controller="Trips" asp-action="PlannedTripEdit" asp-route-id="@Model.Trip.TripId">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TripId" />
+            <input type="hidden" asp-for="Trip.TripId" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <label asp-for="Trip.Title" class="control-label"></label>
+                <input asp-for="Trip.Title" class="form-control" />
+                <span asp-validation-for="Trip.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ContinentId" class="control-label">Continent</label>
-                <select asp-for="ContinentId" class="form-control" asp-items="ViewBag.ContinentId"></select>
-                <span asp-validation-for="ContinentId" class="text-danger"></span>
+                <label asp-for="Trip.ContinentId" class="control-label">Continent</label>
+                <select asp-for="Trip.ContinentId" class="form-control" asp-items="Model.AllContinentOptions"></select>
+                <span asp-validation-for="Trip.ContinentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="text-danger"></span>
+                <label asp-for="Trip.Location" class="control-label"></label>
+                <input asp-for="Trip.Location" class="form-control" />
+                <span asp-validation-for="Trip.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TripDates" class="control-label">Dates of Trip</label>
-                <input asp-for="TripDates" class="form-control" />
-                <span asp-validation-for="TripDates" class="text-danger"></span>
+                <label asp-for="Trip.TripDates" class="control-label">Dates of Trip</label>
+                <input asp-for="Trip.TripDates" class="form-control" />
+                <span asp-validation-for="Trip.TripDates" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Accommodation" class="control-label"></label>
-                <input asp-for="Accommodation" class="form-control" />
-                <span asp-validation-for="Accommodation" class="text-danger"></span>
+                <label asp-for="Trip.Accommodation" class="control-label"></label>
+                <input asp-for="Trip.Accommodation"Accommodation" class="form-control" />
+                <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Budget" class="control-label"></label>
-                <input asp-for="Budget" class="form-control" />
-                <span asp-validation-for="Budget" class="text-danger"></span>
+                <label asp-for="Trip.Budget" class="control-label"></label>
+                <input asp-for="Trip.Budget"Budget" class="form-control" />
+                <span asp-validation-for="Trip.Budget" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -49,7 +49,7 @@
 </div>
 
 <div>
-    <a asp-action="PlannedTrips">Back to List</a>
+    <a asp-controller="Trips" asp-action="PlannedTrips">Back to List</a>
 </div>
 
 @section Scripts {

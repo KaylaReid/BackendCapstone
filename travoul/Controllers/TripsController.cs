@@ -238,26 +238,37 @@ namespace travoul.Controllers
 
         //-----------------------------------------------------------------------START PLANNED TRIP EDIT
         // GET: Trips/Edit/5
-        public async Task<IActionResult> PlannedTripEdit(int? id)
+        public async Task<IActionResult> PlannedTripEdit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var trip = await _context.Trip
-            .Include(t => t.TripTravelTypes)
-            .Include(t => t.TripVisitLocations)
-            .FirstOrDefaultAsync(t => t.TripId == id);
+            Trip trip = await _context.Trip
+             .Include(t => t.TripTravelTypes)
+             .Include(t => t.TripVisitLocations)
+             .FirstOrDefaultAsync(t => t.TripId == id);
 
             if (trip == null)
             {
                 return NotFound();
             }
 
-            ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-            return View(trip);
+            List<Continent> AllContinents = await _context.Continent.ToListAsync();
+
+            List<SelectListItem> allContinentOptions = new List<SelectListItem>();
+
+            foreach (Continent c in AllContinents)
+            {
+                SelectListItem sli = new SelectListItem();
+                sli.Text = c.Name;
+                sli.Value = c.ContinentId.ToString();
+                allContinentOptions.Add(sli);
+            };
+
+            EditPlannedTripViewModel viewmodel = new EditPlannedTripViewModel
+            {
+                AllContinentOptions = allContinentOptions,
+                Trip = trip
+            };
+
+            return View(viewmodel);
         }
 
         // POST: Trips/Edit/5
@@ -265,23 +276,30 @@ namespace travoul.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PlannedTripEdit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
+        public async Task<IActionResult> PlannedTripEdit(int id, EditPlannedTripViewModel viewModel)
         {
-            if (id != trip.TripId)
-            {
-                return NotFound();
-            }
+            //if (id != viewModel.Trip.TripId)
+            //{
+            //    return NotFound();
+            //}
+            ModelState.Remove("Trip.User");
+            ModelState.Remove("Trip.UserId");
+
+            ApplicationUser user = await GetCurrentUserAsync();
+
+            viewModel.Trip.UserId = user.Id;
+            viewModel.Trip.IsPreTrip = true;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(trip);
+                    _context.Update(viewModel.Trip);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TripExists(trip.TripId))
+                    if (!TripExists(viewModel.Trip.TripId))
                     {
                         return NotFound();
                     }
@@ -290,11 +308,10 @@ namespace travoul.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("PlannedTrips", "Trips");
             }
-            ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-            return View(trip);
+
+            return View(viewModel);
         }
         //----------------------------------------------------------END PLANNED TRIP EDIT
   
