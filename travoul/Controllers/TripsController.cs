@@ -238,7 +238,7 @@ namespace travoul.Controllers
 
         //-----------------------------------------------------------------------START PLANNED TRIPS EDIT
         // GET: Trips/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> PlannedTripEdit(int? id)
         {
             if (id == null)
             {
@@ -260,7 +260,7 @@ namespace travoul.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
+        public async Task<IActionResult> PlannedTripEdit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
         {
             if (id != trip.TripId)
             {
@@ -350,7 +350,7 @@ namespace travoul.Controllers
 
         //------------------------------------------------------------------START OF PLANNED TRIPS DELETE
         // GET: Trips/Delete/5
-        public async Task<IActionResult> DeletePlannedTrip(int? id)
+        public async Task<IActionResult> PlannedTripDelete(int? id)
         {
             if (id == null)
             {

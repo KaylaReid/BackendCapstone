@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace travoul.Models.ViewModels
 {
-    public class EditPlannedTripsViewModel
+    public class EditPlannedTripViewModel
     {
         public Trip Trip { get; set; }
 
