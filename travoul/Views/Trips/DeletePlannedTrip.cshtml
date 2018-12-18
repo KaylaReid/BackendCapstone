@@ -1,0 +1,55 @@
+﻿@model travoul.Models.Trip
+
+
+@{
+    ViewData["Title"] = "DeletePlannedTrips";
+}
+
+<h3>Are you sure you want to delete @Model.Title?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Title
+        </dt>
+        <dd>
+            @Model.Title
+        </dd>
+        <dt>
+            Continent
+        </dt>
+        <dd>
+            @Model.Continent.Name
+        </dd>
+        <dt>
+            Location
+        </dt>
+        <dd>
+            @Model.Location
+        </dd>
+        <dt>
+            Trip Dates
+        </dt>
+        <dd>
+            @Model.TripDates
+        </dd>
+        <dt>
+            Accomodation
+        </dt>
+        <dd>
+            @Model.Accommodation
+        </dd>
+        <dt>
+            Budget
+        </dt>
+        <dd>
+            @Model.Budget
+        </dd>
+    </dl>
+
+    <form asp-controller="Trips" asp-action="PlannedTripDeleteConfirmed" asp-route-id="@Model.TripId">
+        <input type="submit" value="Delete" class="btn btn-default" /> 
+    </form>
+        <a asp-action="PlannedTrips">Back to List</a>
+</div>
+

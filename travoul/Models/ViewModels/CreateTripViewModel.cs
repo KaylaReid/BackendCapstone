@@ -25,9 +25,5 @@ namespace travoul.Models.ViewModels
         public List<TripVisitLocation> EnteredTripFoodLocations { get; set; }
 
         public List<LocationType> LocationTypes { get; set; }
-
-        //public List<int> SelectedVisitTypeId { get; set; }
-
-
     }
 }
