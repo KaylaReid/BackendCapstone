@@ -309,23 +309,58 @@ namespace travoul.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PlannedTripEdit(int id, EditPlannedTripViewModel viewModel)
         {
-            //if (id != viewModel.Trip.TripId)
-            //{
-            //    return NotFound();
-            //}
+        
             ModelState.Remove("Trip.User");
             ModelState.Remove("Trip.UserId");
 
-            ApplicationUser user = await GetCurrentUserAsync();
+            //ApplicationUser user = await GetCurrentUserAsync();
 
-            viewModel.Trip.UserId = user.Id;
-            viewModel.Trip.IsPreTrip = true;
+            //viewModel.Trip.UserId = user.Id;
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(viewModel.Trip);
+                    var trip = await _context.Trip
+                    .Include(t => t.TripTravelTypes)
+                    .Include(t => t.TripVisitLocations)
+                    .SingleOrDefaultAsync(t => t.TripId == id);
+
+                    //This checks if there are any joiner tables of this kind for this trip,
+                    //then it foreaches over the joiner table and delets each one from the db
+                    if (trip.TripTravelTypes.Count > 0)
+                    {
+                        foreach (TripTravelType travelType in trip.TripTravelTypes)
+                        {
+                            //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
+                            _context.Remove(travelType);
+                        }
+                    }
+
+                    //checks to see if there are selectedTravelTypeIds to loop over 
+                    if (viewModel.SelectedTravelTypeIds != null)
+                    {
+                        //makes joiner table for TripTravelType 
+                        foreach (int TypeId in viewModel.SelectedTravelTypeIds)
+                        {
+                            TripTravelType newTripTT = new TripTravelType()
+                            {   //pulls tripid out of context bag 
+                                TripId = viewModel.Trip.TripId,
+                                TravelTypeId = TypeId
+                            };
+
+                            _context.Add(newTripTT);
+                        }
+                    }
+                    trip.Location = viewModel.Trip.Location;
+                    trip.Accommodation = viewModel.Trip.Accommodation;
+                    trip.Budget = viewModel.Trip.Budget;
+                    trip.ContinentId = viewModel.Trip.ContinentId;
+                    trip.IsPreTrip = true;
+                    trip.Title = viewModel.Trip.Title;
+                    trip.TripDates = viewModel.Trip.TripDates;
+
+                    _context.Update(trip);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
