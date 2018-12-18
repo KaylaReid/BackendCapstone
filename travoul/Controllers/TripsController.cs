@@ -102,6 +102,7 @@ namespace travoul.Controllers
 
             return View(trip);
         }
+        // ------------------------------------------------------------------START OF CREATE
 
         // GET: Trips/Create
         public async Task<IActionResult> Create()
@@ -233,6 +234,8 @@ namespace travoul.Controllers
 
             return View(viewmodel);
         }
+        // ------------------------------------------------------------------------END OF CREATE
+
 
         // GET: Trips/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -289,8 +292,9 @@ namespace travoul.Controllers
             return View(trip);
         }
 
+        //------------------------------------------------------------------START OF PLANNED TRIPS DELETE
         // GET: Trips/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> DeletePlannedTrip(int? id)
         {
             if (id == null)
             {
@@ -299,7 +303,6 @@ namespace travoul.Controllers
 
             var trip = await _context.Trip
                 .Include(t => t.Continent)
-                .Include(t => t.User)
                 .FirstOrDefaultAsync(m => m.TripId == id);
             if (trip == null)
             {
@@ -310,19 +313,75 @@ namespace travoul.Controllers
         }
 
         // POST: Trips/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> PlannedTripDeleteConfirmed(int id)
         {
-            var trip = await _context.Trip.FindAsync(id);
-            _context.Trip.Remove(trip);
+            var trip = await _context.Trip
+                .Include(t => t.TripTravelTypes)
+                .Include(t => t.TripVisitLocations)
+                .SingleOrDefaultAsync(t => t.TripId == id);
+
+            if (trip.TripTravelTypes.Count > 0)
+            {
+                foreach (TripTravelType travelType in trip.TripTravelTypes) 
+                {
+                    _context.Remove(travelType);
+                }
+            }
+            if (trip.TripVisitLocations.Count > 0)
+            {
+                foreach (TripVisitLocation visitLocation in trip.TripVisitLocations)
+                {
+                    _context.Remove(visitLocation);
+                }
+            }
+
+            _context.Remove(trip);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("PlannedTrips", "Trips");
         }
 
         private bool TripExists(int id)
         {
             return _context.Trip.Any(e => e.TripId == id);
         }
+
+        //-------------------------------------------------------------------END OF PLANNED TRIPS DELETE
+
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var trip = await _context.Trip
+        //        .Include(t => t.Continent)
+        //        .Include(t => t.User)
+        //        .FirstOrDefaultAsync(m => m.TripId == id);
+        //    if (trip == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(trip);
+        //}
+
+        // POST: Trips/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var trip = await _context.Trip.FindAsync(id);
+        //    _context.Trip.Remove(trip);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
+
+        //private bool TripExists(int id)
+        //{
+        //    return _context.Trip.Any(e => e.TripId == id);
+        //}
     }
 }
