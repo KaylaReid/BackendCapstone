@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace travoul.Models.ViewModels
 {
-    public class CreateTripViewModel
+    public class EditPlannedTripViewModel
     {
         public Trip Trip { get; set; }
 
@@ -19,11 +18,13 @@ namespace travoul.Models.ViewModels
         public List<int> SelectedTravelTypeIds { get; set; }
 
         //for visitLocations
-        public List<TripVisitLocation> EnteredTripVisitLocations { get; set; }
+        public List<TripVisitLocation> CurrentVisitLocations { get; set; }
+
+        public List<TripVisitLocation> NewVisitLocations { get; set; }
 
         //for eatLocations
-        public List<TripVisitLocation> EnteredTripFoodLocations { get; set; }
+        public List<TripVisitLocation> CurrentFoodLocations { get; set; }
 
-       // public List<LocationType> LocationTypes { get; set; }
+        public List<TripVisitLocation> NewFoodLocations { get; set; }
     }
 }
