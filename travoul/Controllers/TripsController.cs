@@ -265,10 +265,10 @@ namespace travoul.Controllers
             EditPlannedTripViewModel viewmodel = new EditPlannedTripViewModel
             {
                 AllContinentOptions = allContinentOptions,
-                Trip = trip
+                Trip = trip,
+                TripFoodLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 1).ToList(),
+                TripPlaceLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 2).ToList()
             };
-
-
 
             //get TravelTypes
             var AllTravelTypes = _context.TravelType
@@ -280,6 +280,7 @@ namespace travoul.Controllers
                 .Where(t => t.TripId == trip.TripId)
                 .Select(t => t.TravelType)
                 .ToList();
+
             //makes an empty list to hold selectListItems
             List<SelectListItem> DisplayTripTravelTypes = new List<SelectListItem>();
 
@@ -309,7 +310,6 @@ namespace travoul.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PlannedTripEdit(int id, EditPlannedTripViewModel viewModel)
         {
-        
             ModelState.Remove("Trip.User");
             ModelState.Remove("Trip.UserId");
 
@@ -328,6 +328,7 @@ namespace travoul.Controllers
 
                     //This checks if there are any joiner tables of this kind for this trip,
                     //then it foreaches over the joiner table and delets each one from the db
+                    //this deletes all TripTravelTypes the joiner tables 
                     if (trip.TripTravelTypes.Count > 0)
                     {
                         foreach (TripTravelType travelType in trip.TripTravelTypes)
@@ -337,6 +338,7 @@ namespace travoul.Controllers
                         }
                     }
 
+                    //this builds up TripTravelType tables for each TravelType thats selected 
                     //checks to see if there are selectedTravelTypeIds to loop over 
                     if (viewModel.SelectedTravelTypeIds != null)
                     {
@@ -352,6 +354,7 @@ namespace travoul.Controllers
                             _context.Add(newTripTT);
                         }
                     }
+
                     trip.Location = viewModel.Trip.Location;
                     trip.Accommodation = viewModel.Trip.Accommodation;
                     trip.Budget = viewModel.Trip.Budget;

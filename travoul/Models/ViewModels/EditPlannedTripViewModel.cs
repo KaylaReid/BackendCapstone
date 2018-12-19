@@ -15,18 +15,16 @@ namespace travoul.Models.ViewModels
         //for TravelTypes
         public List<SelectListItem> AllTravelTypes { get; set; }
 
-        //the ones they already have selected 
-        //public List<SelectListItem> PrevSelectedTravelTypes { get; set; }
-
         public List<int> SelectedTravelTypeIds { get; set; }
-
-        //The newly selected travel types in a list
-        //public List<SelectListItem> NewlySelectedTravelTypes { get; set; }
 
         //for visitLocations
         public List<TripVisitLocation> EnteredTripVisitLocations { get; set; }
 
+        public List<TripVisitLocation> TripFoodLocations { get; set; }
+
         //for eatLocations
         public List<TripVisitLocation> EnteredTripFoodLocations { get; set; }
+
+        public List<TripVisitLocation> TripPlaceLocations { get; set; }
     }
 }

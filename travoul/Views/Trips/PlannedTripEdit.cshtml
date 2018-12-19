@@ -48,10 +48,44 @@
                     <div class="form-group">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" checked="@item.Selected"/>
+                                <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" checked="@item.Selected" />
                                 @item.Text
                             </label>
                         </div>
+                    </div>
+                }
+            </div>
+            <hr />
+            <h4>Food places I want to go to!</h4>
+            <div>
+                @foreach (var foodPlace in Model.TripFoodLocations)
+                {
+                    <div class="form-group">
+                        <label asp-for="@foodPlace.Name" class="control-label">Name</label>
+                        <input asp-for="@foodPlace.Name" Budget" class="form-control" />
+                        <span asp-validation-for="@foodPlace.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@foodPlace.Description" class="control-label">Description</label>
+                        <input asp-for="@foodPlace.Description" Budget" class="form-control" />
+                        <span asp-validation-for="@foodPlace.Description" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+            <hr />
+            <h4>Places I want go while I'm there!</h4>
+            <div>
+                @foreach (var placeLoc in Model.TripPlaceLocations)
+                {
+                    <div class="form-group">
+                        <label asp-for="@placeLoc.Name" class="control-label">Name</label>
+                        <input asp-for="@placeLoc.Name" Budget" class="form-control" />
+                        <span asp-validation-for="@placeLoc.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@placeLoc.Description" class="control-label">Description</label>
+                        <input asp-for="@placeLoc.Description" Budget" class="form-control" />
+                        <span asp-validation-for="@placeLoc.Description" class="text-danger"></span>
                     </div>
                 }
             </div>
