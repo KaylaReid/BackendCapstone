@@ -17,12 +17,10 @@ namespace travoul.Models.ViewModels
 
         public List<int> SelectedTravelTypeIds { get; set; }
 
-        
         //for visitLocations
         public List<TripVisitLocation> CurrentVisitLocations { get; set; }
 
         public List<TripVisitLocation> NewVisitLocations { get; set; }
-        
 
         //for eatLocations
         public List<TripVisitLocation> CurrentFoodLocations { get; set; }

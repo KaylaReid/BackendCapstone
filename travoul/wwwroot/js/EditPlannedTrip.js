@@ -25,7 +25,6 @@ locationContainer.addEventListener("click", (e) => {
             i = visitIncrementer
         }
 
-
         //create parent div for new inputs, give it the proper Id
         let newDiv = document.createElement("div")
         newDiv.setAttribute("id", `${type}-location-${i}`)
@@ -72,7 +71,8 @@ locationContainer.addEventListener("click", (e) => {
 
         // add a remove button
         let removeBtn = document.createElement("button")
-        removeBtn.setAttribute("class", `btn btn-sm ${type}-btn-${i}`)
+        removeBtn.setAttribute("class", `btn btn-sm btn-danger`)
+        removeBtn.setAttribute("id", `remove-${type}-btn-${i}`)
         removeBtn.textContent = "Remove"
         newDiv.appendChild(removeBtn)
 
@@ -85,4 +85,49 @@ locationContainer.addEventListener("click", (e) => {
         }
 
     }
+
+    if (e.target.id.includes("remove")) {
+
+        let type = e.target.id.split("-")[1];
+        let bigType = type.charAt(0).toUpperCase() + type.slice(1);
+
+        // grab the aread to be removed and the container its being removed from
+        let removeDiv = e.target.parentElement;
+        let container = removeDiv.parentElement;
+
+        // remove the element
+        container.removeChild(removeDiv);
+
+        // fix the incrementer
+        let i = container.children.length;
+
+        for (let j = 0; j < i; j++) {
+            let parent = container.children[j]
+            parent.setAttribute("id", `${type}-location-${j + 1}`)
+            let nameLabel = container.children[j].children[0].children[0]
+            nameLabel.setAttribute("name", `Model.New${bigType}Locations[${j}].Name`)
+            let nameInput = container.children[j].children[0].children[1]
+            nameInput.setAttribute("name", `Model.New${bigType}Locations[${j}].Name`)
+            let descLabel = container.children[j].children[1].children[0]
+            descLabel.setAttribute("name", `Model.New${bigType}Locations[${j}].Description`)
+            let descInput = container.children[j].children[1].children[1]
+            descInput.setAttribute("name", `Model.New${bigType}Locations[${j}].Description`)
+            let removeBtn = container.children[j].children[2]
+            removeBtn.setAttribute("id", `remove-${type}-btn-${j + 1}`)
+        }
+
+        if (type === "food") {
+
+            foodIncrementer = i;
+            return foodIncrementer
+
+        } else if (type === "visit") {
+
+            visitIncrementer = i;
+            return visitIncrementer
+
+        }
+
+    }
+
 })

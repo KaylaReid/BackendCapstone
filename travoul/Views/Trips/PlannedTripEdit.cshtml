@@ -72,7 +72,7 @@
                                 <input asp-for="@Model.NewFoodLocations[i].Description" class="form-control" value="@Model.CurrentFoodLocations[i].Description" />
                                 <span asp-validation-for="@Model.NewFoodLocations[i].Description" class="text-danger"></span>
                             </div>
-                            <button class="btn btn-sm food-btn-@(i+1)">Remove</button>
+                            <button class="btn btn-sm btn-danger" id="remove-food-btn-@(i+1)">Remove</button>
                         </div>
                     }
                 </div>
@@ -95,7 +95,7 @@
                                 <input asp-for="@Model.NewVisitLocations[i].Description" class="form-control" value="@Model.CurrentVisitLocations[i].Description" />
                                 <span asp-validation-for="@Model.NewVisitLocations[i].Description" class="text-danger"></span>
                             </div>
-                            <button class="btn btn-sm visit-btn-@(i+1)">Remove</button>
+                            <button class="btn btn-sm btn-danger" id="remove-visit-btn-@(i+1)">Remove</button>
                         </div>
                     }
                 </div>
