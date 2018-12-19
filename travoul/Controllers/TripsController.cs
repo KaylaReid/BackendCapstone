@@ -358,6 +358,7 @@ namespace travoul.Controllers
                         }
                     }
 
+                    // This deletes all the TripVisitLocations joiner tables 
                     if (trip.TripVisitLocations.Count > 0)
                     {
                         foreach (TripVisitLocation location in trip.TripVisitLocations)
@@ -366,6 +367,7 @@ namespace travoul.Controllers
                         }
                     }
 
+                    //this builds up the TripVisitLocation for food and adds it to the db context 
                     if (viewModel.NewFoodLocations.Count > 0)
                     {
                         foreach (TripVisitLocation location in viewModel.NewFoodLocations)
@@ -382,6 +384,7 @@ namespace travoul.Controllers
                         }
                     }
 
+                    //this builds up the TripVisitLocation for places and adds it to the db context 
                     if (viewModel.NewVisitLocations.Count > 0)
                     { 
                         foreach (TripVisitLocation location in viewModel.NewVisitLocations)
