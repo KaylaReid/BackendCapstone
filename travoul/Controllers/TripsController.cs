@@ -266,16 +266,15 @@ namespace travoul.Controllers
             {
                 AllContinentOptions = allContinentOptions,
                 Trip = trip,
-                TripFoodLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 1).ToList(),
-                TripPlaceLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 2).ToList()
+                CurrentFoodLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 1).ToList(),
+                CurrentVisitLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 2).ToList()
             };
 
             //get TravelTypes
-            var AllTravelTypes = _context.TravelType
-            .ToList();
+            List<TravelType> AllTravelTypes = _context.TravelType.ToList();
 
             //get a list of the travelTypes for this trip
-            var PrevSelectedTravelTypes = _context.TripTravelType
+            List<TravelType> PrevSelectedTravelTypes = _context.TripTravelType
                 .Include(t => t.TravelType)
                 .Where(t => t.TripId == trip.TripId)
                 .Select(t => t.TravelType)
@@ -287,9 +286,9 @@ namespace travoul.Controllers
             //this loops over allTravelTypes
             //any returns a bool of true or false base on if the condition that was passed in is met
             //I use the bool value it returns to set the checked value on the selectListItems for my check boxes
-            foreach (var TravelType in AllTravelTypes)
+            foreach (TravelType TravelType in AllTravelTypes)
             {   
-                var newList = PrevSelectedTravelTypes.Any(item => item.TravelTypeId == TravelType.TravelTypeId);
+                bool newList = PrevSelectedTravelTypes.Any(item => item.TravelTypeId == TravelType.TravelTypeId);
                 DisplayTripTravelTypes.Add(new SelectListItem
                 {
                     Text = TravelType.Type,
@@ -299,6 +298,10 @@ namespace travoul.Controllers
             }
 
             viewmodel.AllTravelTypes = DisplayTripTravelTypes;
+
+            ViewData["scripts"] = new List<string>() {
+                "EditPlannedTrip"
+            };
 
             return View(viewmodel);
         }

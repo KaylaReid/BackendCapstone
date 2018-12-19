@@ -17,14 +17,16 @@ namespace travoul.Models.ViewModels
 
         public List<int> SelectedTravelTypeIds { get; set; }
 
+        
         //for visitLocations
-        public List<TripVisitLocation> EnteredTripVisitLocations { get; set; }
+        public List<TripVisitLocation> CurrentVisitLocations { get; set; }
 
-        public List<TripVisitLocation> TripFoodLocations { get; set; }
+        public List<TripVisitLocation> NewVisitLocations { get; set; }
+        
 
         //for eatLocations
-        public List<TripVisitLocation> EnteredTripFoodLocations { get; set; }
+        public List<TripVisitLocation> CurrentFoodLocations { get; set; }
 
-        public List<TripVisitLocation> TripPlaceLocations { get; set; }
+        public List<TripVisitLocation> NewFoodLocations { get; set; }
     }
 }

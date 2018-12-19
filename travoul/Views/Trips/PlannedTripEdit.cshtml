@@ -56,38 +56,52 @@
                 }
             </div>
             <hr />
-            <h4>Food places I want to go to!</h4>
-            <div>
-                @foreach (var foodPlace in Model.TripFoodLocations)
-                {
-                    <div class="form-group">
-                        <label asp-for="@foodPlace.Name" class="control-label">Name</label>
-                        <input asp-for="@foodPlace.Name" Budget" class="form-control" />
-                        <span asp-validation-for="@foodPlace.Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="@foodPlace.Description" class="control-label">Description</label>
-                        <input asp-for="@foodPlace.Description" Budget" class="form-control" />
-                        <span asp-validation-for="@foodPlace.Description" class="text-danger"></span>
-                    </div>
-                }
-            </div>
-            <hr />
-            <h4>Places I want go while I'm there!</h4>
-            <div>
-                @foreach (var placeLoc in Model.TripPlaceLocations)
-                {
-                    <div class="form-group">
-                        <label asp-for="@placeLoc.Name" class="control-label">Name</label>
-                        <input asp-for="@placeLoc.Name" Budget" class="form-control" />
-                        <span asp-validation-for="@placeLoc.Name" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="@placeLoc.Description" class="control-label">Description</label>
-                        <input asp-for="@placeLoc.Description" Budget" class="form-control" />
-                        <span asp-validation-for="@placeLoc.Description" class="text-danger"></span>
-                    </div>
-                }
+            <div id="all-locations-container">
+                <h4>Food places I want to go to!</h4>
+                <div id="food-container">
+                    @for (var i = 0; i < Model.CurrentFoodLocations.Count; i++)
+                    {
+                        <div id="food-location-@(i+1)">
+                            <div class="form-group">
+                                <label asp-for="@Model.NewFoodLocations[i].Name" class="control-label">Name</label>
+                                <input asp-for="@Model.NewFoodLocations[i].Name" class="form-control" value="@Model.CurrentFoodLocations[i].Name" />
+                                <span asp-validation-for="@Model.NewFoodLocations[i].Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.NewFoodLocations[i].Description" class="control-label">Description</label>
+                                <input asp-for="@Model.NewFoodLocations[i].Description" class="form-control" value="@Model.CurrentFoodLocations[i].Description" />
+                                <span asp-validation-for="@Model.NewFoodLocations[i].Description" class="text-danger"></span>
+                            </div>
+                            <button class="btn btn-sm food-btn-@(i+1)">Remove</button>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-sm btn-primary" id="add-food-btn">Add More Food Places</button>
+                </div>
+                <hr />
+                <h4>Places I want to see!</h4>
+                <div id="visit-container">
+                    @for (var i = 0; i < Model.CurrentVisitLocations.Count; i++)
+                    {
+                        <div id="visit-location-@(i+1)">
+                            <div class="form-group">
+                                <label asp-for="@Model.NewVisitLocations[i].Name" class="control-label">Name</label>
+                                <input asp-for="@Model.NewVisitLocations[i].Name" class="form-control" value="@Model.CurrentVisitLocations[i].Name" />
+                                <span asp-validation-for="@Model.NewVisitLocations[i].Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="@Model.NewVisitLocations[i].Description" class="control-label">Description</label>
+                                <input asp-for="@Model.NewVisitLocations[i].Description" class="form-control" value="@Model.CurrentVisitLocations[i].Description" />
+                                <span asp-validation-for="@Model.NewVisitLocations[i].Description" class="text-danger"></span>
+                            </div>
+                            <button class="btn btn-sm visit-btn-@(i+1)">Remove</button>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-sm btn-primary" id="add-visit-btn">Add More Visit Locations</button>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
