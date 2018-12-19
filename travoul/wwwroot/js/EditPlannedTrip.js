@@ -105,13 +105,15 @@ locationContainer.addEventListener("click", (e) => {
             let parent = container.children[j]
             parent.setAttribute("id", `${type}-location-${j + 1}`)
             let nameLabel = container.children[j].children[0].children[0]
-            nameLabel.setAttribute("name", `Model.New${bigType}Locations[${j}].Name`)
             let nameInput = container.children[j].children[0].children[1]
-            nameInput.setAttribute("name", `Model.New${bigType}Locations[${j}].Name`)
+            nameInput.setAttribute("name", `New${bigType}Locations[${j}].Name`)
+            nameInput.setAttribute("id", `${type}-name-${j + 1}`)
+            nameLabel.setAttribute("for", `${type}-name-${j + 1}`)
             let descLabel = container.children[j].children[1].children[0]
-            descLabel.setAttribute("name", `Model.New${bigType}Locations[${j}].Description`)
             let descInput = container.children[j].children[1].children[1]
-            descInput.setAttribute("name", `Model.New${bigType}Locations[${j}].Description`)
+            descInput.setAttribute("name", `New${bigType}Locations[${j}].Description`)
+            descInput.setAttribute("id", `${type}-desc-${j + 1}`)
+            descLabel.setAttribute("for", `${type}-desc-${j + 1}`)
             let removeBtn = container.children[j].children[2]
             removeBtn.setAttribute("id", `remove-${type}-btn-${j + 1}`)
         }

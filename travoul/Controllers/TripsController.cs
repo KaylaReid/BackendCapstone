@@ -324,7 +324,7 @@ namespace travoul.Controllers
             {
                 try
                 {
-                    var trip = await _context.Trip
+                    Trip trip = await _context.Trip
                     .Include(t => t.TripTravelTypes)
                     .Include(t => t.TripVisitLocations)
                     .SingleOrDefaultAsync(t => t.TripId == id);
@@ -355,6 +355,46 @@ namespace travoul.Controllers
                             };
 
                             _context.Add(newTripTT);
+                        }
+                    }
+
+                    if (trip.TripVisitLocations.Count > 0)
+                    {
+                        foreach (TripVisitLocation location in trip.TripVisitLocations)
+                        {
+                            _context.Remove(location);
+                        }
+                    }
+
+                    if (viewModel.NewFoodLocations.Count > 0)
+                    {
+                        foreach (TripVisitLocation location in viewModel.NewFoodLocations)
+                        {
+                            TripVisitLocation newTripVL = new TripVisitLocation()
+                            {
+                                TripId = viewModel.Trip.TripId,
+                                LocationTypeId = 1,
+                                Name = location.Name,
+                                Description = location.Description,
+                                IsCompleted = false
+                            };
+                                _context.Add(newTripVL);
+                        }
+                    }
+
+                    if (viewModel.NewVisitLocations.Count > 0)
+                    { 
+                        foreach (TripVisitLocation location in viewModel.NewVisitLocations)
+                        {
+                            TripVisitLocation newTripVL = new TripVisitLocation()
+                            {
+                                TripId = viewModel.Trip.TripId,
+                                LocationTypeId = 2,
+                                Name = location.Name,
+                                Description = location.Description,
+                                IsCompleted = false
+                            };
+                                _context.Add(newTripVL);
                         }
                     }
 
