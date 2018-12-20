@@ -82,6 +82,6 @@
 <div>
     <a asp-controller="Trips" asp-action="PlannedTripEdit" asp-route-id="@Model.TripId">Edit</a> |
     <a asp-action="PlannedTripDelete" asp-route-id="@Model.TripId">Delete</a> |
-    <a asp-action="" asp-route-id="">Finish Trip</a> |
+    <a asp-controller="Trips" asp-action="FinishTripCreate" asp-route-id="@Model.TripId">Finish Trip</a> |
     <a asp-action="PlannedTrips">Back to List</a>
 </div>

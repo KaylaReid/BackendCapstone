@@ -9,7 +9,7 @@ namespace travoul.Models.ViewModels
     public class EditPlannedTripViewModel
     {
         public Trip Trip { get; set; }
-
+        
         public List<SelectListItem> AllContinentOptions { get; set; }
 
         //for TravelTypes

@@ -1,0 +1,67 @@
+﻿@model travoul.Models.ViewModels.FinishTripViewModel
+
+@{
+    ViewData["Title"] = "FinishTripCreate";
+}
+
+<h3>@Model.Trip.Title</h3>
+
+<div class="table">
+    <dl class="dl-horizontal">
+        <dt>
+            Title
+        </dt>
+        <dd>
+            @Model.Trip.Title
+        </dd>
+        <dt>
+            Continent
+        </dt>
+        <dd>
+            @Model.Trip.Continent
+        </dd>
+        <dt>
+            Location
+        </dt>
+        <dd>
+            @Model.Trip.Location
+        </dd>
+        <dt>
+            Dates of trip
+        </dt>
+        <dd>
+            @Model.Trip.TripDates
+        </dd>
+        <dt>
+            Accommodation
+        </dt>
+        <dd>
+            @Model.Trip.Accommodation
+        </dd>
+        <dt>
+            Budget
+        </dt>
+        <dd>
+            @Model.Trip.Budget
+        </dd>
+    </dl>
+    <hr />
+    <div class="retros-div">
+        <form asp-action="FinishTripCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.TripRetros" class="control-label">What did you like about this trip/what would you do again?</label>
+                <textarea asp-for="@Model.TripRetros" placeholder="It was awesome, if we go back we are doing the helicopter tour again!!!" rows="3" class="form-control"></textarea>
+                <span asp-validation-for="@Model.TripRetros" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.TripRetros" class="control-label">What did you like about this trip/what would you do again?</label>
+                <textarea asp-for="@Model.TripRetros" placeholder="I would splurge for a nicer hotel if we went back, it was really out of the way and a little dumpy." rows="3" class="form-control"></textarea>
+                <span asp-validation-for="@Model.TripRetros" class="text-danger"></span>
+            </div>
+        </form>
+    </div>
+
+
+    <a asp-controller="Trips" asp-action="PlannedTrips" asp-route-id="">Balck To List</a>
+</div>

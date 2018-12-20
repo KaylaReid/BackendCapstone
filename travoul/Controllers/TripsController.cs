@@ -102,7 +102,7 @@ namespace travoul.Controllers
 
             return View(trip);
         }
-        // ------------------------------------------------------------------START OF CREATE
+        // ------------------------------------------------------------------START OF CREATE NEW TRIP
 
         // GET: Trips/Create
         public async Task<IActionResult> Create()
@@ -234,7 +234,28 @@ namespace travoul.Controllers
 
             return View(viewmodel);
         }
-        // ------------------------------------------------------------------------END OF CREATE
+        // ------------------------------------------------------------------------END OF CREATE NEW TRIP
+
+        //--------------------------------------------------------------------------START FINISH TRIP CREATE
+
+        public async Task<IActionResult> FinishTripCreate(int id )
+        {
+            Trip trip = await _context.Trip
+                .Include(t => t.Continent)
+                .Include(t => t.TripTravelTypes)
+                .Include(t => t.TripVisitLocations)
+                .FirstOrDefaultAsync(t => t.TripId == id);
+
+            FinishTripViewModel viewmodel = new FinishTripViewModel
+            {
+                Trip = trip
+            };
+
+
+            return View(viewmodel);
+        }
+
+        //--------------------------------------------------------------------------END FINISH TRIP CREATE
 
         //-----------------------------------------------------------------------START PLANNED TRIP EDIT
         // GET: Trips/Edit/5
