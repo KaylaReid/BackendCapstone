@@ -246,13 +246,35 @@ namespace travoul.Controllers
                 .Include(t => t.TripVisitLocations)
                 .FirstOrDefaultAsync(t => t.TripId == id);
 
+            List<TravelType> travelTypes = _context.TripTravelType
+                .Include(t => t.TravelType)
+                .Where(t => t.TripId == trip.TripId)
+                .Select(t => t.TravelType)
+                .ToList();
+
             FinishTripViewModel viewmodel = new FinishTripViewModel
             {
-                Trip = trip
+                Trip = trip,
+                TravelTypes = travelTypes
             };
 
 
             return View(viewmodel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FinishTripCreate(int id, FinishTripViewModel viewModel)
+        {
+            Trip trip = await _context.Trip
+                .FirstOrDefaultAsync(t => t.TripId == id);
+
+            foreach (TripRetro tripRetro in viewModel.TripRetros)
+            {
+                tripRetro.TripId = id;
+                _context.Add(tripRetro);
+            };
+            await _context.SaveChangesAsync();
+            return View("Index");
         }
 
         //--------------------------------------------------------------------------END FINISH TRIP CREATE

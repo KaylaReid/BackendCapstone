@@ -10,5 +10,7 @@ namespace travoul.Models.ViewModels
         public Trip Trip { get; set; }
 
         public List<TripRetro> TripRetros { get; set; }
+
+        public List<TravelType> TravelTypes { get; set; }
     }
 }
