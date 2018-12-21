@@ -1,7 +1,7 @@
 ﻿@model travoul.Models.ViewModels.FinishTripViewModel
 
 @{
-    ViewData["Title"] = "FinishTripCreate";
+    ViewData["Title"] = "FinishTrip";
 }
 
 <h3>@Model.Trip.Title</h3>
@@ -43,11 +43,8 @@
         </dt>
         <dd>
             @Model.Trip.Budget
-        </dd>
-        @*@foreach (var travelTrype in Model.Trip.TripTravelTypes)
-        {
-            <p>@travelTrype.Type</p>
-        }*@
+
+
         <dt>Travel Type</dt>
         <dd>
             <ul>
@@ -58,10 +55,41 @@
             </ul>
         </dd>
     </dl>
-    <hr />
+    </dd>
     <div class="retros-div">
         <form asp-action="FinishTripCreate" asp-route-id="@Model.Trip.TripId">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <hr />
+            <div>
+                <h3>Select the food places you made it to</h3>
+                @foreach (var item in Model.FoodLocations)
+                {
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="SelectedFoodLocationIds" value="@item.Value" />
+                                @item.Text
+                            </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <hr />
+            @*<div>
+            <h3>Select the places you made it to</h3>
+            @foreach (var item in Model.PlaceLocations)
+            {
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="@Model.SelectedPlaceLocationIds" value="@item.Value" />
+                            @item.Text
+                        </label>
+                    </div>
+                </div>
+            }
+        </div>*@
+            <hr />
             <div class="form-group">
                 <input type="hidden" value="1" asp-for="@Model.TripRetros[0].RetroTypeId" />
                 <label asp-for="@Model.TripRetros[0].Description" class="control-label">What did you like about this trip/what would you do again?</label>
@@ -74,7 +102,7 @@
                 <textarea asp-for="@Model.TripRetros[1].Description" placeholder="I would splurge for a nicer hotel if we went back, it was really out of the way and a little dumpy." rows="3" class="form-control"></textarea>
                 <span asp-validation-for="@Model.TripRetros" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-sm btn-primary">Save</button>
+            <button asp-controller="Trips" asp-action="FinishTrip" asp-route-id="@Model.Trip.TripId" type="submit" class="btn btn-sm btn-primary">Save</button>
         </form>
     </div>
     <a asp-controller="Trips" asp-action="PlannedTrips" asp-route-id="@Model.Trip.TripId">Balck To List</a>

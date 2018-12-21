@@ -238,7 +238,7 @@ namespace travoul.Controllers
 
         //--------------------------------------------------------------------------START FINISH TRIP CREATE
 
-        public async Task<IActionResult> FinishTripCreate(int id )
+        public async Task<IActionResult> FinishTrip(int id)
         {
             Trip trip = await _context.Trip
                 .Include(t => t.Continent)
@@ -246,34 +246,85 @@ namespace travoul.Controllers
                 .Include(t => t.TripVisitLocations)
                 .FirstOrDefaultAsync(t => t.TripId == id);
 
-            List<TravelType> travelTypes = _context.TripTravelType
+            List<TravelType> travelTypes = await _context.TripTravelType
                 .Include(t => t.TravelType)
                 .Where(t => t.TripId == trip.TripId)
                 .Select(t => t.TravelType)
-                .ToList();
+                .ToListAsync();
 
             FinishTripViewModel viewmodel = new FinishTripViewModel
             {
                 Trip = trip,
                 TravelTypes = travelTypes
             };
+   
+
+            //this builds up the foodlocations in checkbox form so the user can select which ones they made it too
+            viewmodel.FoodLocations = trip.TripVisitLocations.Where(tvl => tvl.LocationTypeId == 1)
+                //.AsEnumerable()
+                .Select(li => new SelectListItem
+                {
+                    Text = li.Name,
+                    Value = li.TripVisitLocationId.ToString()
+                }).ToList();
+            ;
+
+            //this builds up the foodlocations in checkbox form so the user can select which ones they made it too
+            viewmodel.PlaceLocations = trip.TripVisitLocations.Where(tvl => tvl.LocationTypeId == 2)
+                .AsEnumerable()
+                .Select(li => new SelectListItem
+                {
+                    Text = li.Name,
+                    Value = li.TripVisitLocationId.ToString()
+                }).ToList();
+            ;
 
 
             return View(viewmodel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> FinishTripCreate(int id, FinishTripViewModel viewModel)
+        public async Task<IActionResult> FinishTrip(int id, FinishTripViewModel viewModel)
         {
-            Trip trip = await _context.Trip
-                .FirstOrDefaultAsync(t => t.TripId == id);
+            ModelState.Remove("Trip.User");
+            ModelState.Remove("Trip.UserId");
+            
+            ApplicationUser user = await GetCurrentUserAsync();
 
-            foreach (TripRetro tripRetro in viewModel.TripRetros)
+            //viewmodel.Trip.UserId = user.Id;
+            //viewmodel.Trip.IsPreTrip = true;
+
+            if (ModelState.IsValid)
             {
-                tripRetro.TripId = id;
-                _context.Add(tripRetro);
-            };
-            await _context.SaveChangesAsync();
+
+                Trip trip = await _context.Trip
+                    .Include(t => t.TripVisitLocations)
+                    .FirstOrDefaultAsync(t => t.TripId == id);
+
+                if (viewModel.SelectedFoodLocationIds != null)
+                {
+                    foreach (var tvl in trip.TripVisitLocations)
+                    {
+                    //this checks the selcted foodLocIds again the list of foodLocs to see which ones were selected with the checkboxed so it can find the ones in needs to update the status of
+                        if (viewModel.SelectedFoodLocationIds.Any(item => item == tvl.TripVisitLocationId))
+                        {
+                            tvl.IsCompleted = true;
+                            _context.Update(tvl);
+                        }
+                    }
+                }
+
+                foreach (TripRetro tripRetro in viewModel.TripRetros)
+                {
+                    tripRetro.TripId = id;
+                    _context.Add(tripRetro);
+                };
+
+                trip.IsPreTrip = false;
+
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Trips");
+            }
             return View("Index");
         }
 
