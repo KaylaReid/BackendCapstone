@@ -286,46 +286,33 @@ namespace travoul.Controllers
         [HttpPost]
         public async Task<IActionResult> FinishTrip(int id, FinishTripViewModel viewModel)
         {
-            ModelState.Remove("Trip.User");
-            ModelState.Remove("Trip.UserId");
-            
-            ApplicationUser user = await GetCurrentUserAsync();
+            Trip trip = await _context.Trip
+                .Include(t => t.TripVisitLocations)
+                .FirstOrDefaultAsync(t => t.TripId == id);
 
-            //viewmodel.Trip.UserId = user.Id;
-            //viewmodel.Trip.IsPreTrip = true;
-
-            if (ModelState.IsValid)
+            if (viewModel.SelectedLocationIds != null)
             {
-
-                Trip trip = await _context.Trip
-                    .Include(t => t.TripVisitLocations)
-                    .FirstOrDefaultAsync(t => t.TripId == id);
-
-                if (viewModel.SelectedFoodLocationIds != null)
+                foreach (var tvl in trip.TripVisitLocations)
                 {
-                    foreach (var tvl in trip.TripVisitLocations)
+                //this checks the selcted foodLocIds again the list of Locs to see which ones were selected with the checkboxed so it can find the ones in needs to update the status of
+                    if (viewModel.SelectedLocationIds.Any(item => item == tvl.TripVisitLocationId))
                     {
-                    //this checks the selcted foodLocIds again the list of foodLocs to see which ones were selected with the checkboxed so it can find the ones in needs to update the status of
-                        if (viewModel.SelectedFoodLocationIds.Any(item => item == tvl.TripVisitLocationId))
-                        {
-                            tvl.IsCompleted = true;
-                            _context.Update(tvl);
-                        }
+                        tvl.IsCompleted = true;
+                        _context.Update(tvl);
                     }
                 }
-
-                foreach (TripRetro tripRetro in viewModel.TripRetros)
-                {
-                    tripRetro.TripId = id;
-                    _context.Add(tripRetro);
-                };
-
-                trip.IsPreTrip = false;
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Trips");
             }
-            return View("Index");
+
+            foreach (TripRetro tripRetro in viewModel.TripRetros)
+            {
+                tripRetro.TripId = id;
+                _context.Add(tripRetro);
+            };
+
+            trip.IsPreTrip = false;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Trips");
         }
 
         //--------------------------------------------------------------------------END FINISH TRIP CREATE
