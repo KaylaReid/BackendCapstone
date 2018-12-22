@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.Budget)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.TripId">Details</a>
+                <a asp-controller="Trips" asp-action="Details" asp-route-id="@item.TripId">Details</a>
             </td>
         </tr>
 }

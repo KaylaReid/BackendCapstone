@@ -19,5 +19,9 @@ namespace travoul.Models.ViewModels
         public List<SelectListItem> PlaceLocations { get; set; }
 
         public List<int> SelectedLocationIds { get; set; }
+
+        public List<TripVisitLocation> NewFoods { get; set; }
+
+        public List<TripVisitLocation> NewPlaces { get; set; }
     }
 }

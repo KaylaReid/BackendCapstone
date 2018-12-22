@@ -279,6 +279,9 @@ namespace travoul.Controllers
                 }).ToList();
             ;
 
+            ViewData["scripts"] = new List<string>() {
+                "FinishTrip"
+            };
 
             return View(viewmodel);
         }
@@ -303,6 +306,26 @@ namespace travoul.Controllers
                 }
             }
 
+            if (viewModel.NewFoods != null) 
+            {
+                foreach (TripVisitLocation foodVL in viewModel.NewFoods) 
+                {
+                    foodVL.LocationTypeId = 1;
+                    foodVL.TripId = trip.TripId;
+                    _context.Add(foodVL);
+                }
+            }
+
+            if (viewModel.NewPlaces != null)
+            {
+                foreach (TripVisitLocation placeVL in viewModel.NewPlaces)
+                {
+                    placeVL.LocationTypeId = 2;
+                    placeVL.TripId = trip.TripId;
+                    _context.Add(placeVL);
+                }
+            }
+
             foreach (TripRetro tripRetro in viewModel.TripRetros)
             {
                 tripRetro.TripId = id;
@@ -310,6 +333,7 @@ namespace travoul.Controllers
             };
 
             trip.IsPreTrip = false;
+            _context.Update(trip);
 
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Trips");
@@ -622,6 +646,39 @@ namespace travoul.Controllers
         }
 
         //-------------------------------------------------------------------END OF PLANNED TRIP DELETE 
+
+        //-------------------------------------------------------------------START OF DELETE TRIP
+        public async Task<IActionResult> DeleteTrip(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var trip = await _context.Trip
+                .Include(t => t.Continent)
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(m => m.TripId == id);
+            if (trip == null)
+            {
+                return NotFound();
+            }
+
+            return View("Delete", trip);
+        }
+
+        //POST: Trips/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteTripConfirmed(int id)
+        {
+            var trip = await _context.Trip.FindAsync(id);
+            _context.Trip.Remove(trip);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+        //-------------------------------------------------------------------------------END OF DELETE TRIP
+
 
         //public async Task<IActionResult> Delete(int? id)
         //{
