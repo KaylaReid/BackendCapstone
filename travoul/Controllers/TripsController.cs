@@ -444,7 +444,7 @@ namespace travoul.Controllers
                             //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
                             _context.Remove(travelType);
                         }
-                    }
+                    } 
 
                     //this builds up TripTravelType tables for each TravelType thats selected 
                     //checks to see if there are selectedTravelTypeIds to loop over 
