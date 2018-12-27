@@ -605,64 +605,166 @@ namespace travoul.Controllers
             return View(viewModel);
         }
 
-            // GET: Trips/Edit/5
-            //public async Task<IActionResult> Edit(int? id)
-            //{
-            //    if (id == null)
-            //    {
-            //        return NotFound();
-            //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FinishedTripEdit(int id, EditFinishedTripViewModel viewModel)
+        {
+            ModelState.Remove("Trip.User");
+            ModelState.Remove("Trip.UserId");
 
-            //    var trip = await _context.Trip.FindAsync(id);
-            //    if (trip == null)
-            //    {
-            //        return NotFound();
-            //    }
-            //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-            //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-            //    return View(trip);
-            //}
+            //ApplicationUser user = await GetCurrentUserAsync();
 
-            // POST: Trips/Edit/5
-            // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-            // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-            //[HttpPost]
-            //[ValidateAntiForgeryToken]
-            //public async Task<IActionResult> Edit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
-            //{
-            //    if (id != trip.TripId)
-            //    {
-            //        return NotFound();
-            //    }
+            //viewModel.Trip.UserId = user.Id;
 
-            //    if (ModelState.IsValid)
-            //    {
-            //        try
-            //        {
-            //            _context.Update(trip);
-            //            await _context.SaveChangesAsync();
-            //        }
-            //        catch (DbUpdateConcurrencyException)
-            //        {
-            //            if (!TripExists(trip.TripId))
-            //            {
-            //                return NotFound();
-            //            }
-            //            else
-            //            {
-            //                throw;
-            //            }
-            //        }
-            //        return RedirectToAction(nameof(Index));
-            //    }
-            //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-            //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-            //    return View(trip);
-            //}
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Trip trip = await _context.Trip
+                    .Include(t => t.TripTravelTypes)
+                    .Include(t => t.TripVisitLocations)
+                    .Include(t => t.TripRetros)
+                    .SingleOrDefaultAsync(t => t.TripId == id);
 
-            //------------------------------------------------------------------START OF PLANNED TRIP DELETE
-            // GET: Trips/Delete/5
-            public async Task<IActionResult> PlannedTripDelete(int? id)
+
+                    //This checks if there are any joiner tables of this kind for this trip,
+                    //then it foreaches over the joiner table and delets each one from the db
+                    //this deletes all TripTravelTypes the joiner tables 
+                    if (trip.TripTravelTypes.Count > 0)
+                    {
+                        foreach (TripTravelType travelType in trip.TripTravelTypes)
+                        {
+                            //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
+                            _context.Remove(travelType);
+                        }
+                    }
+
+                    //this builds up TripTravelType tables for each TravelType thats selected 
+                    //checks to see if there are selectedTravelTypeIds to loop over 
+                    if (viewModel.SelectedTravelTypeIds != null)
+                    {
+                        //makes joiner table for TripTravelType 
+                        foreach (int TypeId in viewModel.SelectedTravelTypeIds)
+                        {
+                            TripTravelType newTripTT = new TripTravelType()
+                            {   //pulls tripid out of context bag 
+                                TripId = viewModel.Trip.TripId,
+                                TravelTypeId = TypeId
+                            };
+
+                            _context.Add(newTripTT);
+                        }
+                    }
+                    //-------un comment when ready***********************************
+                    //// This deletes all the TripVisitLocations joiner tables 
+                    //if (trip.TripVisitLocations.Count > 0)
+                    //{
+                    //    foreach (TripVisitLocation location in trip.TripVisitLocations)
+                    //    {
+                    //        _context.Remove(location);
+                    //    }
+                    //}
+
+                    ////this builds up the TripVisitLocation for food and adds it to the db context 
+                    //if (viewModel.NewFoodLocations.Count > 0)
+                    //{
+                    //    foreach (TripVisitLocation location in viewModel.NewFoodLocations)
+                    //    {
+                    //        TripVisitLocation newTripVL = new TripVisitLocation()
+                    //        {
+                    //            TripId = viewModel.Trip.TripId,
+                    //            LocationTypeId = 1,
+                    //            Name = location.Name,
+                    //            Description = location.Description,
+                    //            IsCompleted = false
+                    //        };
+                    //        _context.Add(newTripVL);
+                    //    }
+                    //}
+
+                    //this builds up the TripVisitLocation for food and adds it to the db context 
+                    //if (viewModel.NewFoodLocations.Count > 0)
+                    //{
+                    //    foreach (TripVisitLocation location in viewModel.NewFoodLocations)
+                    //    {
+                    //        TripVisitLocation newTripVL = new TripVisitLocation()
+                    //        {
+                    //            TripId = viewModel.Trip.TripId,
+                    //            LocationTypeId = 1,
+                    //            Name = location.Name,
+                    //            Description = location.Description,
+                    //            IsCompleted = false
+                    //        };
+                    //        _context.Add(newTripVL);
+                    //    }
+                    //}
+
+                    ////this builds up the TripVisitLocation for places and adds it to the db context 
+                    //if (viewModel.NewVisitLocations.Count > 0)
+                    //{
+                    //    foreach (TripVisitLocation location in viewModel.NewVisitLocations)
+                    //    {
+                    //        TripVisitLocation newTripVL = new TripVisitLocation()
+                    //        {
+                    //            TripId = viewModel.Trip.TripId,
+                    //            LocationTypeId = 2,
+                    //            Name = location.Name,
+                    //            Description = location.Description,
+                    //            IsCompleted = false
+                    //        };
+                    //        _context.Add(newTripVL);
+                    //    }
+                    //}
+
+                    //foreach (TripRetro doAgainRetro in viewModel.DoAgainRetro.Description)
+                    //{           
+
+                    //}
+                    TripRetro doAgainTripRetro = await _context.TripRetro
+                        .Where(tr => tr.TripId == id && tr.RetroTypeId == 1).FirstOrDefaultAsync();
+
+                    doAgainTripRetro.Description = viewModel.DoAgainRetro.Description;
+                    _context.Update(doAgainTripRetro);
+
+
+                    TripRetro doDifferentTripRetro = await _context.TripRetro
+                        .Where(tr => tr.TripId == id && tr.RetroTypeId == 2).FirstOrDefaultAsync();
+
+                    doDifferentTripRetro.Description = viewModel.DoDifferentRetro.Description;
+                    _context.Update(doDifferentTripRetro);
+
+                    trip.Location = viewModel.Trip.Location;
+                    trip.Accommodation = viewModel.Trip.Accommodation;
+                    trip.Budget = viewModel.Trip.Budget;
+                    trip.ContinentId = viewModel.Trip.ContinentId;
+                    trip.IsPreTrip = false;
+                    trip.Title = viewModel.Trip.Title;
+                    trip.TripDates = viewModel.Trip.TripDates;
+                    
+
+                    _context.Update(trip);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TripExists(viewModel.Trip.TripId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Index", "Trips");
+            }
+            return View(viewModel);
+        }
+        
+
+        //------------------------------------------------------------------START OF PLANNED TRIP DELETE
+        // GET: Trips/Delete/5
+        public async Task<IActionResult> PlannedTripDelete(int? id)
         {
             if (id == null)
             {

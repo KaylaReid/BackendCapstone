@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-4">
 
-        <form asp-controller="Trips" asp-action="PlannedTripEdit" asp-route-id="@Model.Trip.TripId">
+        <form asp-controller="Trips" asp-action="FinishedTripEdit" asp-route-id="@Model.Trip.TripId">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Trip.TripId" />
             <div class="form-group">
@@ -57,7 +57,7 @@
                 }
             </div>
             <hr />
-            <div id="all-locations-container">
+            @*<div id="all-locations-container">
                 <h4>Food places I want to go to!</h4>
                 <div id="food-container">
                     @for (var i = 0; i < Model.CurrentFoodLocations.Count; i++)
@@ -99,7 +99,7 @@
                             <button class="btn btn-sm btn-danger" id="remove-visit-btn-@(i+1)">Remove</button>
                         </div>
                     }
-                </div>
+                </div>*@
                 <div class="form-group">
                     <button class="btn btn-sm btn-primary" id="add-visit-btn">Add More Visit Locations</button>
                 </div>
@@ -122,7 +122,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Trips" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
