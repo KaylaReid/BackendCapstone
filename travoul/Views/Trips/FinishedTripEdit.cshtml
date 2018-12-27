@@ -57,8 +57,8 @@
                 }
             </div>
             <hr />
-            @*<div id="all-locations-container">
-                <h4>Food places I want to go to!</h4>
+            <div id="all-locations-container">
+                @*<h4>Food places I want to go to!</h4>
                 <div id="food-container">
                     @for (var i = 0; i < Model.CurrentFoodLocations.Count; i++)
                     {
@@ -73,13 +73,21 @@
                                 <input asp-for="@Model.NewFoodLocations[i].Description" class="form-control" value="@Model.CurrentFoodLocations[i].Description" id="food-desc-@(i + 1)" />
                                 <span asp-validation-for="@Model.NewFoodLocations[i].Description" class="text-danger"></span>
                             </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="@Model.CurrentFoodLocations[i].IsCompleted" checked="@Model.CurrentFoodLocations[i].IsCompleted" />
+                                        Completed?
+                                    </label>
+                                </div>
+                            </div>
                             <button class="btn btn-sm btn-danger" id="remove-food-btn-@(i+1)">Remove</button>
                         </div>
                     }
                 </div>
                 <div class="form-group">
                     <button class="btn btn-sm btn-primary" id="add-food-btn">Add More Food Places</button>
-                </div>
+                </div>*@
                 <hr />
                 <h4>Places I want to see!</h4>
                 <div id="visit-container">
@@ -96,10 +104,18 @@
                                 <input asp-for="@Model.NewVisitLocations[i].Description" class="form-control" value="@Model.CurrentVisitLocations[i].Description" id="visit-desc-@(i + 1)" />
                                 <span asp-validation-for="@Model.NewVisitLocations[i].Description" class="text-danger"></span>
                             </div>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="@Model.CurrentVisitLocations[i].IsCompleted" checked="@Model.CurrentVisitLocations[i].IsCompleted" />
+                                        Completed?
+                                    </label>
+                                </div>
+                            </div>
                             <button class="btn btn-sm btn-danger" id="remove-visit-btn-@(i+1)">Remove</button>
                         </div>
                     }
-                </div>*@
+                </div>
                 <div class="form-group">
                     <button class="btn btn-sm btn-primary" id="add-visit-btn">Add More Visit Locations</button>
                 </div>

@@ -655,15 +655,32 @@ namespace travoul.Controllers
                             _context.Add(newTripTT);
                         }
                     }
-                    //-------un comment when ready***********************************
-                    //// This deletes all the TripVisitLocations joiner tables 
-                    //if (trip.TripVisitLocations.Count > 0)
-                    //{
-                    //    foreach (TripVisitLocation location in trip.TripVisitLocations)
-                    //    {
-                    //        _context.Remove(location);
-                    //    }
-                    //}
+             
+                    // This deletes all the TripVisitLocations joiner tables 
+                    if (trip.TripVisitLocations.Count > 0)
+                    {
+                        foreach (TripVisitLocation location in trip.TripVisitLocations)
+                        {
+                            _context.Remove(location);
+                        }
+                    }
+
+                    //this builds up the TripVisitLocation for food and adds it to the db context
+                    if (viewModel.NewVisitLocations.Count > 0)
+                    {
+                        foreach (TripVisitLocation location in viewModel.NewVisitLocations)
+                        {
+                            TripVisitLocation newTripVL = new TripVisitLocation()
+                            {
+                                TripId = viewModel.Trip.TripId,
+                                LocationTypeId = 2,
+                                Name = location.Name,
+                                Description = location.Description,
+                                IsCompleted = location.IsCompleted
+                            };
+                            _context.Add(newTripVL);
+                        }
+                    }
 
                     ////this builds up the TripVisitLocation for food and adds it to the db context 
                     //if (viewModel.NewFoodLocations.Count > 0)
@@ -676,24 +693,7 @@ namespace travoul.Controllers
                     //            LocationTypeId = 1,
                     //            Name = location.Name,
                     //            Description = location.Description,
-                    //            IsCompleted = false
-                    //        };
-                    //        _context.Add(newTripVL);
-                    //    }
-                    //}
-
-                    //this builds up the TripVisitLocation for food and adds it to the db context 
-                    //if (viewModel.NewFoodLocations.Count > 0)
-                    //{
-                    //    foreach (TripVisitLocation location in viewModel.NewFoodLocations)
-                    //    {
-                    //        TripVisitLocation newTripVL = new TripVisitLocation()
-                    //        {
-                    //            TripId = viewModel.Trip.TripId,
-                    //            LocationTypeId = 1,
-                    //            Name = location.Name,
-                    //            Description = location.Description,
-                    //            IsCompleted = false
+                    //            IsCompleted = location.IsCompleted
                     //        };
                     //        _context.Add(newTripVL);
                     //    }
@@ -716,13 +716,11 @@ namespace travoul.Controllers
                     //    }
                     //}
 
-                    //foreach (TripRetro doAgainRetro in viewModel.DoAgainRetro.Description)
-                    //{           
-
-                    //}
+                    //this gets the DoAgain retro 
                     TripRetro doAgainTripRetro = await _context.TripRetro
                         .Where(tr => tr.TripId == id && tr.RetroTypeId == 1).FirstOrDefaultAsync();
 
+                    //This updates the DoAgain retro
                     doAgainTripRetro.Description = viewModel.DoAgainRetro.Description;
                     _context.Update(doAgainTripRetro);
 
