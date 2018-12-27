@@ -325,12 +325,14 @@ namespace travoul.Controllers
                     _context.Add(placeVL);
                 }
             }
-
-            foreach (TripRetro tripRetro in viewModel.TripRetros)
-            {
-                tripRetro.TripId = id;
-                _context.Add(tripRetro);
-            };
+            if (viewModel.TripRetros != null)
+            { 
+                foreach (TripRetro tripRetro in viewModel.TripRetros)
+                {
+                    tripRetro.TripId = id;
+                    _context.Add(tripRetro);
+                };
+            }
 
             trip.IsPreTrip = false;
             _context.Update(trip);
@@ -534,65 +536,133 @@ namespace travoul.Controllers
             return View(viewModel);
         }
         //----------------------------------------------------------END PLANNED TRIP EDIT
-  
-        // GET: Trips/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //-----------------------------------------------------------START FINISHED TRIP EDIT 
 
-        //    var trip = await _context.Trip.FindAsync(id);
-        //    if (trip == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-        //    return View(trip);
-        //}
+        public async Task<IActionResult> FinishedTripEdit(int id)
+        {
+            Trip trip = await _context.Trip
+             .Include(t => t.TripTravelTypes)
+             .Include(t => t.TripVisitLocations)
+             .Include(t => t.TripRetros)
+             .FirstOrDefaultAsync(t => t.TripId == id);
 
-        // POST: Trips/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
-        //{
-        //    if (id != trip.TripId)
-        //    {
-        //        return NotFound();
-        //    }
+            if (trip == null)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(trip);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!TripExists(trip.TripId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-        //    return View(trip);
-        //}
+            List<Continent> AllContinents = await _context.Continent.ToListAsync();
 
-        //------------------------------------------------------------------START OF PLANNED TRIP DELETE
-        // GET: Trips/Delete/5
-        public async Task<IActionResult> PlannedTripDelete(int? id)
+            List<SelectListItem> allContinentOptions = new List<SelectListItem>();
+
+            foreach (Continent c in AllContinents)
+            {
+                SelectListItem sli = new SelectListItem();
+                sli.Text = c.Name;
+                sli.Value = c.ContinentId.ToString();
+                allContinentOptions.Add(sli);
+            };
+
+            EditFinishedTripViewModel viewModel = new EditFinishedTripViewModel
+            {
+                AllContinentOptions = allContinentOptions,
+                Trip = trip,
+                CurrentFoodLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 1).ToList(),
+                CurrentVisitLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 2).ToList(),
+                DoAgainRetro = trip.TripRetros.Where(tr => tr.RetroTypeId == 1).Single(),
+                DoDifferentRetro = trip.TripRetros.Where(tr => tr.RetroTypeId == 2).Single()
+            };
+
+            //get TravelTypes
+            List<TravelType> AllTravelTypes = _context.TravelType.ToList();
+
+            //get a list of the travelTypes for this trip
+            List<TravelType> PrevSelectedTravelTypes = _context.TripTravelType
+                .Include(t => t.TravelType)
+                .Where(t => t.TripId == trip.TripId)
+                .Select(t => t.TravelType)
+                .ToList();
+
+            //makes an empty list to hold selectListItems
+            List<SelectListItem> DisplayTripTravelTypes = new List<SelectListItem>();
+
+            //this loops over allTravelTypes
+            //any returns a bool of true or false base on if the condition that was passed in is met
+            //I use the bool value it returns to set the checked value on the selectListItems for my check boxes
+            foreach (TravelType TravelType in AllTravelTypes)
+            {
+                bool newList = PrevSelectedTravelTypes.Any(item => item.TravelTypeId == TravelType.TravelTypeId);
+                DisplayTripTravelTypes.Add(new SelectListItem
+                {
+                    Text = TravelType.Type,
+                    Value = TravelType.TravelTypeId.ToString(),
+                    Selected = newList
+                });
+            }
+
+            viewModel.AllTravelTypes = DisplayTripTravelTypes;
+
+            return View(viewModel);
+        }
+
+            // GET: Trips/Edit/5
+            //public async Task<IActionResult> Edit(int? id)
+            //{
+            //    if (id == null)
+            //    {
+            //        return NotFound();
+            //    }
+
+            //    var trip = await _context.Trip.FindAsync(id);
+            //    if (trip == null)
+            //    {
+            //        return NotFound();
+            //    }
+            //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
+            //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
+            //    return View(trip);
+            //}
+
+            // POST: Trips/Edit/5
+            // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+            // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+            //[HttpPost]
+            //[ValidateAntiForgeryToken]
+            //public async Task<IActionResult> Edit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
+            //{
+            //    if (id != trip.TripId)
+            //    {
+            //        return NotFound();
+            //    }
+
+            //    if (ModelState.IsValid)
+            //    {
+            //        try
+            //        {
+            //            _context.Update(trip);
+            //            await _context.SaveChangesAsync();
+            //        }
+            //        catch (DbUpdateConcurrencyException)
+            //        {
+            //            if (!TripExists(trip.TripId))
+            //            {
+            //                return NotFound();
+            //            }
+            //            else
+            //            {
+            //                throw;
+            //            }
+            //        }
+            //        return RedirectToAction(nameof(Index));
+            //    }
+            //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
+            //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
+            //    return View(trip);
+            //}
+
+            //------------------------------------------------------------------START OF PLANNED TRIP DELETE
+            // GET: Trips/Delete/5
+            public async Task<IActionResult> PlannedTripDelete(int? id)
         {
             if (id == null)
             {

@@ -118,7 +118,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TripId">Edit</a> |
+    <a asp-controller="Trips" asp-action="FinishedTripEdit" asp-route-id="@Model.TripId">Edit</a> |
     <a asp-controller="Trips" asp-action="DeleteTrip" asp-route-id="@Model.TripId">Delete</a> |
     <a asp-action="Index">Back to List</a>
 </div>
