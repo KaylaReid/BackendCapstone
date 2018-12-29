@@ -538,6 +538,7 @@ namespace travoul.Controllers
         //----------------------------------------------------------END PLANNED TRIP EDIT
         //-----------------------------------------------------------START FINISHED TRIP EDIT 
 
+        //GET
         public async Task<IActionResult> FinishedTripEdit(int id)
         {
             Trip trip = await _context.Trip
@@ -612,10 +613,6 @@ namespace travoul.Controllers
             ModelState.Remove("Trip.User");
             ModelState.Remove("Trip.UserId");
 
-            //ApplicationUser user = await GetCurrentUserAsync();
-
-            //viewModel.Trip.UserId = user.Id;
-
             if (ModelState.IsValid)
             {
                 try
@@ -672,7 +669,7 @@ namespace travoul.Controllers
                         {
                             TripVisitLocation newTripVL = new TripVisitLocation()
                             {
-                                TripId = viewModel.Trip.TripId,
+                                TripId = trip.TripId,
                                 LocationTypeId = 2,
                                 Name = location.Name,
                                 Description = location.Description,
@@ -682,39 +679,23 @@ namespace travoul.Controllers
                         }
                     }
 
-                    ////this builds up the TripVisitLocation for food and adds it to the db context 
-                    //if (viewModel.NewFoodLocations.Count > 0)
-                    //{
-                    //    foreach (TripVisitLocation location in viewModel.NewFoodLocations)
-                    //    {
-                    //        TripVisitLocation newTripVL = new TripVisitLocation()
-                    //        {
-                    //            TripId = viewModel.Trip.TripId,
-                    //            LocationTypeId = 1,
-                    //            Name = location.Name,
-                    //            Description = location.Description,
-                    //            IsCompleted = location.IsCompleted
-                    //        };
-                    //        _context.Add(newTripVL);
-                    //    }
-                    //}
+                    //this builds up the TripVisitLocation for food and adds it to the db context 
+                    if (viewModel.NewFoodLocations.Count > 0)
+                    {
+                        foreach (TripVisitLocation location in viewModel.NewFoodLocations)
+                        {
+                            TripVisitLocation newTripVL = new TripVisitLocation()
+                            {
+                                TripId = trip.TripId,
+                                LocationTypeId = 1,
+                                Name = location.Name,
+                                Description = location.Description,
+                                IsCompleted = location.IsCompleted
+                            };
+                            _context.Add(newTripVL);
+                        }
+                    }
 
-                    ////this builds up the TripVisitLocation for places and adds it to the db context 
-                    //if (viewModel.NewVisitLocations.Count > 0)
-                    //{
-                    //    foreach (TripVisitLocation location in viewModel.NewVisitLocations)
-                    //    {
-                    //        TripVisitLocation newTripVL = new TripVisitLocation()
-                    //        {
-                    //            TripId = viewModel.Trip.TripId,
-                    //            LocationTypeId = 2,
-                    //            Name = location.Name,
-                    //            Description = location.Description,
-                    //            IsCompleted = false
-                    //        };
-                    //        _context.Add(newTripVL);
-                    //    }
-                    //}
 
                     //this gets the DoAgain retro 
                     TripRetro doAgainTripRetro = await _context.TripRetro

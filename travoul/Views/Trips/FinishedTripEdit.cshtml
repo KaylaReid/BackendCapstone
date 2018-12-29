@@ -58,7 +58,7 @@
             </div>
             <hr />
             <div id="all-locations-container">
-                @*<h4>Food places I want to go to!</h4>
+                <h4>Food places I want to go to!</h4>
                 <div id="food-container">
                     @for (var i = 0; i < Model.CurrentFoodLocations.Count; i++)
                     {
@@ -76,7 +76,14 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="@Model.CurrentFoodLocations[i].IsCompleted" checked="@Model.CurrentFoodLocations[i].IsCompleted" />
+                                        @if (Model.CurrentFoodLocations[i].IsCompleted == true)
+                                        {
+                                            <input type="checkbox" asp-for="@Model.NewFoodLocations[i].IsCompleted" checked="checked" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" asp-for="@Model.NewFoodLocations[i].IsCompleted" />
+                                        }
                                         Completed?
                                     </label>
                                 </div>
@@ -87,7 +94,7 @@
                 </div>
                 <div class="form-group">
                     <button class="btn btn-sm btn-primary" id="add-food-btn">Add More Food Places</button>
-                </div>*@
+                </div>
                 <hr />
                 <h4>Places I want to see!</h4>
                 <div id="visit-container">
@@ -107,7 +114,15 @@
                             <div class="form-group">
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" value="@Model.CurrentVisitLocations[i].IsCompleted" checked="@Model.CurrentVisitLocations[i].IsCompleted" />
+                                        @if (Model.CurrentVisitLocations[i].IsCompleted == true)
+                                        {
+                                            <input type="checkbox" asp-for="@Model.NewVisitLocations[i].IsCompleted" checked="checked" />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" asp-for="@Model.NewVisitLocations[i].IsCompleted" />
+
+                                        }
                                         Completed?
                                     </label>
                                 </div>
