@@ -102,7 +102,7 @@ namespace travoul.Controllers
 
             return View(trip);
         }
-        // ------------------------------------------------------------------START OF CREATE
+        // ------------------------------------------------------------------START OF CREATE NEW TRIP
 
         // GET: Trips/Create
         public async Task<IActionResult> Create()
@@ -234,7 +234,114 @@ namespace travoul.Controllers
 
             return View(viewmodel);
         }
-        // ------------------------------------------------------------------------END OF CREATE
+        // ------------------------------------------------------------------------END OF CREATE NEW TRIP
+
+        //--------------------------------------------------------------------------START FINISH TRIP CREATE
+
+        public async Task<IActionResult> FinishTrip(int id)
+        {
+            Trip trip = await _context.Trip
+                .Include(t => t.Continent)
+                .Include(t => t.TripTravelTypes)
+                .Include(t => t.TripVisitLocations)
+                .FirstOrDefaultAsync(t => t.TripId == id);
+
+            List<TravelType> travelTypes = await _context.TripTravelType
+                .Include(t => t.TravelType)
+                .Where(t => t.TripId == trip.TripId)
+                .Select(t => t.TravelType)
+                .ToListAsync();
+
+            FinishTripViewModel viewmodel = new FinishTripViewModel
+            {
+                Trip = trip,
+                TravelTypes = travelTypes
+            };
+   
+
+            //this builds up the foodlocations in checkbox form so the user can select which ones they made it too
+            viewmodel.FoodLocations = trip.TripVisitLocations.Where(tvl => tvl.LocationTypeId == 1)
+                //.AsEnumerable()
+                .Select(li => new SelectListItem
+                {
+                    Text = li.Name,
+                    Value = li.TripVisitLocationId.ToString()
+                }).ToList();
+            ;
+
+            //this builds up the foodlocations in checkbox form so the user can select which ones they made it too
+            viewmodel.PlaceLocations = trip.TripVisitLocations.Where(tvl => tvl.LocationTypeId == 2)
+                .AsEnumerable()
+                .Select(li => new SelectListItem
+                {
+                    Text = li.Name,
+                    Value = li.TripVisitLocationId.ToString()
+                }).ToList();
+            ;
+
+            ViewData["scripts"] = new List<string>() {
+                "FinishTrip"
+            };
+
+            return View(viewmodel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FinishTrip(int id, FinishTripViewModel viewModel)
+        {
+            Trip trip = await _context.Trip
+                .Include(t => t.TripVisitLocations)
+                .FirstOrDefaultAsync(t => t.TripId == id);
+
+            if (viewModel.SelectedLocationIds != null)
+            {
+                foreach (var tvl in trip.TripVisitLocations)
+                {
+                //this checks the selcted foodLocIds again the list of Locs to see which ones were selected with the checkboxed so it can find the ones in needs to update the status of
+                    if (viewModel.SelectedLocationIds.Any(item => item == tvl.TripVisitLocationId))
+                    {
+                        tvl.IsCompleted = true;
+                        _context.Update(tvl);
+                    }
+                }
+            }
+
+            if (viewModel.NewFoods != null) 
+            {
+                foreach (TripVisitLocation foodVL in viewModel.NewFoods) 
+                {
+                    foodVL.LocationTypeId = 1;
+                    foodVL.TripId = trip.TripId;
+                    _context.Add(foodVL);
+                }
+            }
+
+            if (viewModel.NewPlaces != null)
+            {
+                foreach (TripVisitLocation placeVL in viewModel.NewPlaces)
+                {
+                    placeVL.LocationTypeId = 2;
+                    placeVL.TripId = trip.TripId;
+                    _context.Add(placeVL);
+                }
+            }
+            if (viewModel.TripRetros != null)
+            { 
+                foreach (TripRetro tripRetro in viewModel.TripRetros)
+                {
+                    tripRetro.TripId = id;
+                    _context.Add(tripRetro);
+                };
+            }
+
+            trip.IsPreTrip = false;
+            _context.Update(trip);
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Trips");
+        }
+
+        //--------------------------------------------------------------------------END FINISH TRIP CREATE
 
         //-----------------------------------------------------------------------START PLANNED TRIP EDIT
         // GET: Trips/Edit/5
@@ -339,7 +446,7 @@ namespace travoul.Controllers
                             //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
                             _context.Remove(travelType);
                         }
-                    }
+                    } 
 
                     //this builds up TripTravelType tables for each TravelType thats selected 
                     //checks to see if there are selectedTravelTypeIds to loop over 
@@ -429,61 +536,221 @@ namespace travoul.Controllers
             return View(viewModel);
         }
         //----------------------------------------------------------END PLANNED TRIP EDIT
-  
-        // GET: Trips/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //-----------------------------------------------------------START FINISHED TRIP EDIT 
 
-        //    var trip = await _context.Trip.FindAsync(id);
-        //    if (trip == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-        //    return View(trip);
-        //}
+        //GET
+        public async Task<IActionResult> FinishedTripEdit(int id)
+        {
+            Trip trip = await _context.Trip
+             .Include(t => t.TripTravelTypes)
+             .Include(t => t.TripVisitLocations)
+             .Include(t => t.TripRetros)
+             .FirstOrDefaultAsync(t => t.TripId == id);
 
-        // POST: Trips/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("TripId,UserId,ContinentId,Location,TripDates,Accommodation,Title,Budget,IsPreTrip")] Trip trip)
-        //{
-        //    if (id != trip.TripId)
-        //    {
-        //        return NotFound();
-        //    }
+            if (trip == null)
+            {
+                return NotFound();
+            }
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(trip);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!TripExists(trip.TripId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["ContinentId"] = new SelectList(_context.Continent, "ContinentId", "Code", trip.ContinentId);
-        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", trip.UserId);
-        //    return View(trip);
-        //}
+            List<Continent> AllContinents = await _context.Continent.ToListAsync();
+
+            List<SelectListItem> allContinentOptions = new List<SelectListItem>();
+
+            foreach (Continent c in AllContinents)
+            {
+                SelectListItem sli = new SelectListItem();
+                sli.Text = c.Name;
+                sli.Value = c.ContinentId.ToString();
+                allContinentOptions.Add(sli);
+            };
+
+            EditFinishedTripViewModel viewModel = new EditFinishedTripViewModel
+            {
+                AllContinentOptions = allContinentOptions,
+                Trip = trip,
+                CurrentFoodLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 1).ToList(),
+                CurrentVisitLocations = trip.TripVisitLocations.Where(VisitLoc => VisitLoc.LocationTypeId == 2).ToList(),
+                DoAgainRetro = trip.TripRetros.Where(tr => tr.RetroTypeId == 1).Single(),
+                DoDifferentRetro = trip.TripRetros.Where(tr => tr.RetroTypeId == 2).Single()
+            };
+
+            //get TravelTypes
+            List<TravelType> AllTravelTypes = _context.TravelType.ToList();
+
+            //get a list of the travelTypes for this trip
+            List<TravelType> PrevSelectedTravelTypes = _context.TripTravelType
+                .Include(t => t.TravelType)
+                .Where(t => t.TripId == trip.TripId)
+                .Select(t => t.TravelType)
+                .ToList();
+
+            //makes an empty list to hold selectListItems
+            List<SelectListItem> DisplayTripTravelTypes = new List<SelectListItem>();
+
+            //this loops over allTravelTypes
+            //any returns a bool of true or false base on if the condition that was passed in is met
+            //I use the bool value it returns to set the checked value on the selectListItems for my check boxes
+            foreach (TravelType TravelType in AllTravelTypes)
+            {
+                bool newList = PrevSelectedTravelTypes.Any(item => item.TravelTypeId == TravelType.TravelTypeId);
+                DisplayTripTravelTypes.Add(new SelectListItem
+                {
+                    Text = TravelType.Type,
+                    Value = TravelType.TravelTypeId.ToString(),
+                    Selected = newList
+                });
+            }
+
+            viewModel.AllTravelTypes = DisplayTripTravelTypes;
+
+            ViewData["scripts"] = new List<string>() {
+                "FinishedTripEdit"
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> FinishedTripEdit(int id, EditFinishedTripViewModel viewModel)
+        {
+            ModelState.Remove("Trip.User");
+            ModelState.Remove("Trip.UserId");
+
+
+            List<TripVisitLocation> FoodLocations = new List<TripVisitLocation>();
+            List<TripVisitLocation> VisitLocations = new List<TripVisitLocation>();
+
+
+            for (var i = 0; i < viewModel.NewFoodLocations.Count; i++) 
+            {
+                if (viewModel.NewFoodLocations[i].Name != null)
+                {
+                    FoodLocations.Add(viewModel.NewFoodLocations[i]);
+                }
+            }
+
+            for (var i = 0; i < viewModel.NewVisitLocations.Count; i++)
+            {
+                if (viewModel.NewVisitLocations[i].Name != null)
+                {
+                    VisitLocations.Add(viewModel.NewVisitLocations[i]);
+                }
+            }
+
+            viewModel.NewFoodLocations = FoodLocations;
+            viewModel.NewVisitLocations = VisitLocations;
+
+            Trip trip = await _context.Trip
+            .Include(t => t.TripTravelTypes)
+            .Include(t => t.TripVisitLocations)
+            .Include(t => t.TripRetros)
+            .SingleOrDefaultAsync(t => t.TripId == id);
+
+
+            //This checks if there are any joiner tables of this kind for this trip,
+            //then it foreaches over the joiner table and delets each one from the db
+            //this deletes all TripTravelTypes the joiner tables 
+            if (trip.TripTravelTypes.Count > 0)
+            {
+                foreach (TripTravelType travelType in trip.TripTravelTypes)
+                {
+                    //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
+                    _context.Remove(travelType);
+                }
+            }
+
+            //this builds up TripTravelType tables for each TravelType thats selected 
+            //checks to see if there are selectedTravelTypeIds to loop over 
+            if (viewModel.SelectedTravelTypeIds != null)
+            {
+                //makes joiner table for TripTravelType 
+                foreach (int TypeId in viewModel.SelectedTravelTypeIds)
+                {
+                    TripTravelType newTripTT = new TripTravelType()
+                    {   //pulls tripid out of context bag 
+                        TripId = viewModel.Trip.TripId,
+                        TravelTypeId = TypeId
+                    };
+
+                    _context.Add(newTripTT);
+                }
+            }
+             
+            // This deletes all the TripVisitLocations joiner tables 
+            if (trip.TripVisitLocations.Count > 0)
+            {
+                foreach (TripVisitLocation location in trip.TripVisitLocations)
+                {
+                    _context.Remove(location);
+                }
+            }
+
+            //this builds up the TripVisitLocation for food and adds it to the db context
+            if (viewModel.NewVisitLocations.Count > 0)
+            {
+                foreach (TripVisitLocation location in viewModel.NewVisitLocations)
+                {
+                    TripVisitLocation newTripVL = new TripVisitLocation()
+                    {
+                        TripId = trip.TripId,
+                        LocationTypeId = 2,
+                        Name = location.Name,
+                        Description = location.Description,
+                        IsCompleted = location.IsCompleted
+                    };
+                    _context.Add(newTripVL);
+                }
+            }
+
+            //this builds up the TripVisitLocation for food and adds it to the db context 
+            if (viewModel.NewFoodLocations.Count > 0)
+            {
+                foreach (TripVisitLocation location in viewModel.NewFoodLocations)
+                {
+                    TripVisitLocation newTripVL = new TripVisitLocation()
+                    {
+                        TripId = trip.TripId,
+                        LocationTypeId = 1,
+                        Name = location.Name,
+                        Description = location.Description,
+                        IsCompleted = location.IsCompleted
+                    };
+                    _context.Add(newTripVL);
+                }
+            }
+
+
+            //this gets the DoAgain retro 
+            TripRetro doAgainTripRetro = await _context.TripRetro
+                .Where(tr => tr.TripId == id && tr.RetroTypeId == 1).FirstOrDefaultAsync();
+
+            //This updates the DoAgain retro
+            doAgainTripRetro.Description = viewModel.DoAgainRetro.Description;
+            _context.Update(doAgainTripRetro);
+
+
+            TripRetro doDifferentTripRetro = await _context.TripRetro
+                .Where(tr => tr.TripId == id && tr.RetroTypeId == 2).FirstOrDefaultAsync();
+
+            doDifferentTripRetro.Description = viewModel.DoDifferentRetro.Description;
+            _context.Update(doDifferentTripRetro);
+
+            trip.Location = viewModel.Trip.Location;
+            trip.Accommodation = viewModel.Trip.Accommodation;
+            trip.Budget = viewModel.Trip.Budget;
+            trip.ContinentId = viewModel.Trip.ContinentId;
+            trip.IsPreTrip = false;
+            trip.Title = viewModel.Trip.Title;
+            trip.TripDates = viewModel.Trip.TripDates;
+                    
+
+            _context.Update(trip);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Trips");
+        }
+        
 
         //------------------------------------------------------------------START OF PLANNED TRIP DELETE
         // GET: Trips/Delete/5
@@ -494,7 +761,7 @@ namespace travoul.Controllers
                 return NotFound();
             }
             //This gets the trip I selected details so I can diplay them in the delete confirm
-            var trip = await _context.Trip
+            Trip trip = await _context.Trip
                 .Include(t => t.Continent)
                 .FirstOrDefaultAsync(m => m.TripId == id);
             if (trip == null)
@@ -511,7 +778,7 @@ namespace travoul.Controllers
         public async Task<IActionResult> PlannedTripDeleteConfirmed(int id)
         {
             //This gets the trip and includes the joiner tables 
-            var trip = await _context.Trip
+            Trip trip = await _context.Trip
                 .Include(t => t.TripTravelTypes)
                 .Include(t => t.TripVisitLocations)
                 .SingleOrDefaultAsync(t => t.TripId == id);
@@ -542,35 +809,69 @@ namespace travoul.Controllers
 
         //-------------------------------------------------------------------END OF PLANNED TRIP DELETE 
 
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        //-------------------------------------------------------------------START OF DELETE TRIP
+        public async Task<IActionResult> DeleteTrip(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var trip = await _context.Trip
-        //        .Include(t => t.Continent)
-        //        .Include(t => t.User)
-        //        .FirstOrDefaultAsync(m => m.TripId == id);
-        //    if (trip == null)
-        //    {
-        //        return NotFound();
-        //    }
+            Trip trip = await _context.Trip
+                .Include(t => t.Continent)
+                .Include(t => t.User)
+                .FirstOrDefaultAsync(m => m.TripId == id);
+            if (trip == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(trip);
-        //}
+            return View("Delete", trip);
+        }
 
-        // POST: Trips/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var trip = await _context.Trip.FindAsync(id);
-        //    _context.Trip.Remove(trip);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
+        //POST: Trips/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteTripConfirmed(int id)
+        {
+            //This gets the trip and includes the joiner tables 
+            Trip trip = await _context.Trip
+                .Include(t => t.TripTravelTypes)
+                .Include(t => t.TripVisitLocations)
+                .Include(t => t.TripRetros)
+                .SingleOrDefaultAsync(t => t.TripId == id);
+
+            //This checks if there are any joiner tables of this kind for this trip,
+            //then it foreaches over the joiner table and delets each one from the db
+            if (trip.TripTravelTypes.Count > 0)
+            {
+                foreach (TripTravelType travelType in trip.TripTravelTypes)
+                {
+                    //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
+                    _context.Remove(travelType);
+                }
+            }
+            //this does the same thing the one above does ^
+            if (trip.TripVisitLocations.Count > 0)
+            {
+                foreach (TripVisitLocation visitLocation in trip.TripVisitLocations)
+                {
+                    _context.Remove(visitLocation);
+                }
+            }
+            //this does the same thing 
+            if (trip.TripRetros.Count > 0)
+            {
+                foreach (TripRetro tripRetro in trip.TripRetros)
+                {
+                    _context.Remove(tripRetro);
+                }
+            }
+            _context.Trip.Remove(trip);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Trips");
+        }
+        //-------------------------------------------------------------------------------END OF DELETE TRIP
 
         private bool TripExists(int id)
         {

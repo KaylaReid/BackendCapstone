@@ -1,0 +1,114 @@
+﻿@model travoul.Models.ViewModels.FinishTripViewModel
+
+@{
+    ViewData["Title"] = "FinishTrip";
+}
+
+<h3>@Model.Trip.Title</h3>
+
+<div class="table">
+    <dl class="dl-horizontal">
+        <dt>
+            Title
+        </dt>
+        <dd>
+            @Model.Trip.Title
+        </dd>
+        <dt>
+            Continent
+        </dt>
+        <dd>
+            @Model.Trip.Continent
+        </dd>
+        <dt>
+            Location
+        </dt>
+        <dd>
+            @Model.Trip.Location
+        </dd>
+        <dt>
+            Dates of trip
+        </dt>
+        <dd>
+            @Model.Trip.TripDates
+        </dd>
+        <dt>
+            Accommodation
+        </dt>
+        <dd>
+            @Model.Trip.Accommodation
+        </dd>
+        <dt>
+            Budget
+        </dt>
+        <dd>
+            @Model.Trip.Budget
+
+        </dd>
+        <dt>Travel Type</dt>
+        <dd>
+            <ul>
+                @foreach (var TripTT in @Model.TravelTypes)
+                {
+                    <li>@TripTT.Type</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+    <div>
+        <form asp-action="FinishTripCreate" asp-route-id="@Model.Trip.TripId">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <hr />
+            <div class="retros-div">
+                <div>
+                    <h3>Select the food places you made it to</h3>
+                    @foreach (var item in Model.FoodLocations)
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SelectedLocationIds" value="@item.Value" />
+                                    @item.Text
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    <div id="new-food-container"></div>
+                    <button class="btn btn-sm btn-primary" id="add-food-btn">Add More</button>
+                </div>
+                <hr />
+                <div>
+                    <h3>Select the places you made it to</h3>
+                    @foreach (var item in Model.PlaceLocations)
+                    {
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="SelectedLocationIds" value="@item.Value" />
+                                    @item.Text
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    <div id="new-place-container"></div>
+                    <button class="btn btn-sm btn-primary" id="add-place-btn">Add More</button>
+                </div>
+                <hr />
+                <div class="form-group">
+                    <input type="hidden" value="1" asp-for="@Model.TripRetros[0].RetroTypeId" />
+                    <label asp-for="@Model.TripRetros[0].Description" class="control-label">What did you like about this trip/what would you do again?</label>
+                    <textarea asp-for="@Model.TripRetros[0].Description" placeholder="It was awesome, if we go back we are doing the helicopter tour again!!!" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="@Model.TripRetros" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" value="2" asp-for="@Model.TripRetros[1].RetroTypeId" />
+                    <label asp-for="@Model.TripRetros[1].Description" class="control-label">What did you like about this trip/what would you do again?</label>
+                    <textarea asp-for="@Model.TripRetros[1].Description" placeholder="I would splurge for a nicer hotel if we went back, it was really out of the way and a little dumpy." rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="@Model.TripRetros" class="text-danger"></span>
+                </div>
+            </div>
+            <button asp-controller="Trips" asp-action="FinishTrip" asp-route-id="@Model.Trip.TripId" type="submit" class="btn btn-sm btn-primary">Save</button>
+        </form>
+    </div>
+    <a asp-controller="Trips" asp-action="PlannedTrips" asp-route-id="@Model.Trip.TripId">Balck To List</a>
+</div>

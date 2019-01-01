@@ -12,12 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Continent)
         </dt>
         <dd>
@@ -53,16 +47,13 @@
         <dd>
             @Html.DisplayFor(model => model.Budget)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IsPreTrip)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IsPreTrip)
-        </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="TripId" />
+    @*<form asp-controller="Trips" asp-action="PlannedTripDeleteConfirmed" asp-route-id="@Model.TripId">
+        <input type="submit" value="Delete" class="btn btn-default" />
+    </form>*@
+
+    <form asp-controller="Trips" asp-action="DeleteTripConfirmed" asp-route-id="@Model.TripId" method="post">
+        @*<input type="hidden" asp-for="TripId" />*@
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

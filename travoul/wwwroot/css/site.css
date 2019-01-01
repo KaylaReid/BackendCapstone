@@ -28,6 +28,10 @@ body {
     margin: 15px;
 }
 
+.half-width {
+    width: 50% !important;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
