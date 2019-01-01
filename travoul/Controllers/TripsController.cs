@@ -614,8 +614,8 @@ namespace travoul.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> FinishedTripEdit(int id, EditFinishedTripViewModel viewModel)
         {
-            ModelState.Remove("Trip.User");
-            ModelState.Remove("Trip.UserId");
+            //ModelState.Remove("Trip.User");
+            //ModelState.Remove("Trip.UserId");
 
 
             List<TripVisitLocation> FoodLocations = new List<TripVisitLocation>();
