@@ -54,6 +54,7 @@ namespace travoul.Controllers
             return View(viewModel);
         }
 
+
         // GET: MyTrips --all finished trips
         public async Task<IActionResult> Index()
         {
