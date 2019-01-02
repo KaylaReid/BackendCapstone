@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using travoul.Data;
 using travoul.Models;
+using travoul.Models.ViewModels;
 
 namespace travoul.Controllers
 {
@@ -31,6 +33,18 @@ namespace travoul.Controllers
         public async Task<IActionResult> Index()
         {
             return View();
+        }
+
+        //Results of searching all trips
+        public async Task<IActionResult> TripSearchAll(string Search, TripSearchViewModel viewModel)
+        {
+            List<Trip> trips = await _context.Trip
+                .Include(t => t.Continent)
+                .Where(t => t.IsPreTrip == false && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search) || t.Continent.Name.Contains(viewModel.Search)).ToListAsync();
+
+            viewModel.Trips = trips;
+
+            return View(viewModel);
         }
 
         public IActionResult About()

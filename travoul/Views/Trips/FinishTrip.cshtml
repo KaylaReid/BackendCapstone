@@ -95,14 +95,11 @@
                 </div>
                 <hr />
                 <div class="form-group">
-                    @*<input type="hidden" value="1" asp-for="@Model.TripRetros[0].RetroTypeId" />*@
                     <label asp-for="@Model.DoAgain" class="control-label">What did you like about this trip/what would you do again?</label>
-                    <input type="text" asp-for="@Model.DoAgain"/>
-                    @*<textarea asp-for="@Model.DoAgain" placeholder="It was awesome, if we go back we are doing the helicopter tour again!!!" rows="3" class="form-control"></textarea>*@
+                    <textarea asp-for="@Model.DoAgain" placeholder="It was awesome, if we go back we are doing the helicopter tour again!!!" rows="3" class="form-control"></textarea>
                     <span asp-validation-for="@Model.DoAgain" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    @*<input type="hidden" value="2" asp-for="@Model.TripRetros[1].RetroTypeId" />*@
                     <label asp-for="@Model.DoDifferent" class="control-label">What did you like about this trip/what would you do again?</label>
                     <textarea asp-for="@Model.DoDifferent" placeholder="I would splurge for a nicer hotel if we went back, it was really out of the way and a little dumpy." rows="3" class="form-control"></textarea>
                     <span asp-validation-for="@Model.DoDifferent" class="text-danger"></span>

@@ -17,7 +17,7 @@ namespace travoul.Models.ViewModels
         [Required(ErrorMessage = "Please fill out this field")]
         public string DoDifferent { get; set; }
 
-        public List<TripRetro> TripRetros { get; set; }
+        //public List<TripRetro> TripRetros { get; set; }
 
         public List<TravelType> TravelTypes { get; set; }
 
