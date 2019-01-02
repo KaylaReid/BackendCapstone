@@ -26,14 +26,11 @@ namespace travoul.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
+        //Home page method
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            //if (await GetCurrentUserAsync() == null)
-            //{
-            //    RedirectToAction("Account/Login", "Identity");
-            //}
-                return View();
+            return View();
         }
 
         public IActionResult About()
