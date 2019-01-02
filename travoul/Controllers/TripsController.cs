@@ -41,6 +41,19 @@ namespace travoul.Controllers
             return View(await UserTrips);
         }
 
+        //search method
+        public async Task<IActionResult> TripSearch(bool preTrip, TripSearchViewModel viewModel)
+        {
+            var User = await GetCurrentUserAsync();
+           
+            List<Trip> trips = await _context.Trip
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search)).ToListAsync();
+
+            viewModel.Trips = trips;
+
+            return View(viewModel);
+        }
+
         // GET: MyTrips --all finished trips
         public async Task<IActionResult> Index()
         {
