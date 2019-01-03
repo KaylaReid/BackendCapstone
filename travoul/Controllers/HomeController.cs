@@ -47,6 +47,7 @@ namespace travoul.Controllers
             return View(viewModel);
         }
 
+        //This method gets details for all trips from the search results from the home page
         public async Task<IActionResult> AllTripsDetails(int? id)
         {
             if (id == null)
@@ -71,7 +72,6 @@ namespace travoul.Controllers
 
             return View(trip);
         }
-
 
         public IActionResult About()
         {

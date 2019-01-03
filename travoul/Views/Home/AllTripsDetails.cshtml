@@ -13,7 +13,8 @@
             @Html.DisplayNameFor(model => model.User)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.User.UserName)
+            @Model.User.FirstName
+            @Model.User.LastName
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Continent)
