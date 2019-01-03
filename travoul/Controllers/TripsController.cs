@@ -41,6 +41,20 @@ namespace travoul.Controllers
             return View(await UserTrips);
         }
 
+        //search method
+        public async Task<IActionResult> TripSearch(bool preTrip, TripSearchViewModel viewModel)
+        {
+            var User = await GetCurrentUserAsync();
+           
+            List<Trip> trips = await _context.Trip
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search)).ToListAsync();
+
+            viewModel.Trips = trips;
+
+            return View(viewModel);
+        }
+
+
         // GET: MyTrips --all finished trips
         public async Task<IActionResult> Index()
         {
@@ -238,13 +252,13 @@ namespace travoul.Controllers
 
         //--------------------------------------------------------------------------START FINISH TRIP CREATE
 
-        public async Task<IActionResult> FinishTrip(int id)
+        public async Task<FinishTripViewModel> FinishTripView(int id)
         {
             Trip trip = await _context.Trip
-                .Include(t => t.Continent)
-                .Include(t => t.TripTravelTypes)
-                .Include(t => t.TripVisitLocations)
-                .FirstOrDefaultAsync(t => t.TripId == id);
+                   .Include(t => t.Continent)
+                   .Include(t => t.TripTravelTypes)
+                   .Include(t => t.TripVisitLocations)
+                   .FirstOrDefaultAsync(t => t.TripId == id);
 
             List<TravelType> travelTypes = await _context.TripTravelType
                 .Include(t => t.TravelType)
@@ -257,7 +271,7 @@ namespace travoul.Controllers
                 Trip = trip,
                 TravelTypes = travelTypes
             };
-   
+
 
             //this builds up the foodlocations in checkbox form so the user can select which ones they made it too
             viewmodel.FoodLocations = trip.TripVisitLocations.Where(tvl => tvl.LocationTypeId == 1)
@@ -283,12 +297,69 @@ namespace travoul.Controllers
                 "FinishTrip"
             };
 
+            return viewmodel;
+        }
+
+        public async Task<IActionResult> FinishTrip(int id)
+        {
+            //Trip trip = await _context.Trip
+            //    .Include(t => t.Continent)
+            //    .Include(t => t.TripTravelTypes)
+            //    .Include(t => t.TripVisitLocations)
+            //    .FirstOrDefaultAsync(t => t.TripId == id);
+
+            //List<TravelType> travelTypes = await _context.TripTravelType
+            //    .Include(t => t.TravelType)
+            //    .Where(t => t.TripId == trip.TripId)
+            //    .Select(t => t.TravelType)
+            //    .ToListAsync();
+
+            //FinishTripViewModel viewmodel = new FinishTripViewModel
+            //{
+            //    Trip = trip,
+            //    TravelTypes = travelTypes
+            //};
+
+
+            ////this builds up the foodlocations in checkbox form so the user can select which ones they made it too
+            //viewmodel.FoodLocations = trip.TripVisitLocations.Where(tvl => tvl.LocationTypeId == 1)
+            //    //.AsEnumerable()
+            //    .Select(li => new SelectListItem
+            //    {
+            //        Text = li.Name,
+            //        Value = li.TripVisitLocationId.ToString()
+            //    }).ToList();
+            //;
+
+            ////this builds up the foodlocations in checkbox form so the user can select which ones they made it too
+            //viewmodel.PlaceLocations = trip.TripVisitLocations.Where(tvl => tvl.LocationTypeId == 2)
+            //    .AsEnumerable()
+            //    .Select(li => new SelectListItem
+            //    {
+            //        Text = li.Name,
+            //        Value = li.TripVisitLocationId.ToString()
+            //    }).ToList();
+            //; 
+
+            //ViewData["scripts"] = new List<string>() {
+            //    "FinishTrip"
+            //};
+            var viewmodel = await FinishTripView(id);
+
             return View(viewmodel);
         }
 
         [HttpPost]
         public async Task<IActionResult> FinishTrip(int id, FinishTripViewModel viewModel)
         {
+        
+           if(!ModelState.IsValid)
+            {
+                var viewmodel = await FinishTripView(id);
+
+                return View(viewmodel);
+            }
+
             Trip trip = await _context.Trip
                 .Include(t => t.TripVisitLocations)
                 .FirstOrDefaultAsync(t => t.TripId == id);
@@ -325,14 +396,31 @@ namespace travoul.Controllers
                     _context.Add(placeVL);
                 }
             }
-            if (viewModel.TripRetros != null)
-            { 
-                foreach (TripRetro tripRetro in viewModel.TripRetros)
-                {
-                    tripRetro.TripId = id;
-                    _context.Add(tripRetro);
-                };
-            }
+
+            TripRetro DoAgainRetro = new TripRetro();
+            DoAgainRetro.TripId = id;
+            DoAgainRetro.RetroTypeId = 1;
+            DoAgainRetro.Description = viewModel.DoAgain;
+
+            _context.Add(DoAgainRetro);
+
+            TripRetro DoDifferent = new TripRetro();
+            DoDifferent.TripId = id;
+            DoDifferent.RetroTypeId = 2;
+            DoDifferent.Description = viewModel.DoDifferent;
+
+            _context.Add(DoDifferent);
+
+
+
+            //if (viewModel.TripRetros != null)
+            //{ 
+            //    foreach (TripRetro tripRetro in viewModel.TripRetros)
+            //    {
+            //        tripRetro.TripId = id;
+            //        _context.Add(tripRetro);
+            //    };
+            //}
 
             trip.IsPreTrip = false;
             _context.Update(trip);
@@ -614,8 +702,8 @@ namespace travoul.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> FinishedTripEdit(int id, EditFinishedTripViewModel viewModel)
         {
-            ModelState.Remove("Trip.User");
-            ModelState.Remove("Trip.UserId");
+            //ModelState.Remove("Trip.User");
+            //ModelState.Remove("Trip.UserId");
 
 
             List<TripVisitLocation> FoodLocations = new List<TripVisitLocation>();

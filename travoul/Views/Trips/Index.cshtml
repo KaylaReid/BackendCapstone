@@ -6,8 +6,14 @@
 
 <h3>My Trips</h3>
 
+<div>
+    <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="false">
+        <input type="text" name="Search" class="form-control" />
+    </form>
+</div>
+
 <table class="table">
-    <thead>
+    <thead>  
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)

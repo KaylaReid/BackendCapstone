@@ -3,16 +3,74 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using travoul.Data;
 using travoul.Models;
+using travoul.Models.ViewModels;
 
 namespace travoul.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext _context;
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public HomeController(ApplicationDbContext ctx,
+                          UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+            _context = ctx;
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+        //Home page method
+        [Authorize]
+        public async Task<IActionResult> Index()
         {
             return View();
+        }
+
+        //Results of searching all trips
+        public async Task<IActionResult> TripSearchAll(string Search, TripSearchViewModel viewModel)
+        {
+            List<Trip> trips = await _context.Trip
+                .Include(t => t.Continent)
+                .Where(t => t.IsPreTrip == false && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search) || t.Continent.Name.Contains(viewModel.Search)).ToListAsync();
+
+            viewModel.Trips = trips;
+
+            return View(viewModel);
+        }
+
+        //This method gets details for all trips from the search results from the home page
+        public async Task<IActionResult> AllTripsDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var trip = await _context.Trip
+                .Include(t => t.Continent)
+                .Include(t => t.User)
+                .Include(t => t.TripTravelTypes)
+                .ThenInclude(tt => tt.TravelType)
+                .Include(t => t.TripVisitLocations)
+                .ThenInclude(tvl => tvl.LocationType)
+                .Include(t => t.TripRetros)
+                .ThenInclude(tr => tr.RetroType)
+                .FirstOrDefaultAsync(t => t.TripId == id);
+            if (trip == null)
+            {
+                return NotFound();
+            }
+
+            return View(trip);
         }
 
         public IActionResult About()

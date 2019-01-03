@@ -6,6 +6,12 @@
 
 <h3>Planned Trips</h3>
 
+<div>
+    <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="true">
+        <input type="text" name="Search" class="form-control" />
+    </form>
+</div>
+
 <table class="table">
     <thead>
         <tr>

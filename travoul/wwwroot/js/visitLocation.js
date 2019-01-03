@@ -73,22 +73,3 @@ const selectPlaces = document.querySelector(".add-more-places").addEventListener
 
     return placeIncrementer++
 })
-
-
-//fetch("http://localhost:5000/Trips/Create")
-
-//    .then(res => res.json())
-//    .then(songs => {
-
-//        const songOption = document.createElement("option")
-//        songOption.value = "0"
-//        songOption.textContent = "Select a favorite song..."
-//        select.appendChild(songOption)
-
-//        songs.map(song => {
-//            const songOption = document.createElement("option")
-//            songOption.value = song.songId
-//            songOption.textContent = song.title
-//            select.appendChild(songOption)
-//        })
-//    })

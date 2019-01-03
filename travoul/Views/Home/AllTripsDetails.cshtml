@@ -1,0 +1,142 @@
+﻿@model travoul.Models.Trip
+
+@{
+    ViewData["Title"] = "AllTripsDetails";
+}
+
+<h3>Details for @Html.DisplayFor(model => model.Title)</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd>
+            @Model.User.FirstName
+            @Model.User.LastName
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Continent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Continent.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TripDates)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TripDates)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Accommodation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Accommodation)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Budget)
+        </dd>
+    </dl>
+    <dt>Travel Type</dt>
+    <dd>
+        <ul>
+            @foreach (var TripTT in Model.TripTravelTypes)
+            {
+                <li>@string.Format(TripTT.TravelType.Type)</li>
+            }
+        </ul>
+    </dd>
+    <hr />
+    <dt>Things I wanted to do</dt>
+    <dd>
+        <ul>
+            @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 1 && t.IsCompleted == false).Count() > 0)
+            {
+                <h4>Food</h4>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Food" && TripL.IsCompleted == false)
+                    {
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                    }
+                }
+            }
+            @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 2 && t.IsCompleted == false).Count() > 0)
+            {
+                <h4>Places</h4>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Place" && TripL.IsCompleted == false)
+                    {
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                    }
+                }
+            }
+        </ul>
+    </dd>
+    <dt>Things I did do</dt>
+    <dd>
+        <ul>
+            @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 1 && t.IsCompleted == true).Count() > 0)
+            {
+                <h4>Food</h4>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Food" && TripL.IsCompleted == true)
+                    {
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                    }
+                }
+            }
+            @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 2 && t.IsCompleted == true).Count() > 0)
+            {
+                <h4>Places</h4>
+                @foreach (var TripL in Model.TripVisitLocations)
+                {
+                    if (TripL.LocationType.Type == "Place" && TripL.IsCompleted == true)
+                    {
+                        <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
+                    }
+                }
+            }
+        </ul>
+    </dd>
+    <hr />
+    <dt>What I'd do again</dt>
+    @foreach (var TripR in Model.TripRetros)
+    {
+        if (TripR.RetroTypeId == 1)
+        {
+            <dd>@string.Format(TripR.Description)</dd>
+        }
+    }
+    <br />
+    <dt>What I'd do different</dt>
+    @foreach (var TripR in Model.TripRetros)
+    {
+        if (TripR.RetroTypeId == 2)
+        {
+            <dd>@string.Format(TripR.Description)</dd>
+        }
+    }
+    </dl>
+</div>
+<div>
+    <a asp-controller="Home" asp-action="Index">Back to List</a>
+</div>
