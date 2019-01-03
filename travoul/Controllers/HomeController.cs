@@ -47,6 +47,32 @@ namespace travoul.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> AllTripsDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var trip = await _context.Trip
+                .Include(t => t.Continent)
+                .Include(t => t.User)
+                .Include(t => t.TripTravelTypes)
+                .ThenInclude(tt => tt.TravelType)
+                .Include(t => t.TripVisitLocations)
+                .ThenInclude(tvl => tvl.LocationType)
+                .Include(t => t.TripRetros)
+                .ThenInclude(tr => tr.RetroType)
+                .FirstOrDefaultAsync(t => t.TripId == id);
+            if (trip == null)
+            {
+                return NotFound();
+            }
+
+            return View(trip);
+        }
+
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
