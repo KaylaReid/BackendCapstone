@@ -13,10 +13,10 @@
     </div>
 </div>
 
-<div class="d-flex justify-content-around">
+<div class="d-flex flex-wrap justify-content-around">
     @foreach (Trip trip in Model) 
      {
-        <div class="card mt-2 pre-trip-card">
+        <div class="card mt-3 pre-trip-card">
             <h5 class="card-header">@trip.Continent.Name</h5>
             <div class="card-body">
                 <h5 class="card-title">@trip.Title</h5>
