@@ -32,6 +32,64 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 50% !important;
 }
 
+
+/*Re-useable styles*/
+
+
+
+
+
+/*Planned Trips index*/
+.pre-trip-card {
+    width: 30%;
+}
+
+.search-container {
+    margin: 3em 0;
+}
+
+.search-bar-area {
+    width: 50%;
+}
+
+.planned-details-card {
+    width: 60%;
+}
+
+.food-card-container,
+.place-card-container {
+    width: 45%;
+}
+
+
+
+/*Finished Trips index*/
+
+
+
+/*Home Page*/
+.home-page-img {
+    height: 550px;
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
@@ -40,7 +98,5 @@ for details on configuring this project to bundle and minify static web assets. 
     }
 }
 
-.home-page-img {
-    height: 550px;
-    width: 100%;
-}
+
+

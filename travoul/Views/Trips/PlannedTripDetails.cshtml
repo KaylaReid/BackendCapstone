@@ -4,84 +4,74 @@
     ViewData["Title"] = "Details";
 }
 
-<h3>Details for @Html.DisplayFor(model => model.Title)</h3>
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            Continent
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Continent.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Location)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TripDates)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TripDates)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Accommodation)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Accommodation)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Budget)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Budget)
-        </dd>
-            <dt>Travel Type</dt>
-            <dd>
-                <ul>
-                    @foreach (var TripTT in Model.TripTravelTypes)
-                    {
-                        <li>@TripTT.TravelType.Type</li>
-                    }
-                </ul>
-            </dd>
-            <hr />
-            <h4>Things I want to do and places I want to eat on this trip</h4>
-            <dd>
-                <ul>
-                    <h4>Food</h4>
-                    @foreach (var TripL in Model.TripVisitLocations)
-                    {
-                        if (TripL.LocationType.Type == "Food")
-                        {
-                            <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
-                        }
-                    }
-
-                    <h4>Places</h4>
-                    @foreach (var TripL in Model.TripVisitLocations)
-                    {
-                        if (TripL.LocationType.Type == "Place")
-                        {
-                            <li>@string.Format(TripL.Name)<b>:</b> @string.Format(TripL.Description)</li>
-                        }
-                    }
-                </ul>
-            </dd>
-        </dl>
+<div class="mt-3 d-flex justify-content-center">
+    <div class="card text-center w-75">
+        <div class="card-header">
+            @Model.Continent.Name
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Title</h5>
+            <p class="card-text">@Model.Location</p>
+            <p class="card-text">Planned Dates: @Model.TripDates</p>
+            <p class="card-text">Where to Stay: @Model.Accommodation</p>
+            <p class="card-text">Budget: @Model.Budget</p>
+        </div>
+        <div class="card-footer text-muted">
+            <h5 class="card-text">Transportation Plans</h5>
+            <div class="d-flex justify-content-around">
+                @foreach (TripTravelType tt in Model.TripTravelTypes)
+                {
+                    <div>
+                        <p class="card-text">@tt.TravelType.Type</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-controller="Trips" asp-action="PlannedTripEdit" asp-route-id="@Model.TripId">Edit</a> |
-    <a asp-action="PlannedTripDelete" asp-route-id="@Model.TripId">Delete</a> |
-    <a asp-controller="Trips" asp-action="FinishTrip" asp-route-id="@Model.TripId">Finish Trip</a> |
-    <a asp-action="PlannedTrips">Back to List</a>
+<div class="mt-4 mb-4">
+    <h4 class="text-center">Experiences</h4>
+    <hr />
+</div>
+<div class="d-flex justify-content-between">
+    <div class="card food-card-container">
+        <div class="card-body">
+            <p class="card-text text-center">Foods to Try</p>
+            <hr />
+            @foreach (var food in Model.TripVisitLocations.Where(t => t.LocationTypeId == 1))
+            {
+                <div class="card mt-2">
+                    <div class="card-header">@food.Name</div>
+                    <div class="card-body">
+                        <div class="card-text">@food.Description</div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="card place-card-container">
+        <div class="card-body">
+            <p class="card-text text-center">Places to Visit</p>
+            <hr />
+            @foreach (var place in Model.TripVisitLocations.Where(t => t.LocationTypeId == 2))
+            {
+                <div class="card mt-2">
+                    <div class="card-header">@place.Name</div>
+                    <div class="card-body">
+                        <div class="card-text">@place.Description</div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <div class="btn-group mt-4" role="group">
+        <a class="btn btn-secondary" asp-controller="Trips" asp-action="PlannedTripEdit" asp-route-id="@Model.TripId">Edit</a>
+        <a class="btn btn-secondary" asp-action="PlannedTripDelete" asp-route-id="@Model.TripId">Delete</a>
+        <a class="btn btn-secondary" asp-controller="Trips" asp-action="FinishTrip" asp-route-id="@Model.TripId">Finish Trip</a>
+        <a class="btn btn-secondary" asp-action="PlannedTrips">Back to List</a>
+    </div>
 </div>

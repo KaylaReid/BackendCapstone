@@ -25,7 +25,11 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Travoul</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="lead nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")">Travoul</a>
+            </li>
+        </ul>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -35,56 +39,23 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Index">My Trips</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Create">Plan the next one</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="PlannedTrips">Planned Trips</a>
-                </li>
+
+                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Trips" ? "active" : "")">
+                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Index">My Trips</a>
+                    </li>
+
+                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Create" ? "active" : "")">
+                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Create">Plan the next one</a>
+                    </li>
+                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "PlannedTrips" ? "active" : "")">
+                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="PlannedTrips">Planned Trips</a>
+                    </li>
                 }
             </ul>
             <partial name="_LoginPartial" />
 
         </div>
     </nav>
-    @*<nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Travoul</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        <li>
-                            <a asp-area="" asp-controller="Trips" asp-action="Index">My Trips</a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Trips" asp-action="Create">Plan the next one</a>
-                        </li>
-                        <li>
-                            <a asp-area="" asp-controller="Trips" asp-action="PlannedTrips">Planned Trips</a>
-                        </li>
-
-                    }
-                    @*<li><a asp-area="" asp-controller="home" asp-action="index">home</a></li>
-        <li><a asp-area="" asp-controller="home" asp-action="about">about</a></li>
-        <li><a asp-area="" asp-controller="home" asp-action="contact">contact</a></li>*@
-    @*</ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>*@
-
         <partial name="_CookieConsentPartial" />
 
         <div class="container body-content">
