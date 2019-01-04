@@ -39,7 +39,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 
-/*Planned Trips index*/
+/*Planned Trips */
 .pre-trip-card {
     width: 30%;
 }
@@ -61,6 +61,13 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 45%;
 }
 
+.plan-create-details-card {
+    width: 40%;
+}
+
+.plan-create-locations-card {
+    width: 35%;
+}
 
 
 /*Finished Trips index*/
