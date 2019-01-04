@@ -841,25 +841,6 @@ namespace travoul.Controllers
         
 
         //------------------------------------------------------------------START OF PLANNED TRIP DELETE
-        // GET: Trips/Delete/5
-        public async Task<IActionResult> PlannedTripDelete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            //This gets the trip I selected details so I can diplay them in the delete confirm
-            Trip trip = await _context.Trip
-                .Include(t => t.Continent)
-                .FirstOrDefaultAsync(m => m.TripId == id);
-            if (trip == null)
-            {
-                return NotFound();
-            }
-
-            return View(trip);
-        }
-
         // POST: Trips/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
