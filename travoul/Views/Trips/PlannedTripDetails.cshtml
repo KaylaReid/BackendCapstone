@@ -19,11 +19,20 @@
         <div class="card-footer text-muted">
             <h5 class="card-text">Transportation Plans</h5>
             <div class="d-flex justify-content-around">
-                @foreach (TripTravelType tt in Model.TripTravelTypes)
+                @if (Model.TripTravelTypes.Count() == 0)
                 {
                     <div>
-                        <p class="card-text">@tt.TravelType.Type</p>
+                        <p class="card-text font-italic text-muted">None</p>
                     </div>
+                }
+                else
+                {
+                    @foreach (TripTravelType tt in Model.TripTravelTypes)
+                    {
+                        <div>
+                            <p class="card-text">@tt.TravelType.Type</p>
+                        </div>
+                    }
                 }
             </div>
         </div>
@@ -43,7 +52,14 @@
                 <div class="card mt-2">
                     <div class="card-header">@food.Name</div>
                     <div class="card-body">
-                        <div class="card-text">@food.Description</div>
+                        @if (food.Description == null)
+                        {
+                            <div class="card-text font-italic text-muted">No Description</div>
+                        }
+                        else
+                        {
+                            <div class="card-text">@food.Description</div>
+                        }
                     </div>
                 </div>
             }
@@ -58,7 +74,14 @@
                 <div class="card mt-2">
                     <div class="card-header">@place.Name</div>
                     <div class="card-body">
-                        <div class="card-text">@place.Description</div>
+                        @if (place.Description == null)
+                        {
+                            <div class="card-text font-italic text-muted">No Description</div>
+                        }
+                        else
+                        { 
+                            <div class="card-text">@place.Description</div>
+                        }
                     </div>
                 </div>
 

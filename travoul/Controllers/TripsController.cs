@@ -545,7 +545,7 @@ namespace travoul.Controllers
                         {
                             TripTravelType newTripTT = new TripTravelType()
                             {   //pulls tripid out of context bag 
-                                TripId = viewModel.Trip.TripId,
+                                TripId = trip.TripId,
                                 TravelTypeId = TypeId
                             };
 
@@ -569,7 +569,7 @@ namespace travoul.Controllers
                         {
                             TripVisitLocation newTripVL = new TripVisitLocation()
                             {
-                                TripId = viewModel.Trip.TripId,
+                                TripId = trip.TripId,
                                 LocationTypeId = 1,
                                 Name = location.Name,
                                 Description = location.Description,
@@ -586,7 +586,7 @@ namespace travoul.Controllers
                         {
                             TripVisitLocation newTripVL = new TripVisitLocation()
                             {
-                                TripId = viewModel.Trip.TripId,
+                                TripId = trip.TripId,
                                 LocationTypeId = 2,
                                 Name = location.Name,
                                 Description = location.Description,
@@ -609,7 +609,7 @@ namespace travoul.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TripExists(viewModel.Trip.TripId))
+                    if (!TripExists(id))
                     {
                         return NotFound();
                     }
