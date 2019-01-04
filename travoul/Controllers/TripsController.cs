@@ -840,68 +840,50 @@ namespace travoul.Controllers
         }
         
 
-        //------------------------------------------------------------------START OF PLANNED TRIP DELETE
-        // POST: Trips/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PlannedTripDeleteConfirmed(int id)
-        {
-            //This gets the trip and includes the joiner tables 
-            Trip trip = await _context.Trip
-                .Include(t => t.TripTravelTypes)
-                .Include(t => t.TripVisitLocations)
-                .SingleOrDefaultAsync(t => t.TripId == id);
+        ////------------------------------------------------------------------START OF PLANNED TRIP DELETE
+        //// POST: Trips/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> PlannedTripDeleteConfirmed(int id)
+        //{
+        //    //This gets the trip and includes the joiner tables 
+        //    Trip trip = await _context.Trip
+        //        .Include(t => t.TripTravelTypes)
+        //        .Include(t => t.TripVisitLocations)
+        //        .SingleOrDefaultAsync(t => t.TripId == id);
 
-                //This checks if there are any joiner tables of this kind for this trip,
-                //then it foreaches over the joiner table and delets each one from the db
-            if (trip.TripTravelTypes.Count > 0)
-            {
-                foreach (TripTravelType travelType in trip.TripTravelTypes) 
-                {
-                    //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
-                    _context.Remove(travelType);
-                }
-            }
-            //this does the same thing the one above does ^
-            if (trip.TripVisitLocations.Count > 0)
-            {
-                foreach (TripVisitLocation visitLocation in trip.TripVisitLocations)
-                {
-                    _context.Remove(visitLocation);
-                }
-            }
-            //this removes the trip adds the trip to the _context bag before is saves all the changes 
-            _context.Remove(trip);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("PlannedTrips", "Trips");
-        }
+        //        //This checks if there are any joiner tables of this kind for this trip,
+        //        //then it foreaches over the joiner table and delets each one from the db
+        //    if (trip.TripTravelTypes.Count > 0)
+        //    {
+        //        foreach (TripTravelType travelType in trip.TripTravelTypes) 
+        //        {
+        //            //this says for each one of the joiner tables put it in the _context bag to get deleted on _context.SaveChangesAsync
+        //            _context.Remove(travelType);
+        //        }
+        //    }
+        //    //this does the same thing the one above does ^
+        //    if (trip.TripVisitLocations.Count > 0)
+        //    {
+        //        foreach (TripVisitLocation visitLocation in trip.TripVisitLocations)
+        //        {
+        //            _context.Remove(visitLocation);
+        //        }
+        //    }
+        //    //this removes the trip adds the trip to the _context bag before is saves all the changes 
+        //    _context.Remove(trip);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction("PlannedTrips", "Trips");
+        //}
 
-        //-------------------------------------------------------------------END OF PLANNED TRIP DELETE 
+        ////-------------------------------------------------------------------END OF PLANNED TRIP DELETE 
 
         //-------------------------------------------------------------------START OF DELETE TRIP
-        public async Task<IActionResult> DeleteTrip(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Trip trip = await _context.Trip
-                .Include(t => t.Continent)
-                .Include(t => t.User)
-                .FirstOrDefaultAsync(m => m.TripId == id);
-            if (trip == null)
-            {
-                return NotFound();
-            }
-
-            return View("Delete", trip);
-        }
 
         //POST: Trips/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteTripConfirmed(int id)
+        public async Task<IActionResult> DeleteTrip(int id)
         {
             //This gets the trip and includes the joiner tables 
             Trip trip = await _context.Trip

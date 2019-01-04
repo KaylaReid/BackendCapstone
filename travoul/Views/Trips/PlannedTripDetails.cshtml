@@ -91,7 +91,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form asp-controller="Trips" asp-action="PlannedTripDeleteConfirmed" asp-route-id="@Model.TripId">
+                <form asp-controller="Trips" asp-action="DeleteTrip" asp-route-id="@Model.TripId">
                     <button class="btn btn-danger text-white">Delete</button>
                 </form>
             </div>
