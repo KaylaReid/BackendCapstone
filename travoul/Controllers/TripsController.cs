@@ -163,7 +163,7 @@ namespace travoul.Controllers
 
 
             ViewData["scripts"] = new List<string>() {
-                "visitLocation"
+                "CreateTrip"
             };
 
             return View(viewmodel);

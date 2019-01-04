@@ -4,30 +4,32 @@
     ViewData["Title"] = "Create";
 }
 
-<h3>Start Planning...</h3>
+<h3 class="text-center pt-3 pb-3">Start Planning</h3>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+
+<form asp-controller="Trips" asp-action="Create">
+    <div class="d-flex justify-content-around">
+        <div class="card p-2 plan-create-details-card">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card-text text-center font-weight-bold">Travoul Details</div>
+            <hr />
             <div class="form-group">
-                <label asp-for="Trip.Title" class="control-label">What do you want to call this trip?</label>
+                <label asp-for="Trip.Title" class="control-label">Name this Travoul</label>
                 <input asp-for="Trip.Title" class="form-control" placeholder="Title" />
                 <span asp-validation-for="Trip.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.ContinentId" class="control-label">Continent</label>
+                <label asp-for="Trip.ContinentId" class="control-label">Area of the World</label>
                 <select asp-for="Trip.ContinentId" class="form-control" asp-items="Model.AllContinentOptions"></select>
                 <span asp-validation-for="Trip.ContinentId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.Location" class="control-label">Where are you taveling?</label>
+                <label asp-for="Trip.Location" class="control-label">Where are you taveling to?</label>
                 <input asp-for="Trip.Location" class="form-control" placeholder="Location" />
                 <span asp-validation-for="Trip.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.TripDates" class="control-label">What are the trip dates?</label>
+                <label asp-for="Trip.TripDates" class="control-label">What are your expected trip dates?</label>
                 <input asp-for="Trip.TripDates" class="form-control" placeholder="Ex. 12/1/2018-12/10/18" />
                 <span asp-validation-for="Trip.TripDates" class="text-danger"></span>
             </div>
@@ -37,13 +39,14 @@
                 <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Trip.Budget" class="control-label">Budget for the trip</label>
+                <label asp-for="Trip.Budget" class="control-label">Travoul Budget</label>
                 <input asp-for="Trip.Budget" class="form-control" placeholder="1500" />
                 <span asp-validation-for="Trip.Budget" class="text-danger"></span>
             </div>
-            <div>
-                <label class="control-label">Select how you'll be traveling</label>
-            </div>
+        </div>
+        <div class="card p-2">
+            <div class="card-text text-center font-weight-bold">Travel Plans</div>
+            <hr />
             <div>
                 @foreach (var item in Model.AllTravelTypes)
                 {
@@ -57,110 +60,53 @@
                     </div>
                 }
             </div>
-            <div class="visit-locations-container">
-                @*@foreach (LocationType l in Model.LocationTypes)
-                {
-                    <div class="@l.Type">
-                        <h3>@l.Type</h3>
-                        @for (var i = 0; i < 3; i++)
-                        {
-                            <div>
-                                <div>
-                                    <label for=@l.Type-name-@(i + 1)>Name</label>
-                                    <input asp-for="@Model.EnteredTripFoodLocations[i].Name" type="text" id=@l.Type-name-@(i + 1) />
-                                </div>
-                                <div>
-                                    <label id=@l.Type-desc-@(i + 1)>Description</label>
-                                    <input asp-for="@Model.EnteredTripFoodLocations[i].Description" type="text" id=@l.Type-desc-@(i + 1) />
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    <button type=button class="add-more-@l.Type">Add More @l.Type Places</button>
-                    <hr />
-                }*@
-                <div class="Food">
-                <h3>Food</h3>
-                <div>
-                    <div>
-                        <label for="Food-name-1">Name</label>
-                        <input asp-for="@Model.EnteredTripFoodLocations[0].Name" type="text" id="Food-name-1"/>
-                    </div>
-                    <div>
-                        <label for="Food-desc-1">Description</label>
-                        <input asp-for="@Model.EnteredTripFoodLocations[0].Description" type="text" id="Food-desc-1"/>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label for="Food-name-2">Name</label>
-                        <input asp-for="@Model.EnteredTripFoodLocations[1].Name" type="text" id="Food-name-2" />
-                    </div>
-                    <div>
-                        <label for="Food-desc-2">Description</label>
-                        <input asp-for="@Model.EnteredTripFoodLocations[1].Description" type="text" id="Food-desc-2" />
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label for="Food-name-3">Name</label>
-                        <input asp-for="@Model.EnteredTripFoodLocations[2].Name" type="text" id="Food-name-3" />
-                    </div>
-                    <div>
-                        <label for="Food-desc-3">Description</label>
-                        <input asp-for="@Model.EnteredTripFoodLocations[2].Description" type="text" id="Food-desc-3" />
-                    </div>
-                </div>
-            </div>
-            <button type=button class="add-more-food">Add More Food Places</button>
-            <hr />
-            <div class="Places">
-                <h3>Places</h3>
-                <div>
-                    <div>
-                        <label for="visit-name-1">Name</label>
-                        <input asp-for="@Model.EnteredTripVisitLocations[0].Name" type="text" id="visit-name-1" />
-                    </div>
-                    <div>
-                        <label for="visit-desc-1">Description</label>
-                        <input asp-for="@Model.EnteredTripVisitLocations[0].Description" type="text" id="visit-desc-1" />
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label for="visit-name-2">Name</label>
-                        <input asp-for="@Model.EnteredTripVisitLocations[1].Name" type="text" id="visit-name-2" />
-                    </div>
-                    <div>
-                        <label for="visit-desc-2">Description</label>
-                        <input asp-for="@Model.EnteredTripVisitLocations[1].Description" type="text" id="visit-desc-2" />
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <label for="visit-name-3">Name</label>
-                        <input asp-for="@Model.EnteredTripVisitLocations[2].Name" type="text" id="visit-name-3" />
-                    </div>
-                    <div>
-                        <label for="visit-desc-3">Description</label>
-                        <input asp-for="@Model.EnteredTripVisitLocations[2].Description" type="text" id="visit-desc-3" />
-                    </div>
-                </div>
-            </div>
         </div>
-        <button type=button class="add-more-places">Add More Places to Visit</button>
-            </div>
+        <div class="card p-2 plan-create-locations-card">
+            <div class="card-text text-center font-weight-bold">Plan Activities</div>
             <hr />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="food-container">
+                <div class="card-text text-center mb-2">Foods to Try</div>
+                <div class="card p-2 bg-light mb-2" id="food-location-1">
+                    <div>
+                        <div class="form-group">
+                            <label for="Food-name-1" class="control-label">Name</label>
+                            <input asp-for="@Model.EnteredTripFoodLocations[0].Name" type="text" class="form-control" id="Food-name-1" />
+                            <span asp-validation-for="@Model.EnteredTripFoodLocations[0].Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Food-desc-1" class="control-label">Description</label>
+                            <textarea asp-for="@Model.EnteredTripFoodLocations[0].Description" type="text" class="form-control" id="Food-desc-1"></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
+            <button class="btn btn-secondary btn-block mt-2" id="add-food-btn">Add More</button>
+            <hr />
+            <div class="visit-container">
+                <div class="card-text text-center mb-2">Places to See</div>
+                <div class="card p-2 bg-light mb-2" id="visit-location-1">
+                    <div>
+                        <div class="form-group">
+                            <label for="Visit-name-1" class="control-label">Name</label>
+                            <input asp-for="@Model.EnteredTripVisitLocations[0].Name" type="text" class="form-control" id="Visit-name-1" />
+                            <span asp-validation-for="@Model.EnteredTripVisitLocations[0].Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Visit-desc-1" class="control-label">Description</label>
+                            <textarea asp-for="@Model.EnteredTripVisitLocations[0].Description" type="text" class="form-control" id="Visit-desc-1"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-secondary btn-block mt-2" id="add-visit-btn">Add More</button>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <h3 class="text-center pt-3 pb-3">Finished?</h3>
+    <button class="btn btn-secondary btn-block btn-lg mt-3">Save</button>
+
+</form>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
