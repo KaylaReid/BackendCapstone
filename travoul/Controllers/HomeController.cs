@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using travoul.Data;
 using travoul.Models;
 using travoul.Models.ViewModels;
+using travoul.Models.ViewModels.PaginationModels;
 
 namespace travoul.Controllers
 {
@@ -36,14 +37,19 @@ namespace travoul.Controllers
         }
 
         //Results of searching all trips
-        public async Task<IActionResult> TripSearchAll(string Search, TripSearchViewModel viewModel)
+        public async Task<IActionResult> TripSearchAll(int? page, string Search, TripSearchViewModel viewModel)
         {
             List<Trip> trips = await _context.Trip
                 .Include(t => t.Continent)
                 .Where(t => t.IsPreTrip == false && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search) || t.Continent.Name.Contains(viewModel.Search)).ToListAsync();
 
-            viewModel.Trips = trips;
+            Pager pager = new Pager(trips.Count(), page);
 
+
+            viewModel.Trips = trips.Skip((pager.CurrentPage - 1) * pager.PageSize)
+                .Take(pager.PageSize).ToList();
+            viewModel.Pager = pager;
+            
             return View(viewModel);
         }
 
