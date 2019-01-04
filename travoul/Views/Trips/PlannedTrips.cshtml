@@ -4,64 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>Planned Trips</h3>
-
-<div>
-    <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="true">
-        <input type="text" name="Search" class="form-control" />
-    </form>
+<div class="search-container d-flex justify-content-center">
+    <div class="search-bar-area">
+        <h4 class="text-center">Search for specific pre-planned trips</h4>
+        <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="true">
+            <input placeholder="Search by Name or Location" type="search" name="Search" class="form-control" />
+        </form>
+    </div>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                Continent
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                Dates of trip
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Budget)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Continent.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Location)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TripDates)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Accommodation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Budget)
-                </td>
-                <td>
-                    <a asp-action="PlannedTripDetails" asp-route-id="@item.TripId">Details</a> 
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="d-flex flex-wrap justify-content-around">
+    @foreach (Trip trip in Model) 
+     {
+        <div class="card mt-3 pre-trip-card">
+            <h5 class="card-header">@trip.Continent.Name</h5>
+            <div class="card-body">
+                <h5 class="card-title">@trip.Title</h5>
+                <p class="card-text">@trip.Location</p>
+                <p class="card-text">@trip.TripDates</p>
+                <p class="card-text">@trip.Accommodation</p>
+                <p class="card-text">@trip.Budget</p>
+                <a asp-action="PlannedTripDetails" asp-route-id="@trip.TripId" class="btn btn-sm btn-secondary">Details</a>
+            </div>
+        </div>
+     }
+
+</div>
+ 

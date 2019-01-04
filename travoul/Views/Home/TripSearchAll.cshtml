@@ -8,14 +8,49 @@
 
 @foreach (Trip trip in Model.Trips)
 {
-<div>
-    <h4>@trip.Title</h4>
-    <h4>@trip.Location</h4>
-    <h4>@trip.Continent</h4>
-    <h4>@trip.TripDates</h4>
-    <a class="btn btn-primary" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">See Trip Details</a>
-</div>
+    <div>
+        <h4>@trip.Title</h4>
+        <h4>@trip.Location</h4>
+        <h4>@trip.Continent</h4>
+        <h4>@trip.TripDates</h4>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">See Trip Details</a>
+    </div>
 }
+
+@if (Model.Pager.EndPage > 1)
+{
+    <nav class="d-flex justify-content-center mt-2" aria-label="Page Navigation">
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                <li class="page-item @(page == Model.Pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                </li>
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
 
 <a class="btn btn-success" asp-controller="Home" asp-action="Index">Back to Home</a>
 

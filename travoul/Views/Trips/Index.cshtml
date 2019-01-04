@@ -4,13 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h3>My Trips</h3>
-
-<div>
+<div class="search-container d-flex justify-content-center">
+    <div class="search-bar-area">
+        <h4 class="text-center">Search though past Travouls</h4>
+        <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="false">
+            <input placeholder="Search by Name or Location" type="search" name="Search" class="form-control" />
+        </form>
+    </div>
+</div>
+@*<div>
     <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="false">
         <input type="text" name="Search" class="form-control" />
     </form>
-</div>
+</div>*@
 
 <table class="table">
     <thead>  
