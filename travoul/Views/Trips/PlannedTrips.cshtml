@@ -6,7 +6,7 @@
 
 <div class="search-container d-flex justify-content-center">
     <div class="search-bar-area">
-        <h4 class="text-center">Search for specific pre-planned trips</h4>
+        <h4 class="text-center">Search for planned Travouls</h4>
         <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="true">
             <input placeholder="Search by Name or Location" type="search" name="Search" class="form-control" />
         </form>
@@ -23,7 +23,14 @@
                 <p class="card-text">@trip.Location</p>
                 <p class="card-text">@trip.TripDates</p>
                 <p class="card-text">@trip.Accommodation</p>
-                <p class="card-text">@trip.Budget</p>
+                @if (trip.Budget == null)
+                {
+                    <p class="card-text text-muted font-italic">None</p>
+                }
+                else
+                {
+                    <p class="card-text">@trip.Budget</p>
+                }
                 <a asp-action="PlannedTripDetails" asp-route-id="@trip.TripId" class="btn btn-sm btn-secondary">Details</a>
             </div>
         </div>
