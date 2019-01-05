@@ -85,8 +85,12 @@ for details on configuring this project to bundle and minify static web assets. 
 /*Finished Trips */
 
 .index-trip-img {
-    width: 180px;
+    width: 260px;
     /*height: 120px;*/
+    -webkit-box-shadow: 0 8px 6px -6px rgba( 0, 0, 0, .6 );
+    -moz-box-shadow: 0 8px 6px -6px rgba( 0, 0, 0, .6 );
+    box-shadow: 0 8px 6px -6px rgba( 0, 0, 0, .6 );
+    border-radius: 3px;
 }
 
 

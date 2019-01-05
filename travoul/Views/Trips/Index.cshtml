@@ -15,11 +15,12 @@
 
 @foreach (var item in Model)
 {   <div class="card mb-3 p-2 finish-travoul-media">
-        <div class="card-text text-center">@item.Continent.Name</div>
-        <hr />
+        
         <div class="media">
             <img class="m-2 index-trip-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="Generic placeholder image">
             <div class="media-body mt-1 ml-3">
+                <div class="card-text text-center">@item.Continent.Name</div>
+                <hr />
                 <h5 class="card-text">@item.Title</h5>
                 <div class="d-flex justify-content-start">
                     <div class="card-text mr-4">@item.Location</div>
