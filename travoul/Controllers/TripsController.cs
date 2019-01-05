@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using travoul.Data;
 using travoul.Models;
 using travoul.Models.ViewModels;
+using travoul.Models.ViewModels.PaginationModels;
 
 namespace travoul.Controllers
 {
@@ -34,50 +35,70 @@ namespace travoul.Controllers
         {
             var User = await GetCurrentUserAsync();
 
-            var UserTrips = _context.Trip
+            var UserTrips = await _context.Trip
                 .Include(t => t.Continent)
                 .Where(t => t.UserId == User.Id && t.IsPreTrip == true).ToListAsync();
 
-            return View(await UserTrips);
+            return View(UserTrips);
         }
 
         //search method
-        public async Task<IActionResult> TripSearch(bool preTrip, TripSearchViewModel viewModel)
+        public async Task<IActionResult> TripSearch(bool preTrip, int? page, string search)
         {
             var User = await GetCurrentUserAsync();
            
             List<Trip> trips = await _context.Trip
                 .Include(t => t.Continent)
-                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search)).ToListAsync();
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && t.Title.Contains(search) || t.Location.Contains(search)).ToListAsync();
 
-            viewModel.Trips = trips;
+            TripSearchViewModel viewModel = new TripSearchViewModel();
 
             if (preTrip == false)
             {
+                Pager pager = new Pager(trips.Count(), page);
+
+                viewModel.Trips = trips.Skip((pager.CurrentPage - 1) * pager.PageSize)
+                .Take(pager.PageSize).ToList();
+
+                viewModel.Pager = pager;
+
+                viewModel.Search = search;
+
                 return View("FinishedTripSearch", viewModel);
             }
             else 
             {
+                viewModel.Trips = trips;
+
+                viewModel.Search = search;
+
                 return View("PlannedTripSearch", viewModel);
             }
         }
 
 
         // GET: MyTrips --all finished trips
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            var User = await GetCurrentUserAsync();
+            ApplicationUser User = await GetCurrentUserAsync();
 
-            var UserTrips = _context.Trip
+            List<Trip> UserTrips = await _context.Trip
                 .Include(t => t.Continent)
                 .Where(t => t.UserId == User.Id && t.IsPreTrip == false).ToListAsync();
 
+            Pager pager = new Pager(UserTrips.Count(), page);
+            
+            FinishedTripIndexViewModel viewmodel = new FinishedTripIndexViewModel();
+
+            viewmodel.Trips = UserTrips.Skip((pager.CurrentPage - 1) * pager.PageSize)
+                .Take(pager.PageSize).ToList();
+            viewmodel.Pager = pager;
 
             ViewData["scripts"] = new List<string>() {
                 "Loader"
             };
 
-            return View(await UserTrips);
+            return View(viewmodel);
 
         }
 

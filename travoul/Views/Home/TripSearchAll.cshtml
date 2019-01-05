@@ -8,6 +8,51 @@
 <hr />
 <h5 class="text-center">"@Model.Search"</h5>
 <hr />
+
+@if (Model.Pager.EndPage > 1)
+{
+    <nav class="d-flex justify-content-center mt-2" aria-label="Page Navigation">
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                if (page == Model.Pager.CurrentPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-light border-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+                }
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
 <div class="mt-5">
     @foreach (Trip trip in Model.Trips)
     {<div class="card mb-3 p-2 finish-travoul-media">
@@ -30,24 +75,13 @@
                     </div>
                     <div class="card-text">@trip.Accommodation</div>
                     <div class="d-flex justify-content-end mt-4">
-                        <a class="btn btn-secondary btn-sm mr-1" asp-controller="Home" asp-action="AllTripDetails" asp-route-id="@trip.TripId">Trip Details</a>
+                        <a class="btn btn-secondary btn-sm mr-1" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">Trip Details</a>
                     </div>
                 </div>
             </div>
         </div>
     }
 </div>
-
-@*@foreach (Trip trip in Model.Trips)
-    {
-        <div>
-            <h4>@trip.Title</h4>
-            <h4>@trip.Location</h4>
-            <h4>@trip.Continent</h4>
-            <h4>@trip.TripDates</h4>
-            <a class="btn btn-primary" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">See Trip Details</a>
-        </div>
-    }*@
 
 @if (Model.Pager.EndPage > 1)
 {
@@ -56,27 +90,37 @@
             @if (Model.Pager.CurrentPage > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search">First</a>
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search">First</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
                 </li>
             }
 
             @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
             {
-                <li class="page-item @(page == Model.Pager.CurrentPage ? "active" : "")">
-                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
-                </li>
+                if (page == Model.Pager.CurrentPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-light border-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+                }
             }
 
             @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
             {
                 <li class="page-item">
-                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
                 </li>
             }
         </ul>
