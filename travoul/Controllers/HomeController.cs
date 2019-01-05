@@ -41,6 +41,7 @@ namespace travoul.Controllers
         {
             List<Trip> trips = await _context.Trip
                 .Include(t => t.Continent)
+                .Include(t => t.User)
                 .Where(t => t.IsPreTrip == false && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search) || t.Continent.Name.Contains(viewModel.Search)).ToListAsync();
 
             Pager pager = new Pager(trips.Count(), page);

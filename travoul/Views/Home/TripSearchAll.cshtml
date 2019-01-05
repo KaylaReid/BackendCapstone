@@ -4,18 +4,50 @@
     ViewData["Title"] = "TripSearchAll";
 }
 
-<h3>Results for: @Model.Search</h3>
+<h3 class="text-center mt-3">Showing Results For</h3>
+<hr />
+<h5 class="text-center">"@Model.Search"</h5>
+<hr />
+<div class="mt-5">
+    @foreach (Trip trip in Model.Trips)
+    {<div class="card mb-3 p-2 finish-travoul-media">
 
-@foreach (Trip trip in Model.Trips)
-{
-    <div>
-        <h4>@trip.Title</h4>
-        <h4>@trip.Location</h4>
-        <h4>@trip.Continent</h4>
-        <h4>@trip.TripDates</h4>
-        <a class="btn btn-primary" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">See Trip Details</a>
-    </div>
-}
+            <div class="media">
+                <img class="m-2 index-trip-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="Generic placeholder image">
+                <div class="media-body mt-1 ml-3">
+                    <div class="card-text text-center">@trip.Continent.Name</div>
+                    <hr />
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-text mr-5">@trip.Title</h5>
+                        <div class="d-flex justify-content-start">
+                            <h5 class="card-text mr-1">@trip.User.FirstName</h5>
+                            <h5 class="card-text mr-2"> @trip.User.LastName</h5>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start">
+                        <div class="card-text mr-4">@trip.Location</div>
+                        <div class="card-text">@trip.TripDates</div>
+                    </div>
+                    <div class="card-text">@trip.Accommodation</div>
+                    <div class="d-flex justify-content-end mt-4">
+                        <a class="btn btn-secondary btn-sm mr-1" asp-controller="Home" asp-action="AllTripDetails" asp-route-id="@trip.TripId">Trip Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@*@foreach (Trip trip in Model.Trips)
+    {
+        <div>
+            <h4>@trip.Title</h4>
+            <h4>@trip.Location</h4>
+            <h4>@trip.Continent</h4>
+            <h4>@trip.TripDates</h4>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">See Trip Details</a>
+        </div>
+    }*@
 
 @if (Model.Pager.EndPage > 1)
 {
@@ -52,5 +84,7 @@
 }
 
 
-<a class="btn btn-success" asp-controller="Home" asp-action="Index">Back to Home</a>
+<div class="d-flex justify-content-end">
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back to Home</a>
+</div>
 

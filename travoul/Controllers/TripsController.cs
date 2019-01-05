@@ -47,11 +47,19 @@ namespace travoul.Controllers
             var User = await GetCurrentUserAsync();
            
             List<Trip> trips = await _context.Trip
+                .Include(t => t.Continent)
                 .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search)).ToListAsync();
 
             viewModel.Trips = trips;
 
-            return View(viewModel);
+            if (preTrip == false)
+            {
+                return View("FinishedTripSearch", viewModel);
+            }
+            else 
+            {
+                return View("PlannedTripSearch", viewModel);
+            }
         }
 
 
