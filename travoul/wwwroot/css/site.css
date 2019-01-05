@@ -44,6 +44,14 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 30%;
 }
 
+.plan-create-details-card {
+    width: 40%;
+}
+
+.plan-create-locations-card {
+    width: 35%;
+}
+
 .search-container {
     margin: 3em 0;
 }
@@ -61,16 +69,20 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 45%;
 }
 
-.plan-create-details-card {
-    width: 40%;
+.width-45 {
+    width: 45%;
 }
 
-.plan-create-locations-card {
-    width: 35%;
+.width-10 {
+    width: 10%;
+}
+
+.width-85 {
+    width: 85%;
 }
 
 
-/*Finished Trips index*/
+/*Finished Trips */
 
 
 

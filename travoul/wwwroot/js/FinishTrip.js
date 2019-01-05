@@ -1,18 +1,9 @@
 ﻿
-console.log("Dope");
+let foodI = 0;
 
+let placeI = 0;
 
-let foodIndex = 0;
-
-let placeIndex = 0;
-
-const parentDiv = document.querySelector(".retros-div");
-
-const foodButton = document.querySelector("#add-food-btn");
-const placeButton = document.querySelector("#add-place-btn");
-
-const newFoodDiv = document.querySelector("#new-food-container");
-const newPlaceDiv = document.querySelector("#new-place-container");
+const parentDiv = document.querySelector(".experience-container");
 
 parentDiv.addEventListener("click", (e) => {
 
@@ -24,75 +15,71 @@ parentDiv.addEventListener("click", (e) => {
         let type = e.target.id.split("-")[1];
         let Type = type.charAt(0).toUpperCase() + type.slice(1);
 
-        console.log(`${type} btn clicked`)
+        let container = document.querySelector(`#new-${type}-container`);
 
         if (type === "food") {
-            index = foodIndex
+            index = foodI
         } else {
-            index = placeIndex
+            index = placeI
         }
 
-        let formGroup = document.createElement("div");
-        formGroup.setAttribute("class", "form-group");
+        let newCard = document.createElement("div");
+        newCard.setAttribute("class", "card p-2 bg-light mt-2 mb-2");
 
-        let checkbox = document.createElement("div");
-        checkbox.setAttribute("class", "checkbox");
-        let label = document.createElement("label");
+        let innerDiv = document.createElement("div");
+        innerDiv.setAttribute("class", "d-flex justify-content-start");
+
+        let leftDiv = document.createElement("div");
+        leftDiv.setAttribute("class", "width-10 mr-2 d-flex flex-column justify-content-center");
+
+        let rightDiv = document.createElement("div");
+        rightDiv.setAttribute("class", "width-85");
+
         let inputCheckbox = document.createElement("input");
         inputCheckbox.type = "checkbox";
         inputCheckbox.setAttribute("checked", "checked")
         inputCheckbox.setAttribute("value", true);
         inputCheckbox.setAttribute("data-val", true)
         inputCheckbox.setAttribute("name", `New${Type}s[${index}].IsCompleted`)
-        let text = document.createTextNode("Completed")
+
+        leftDiv.appendChild(inputCheckbox);
 
 
-
-        label.appendChild(inputCheckbox);
-        label.appendChild(text);
-        checkbox.appendChild(label);
-        formGroup.appendChild(checkbox);
-
-
-        let newLocationGroup = document.createElement("div")
-        newLocationGroup.setAttribute("class", "form-group half-width")
         let nameInput = document.createElement("input")
-        let nameLabel = document.createElement("label")
-        nameLabel.textContent = "Name"
-        nameLabel.setAttribute("for", `${Type}-name-${index + 1}`)
-        nameLabel.setAttribute("class", "control-label")
-        nameInput.setAttribute("Placeholder", "Ex. Hattie B's")
+        nameInput.setAttribute("Placeholder", "Name")
         nameInput.setAttribute("id", `${Type}-name-${index + 1}`)
-        nameInput.setAttribute("class", "form-control")
+        nameInput.setAttribute("class", "form-control mb-2")
         nameInput.setAttribute("data-val", true)
-        nameInput.setAttribute("data-val-required", "The Name field is required")
+        nameInput.setAttribute("data-val-required", "A Name is required")
         nameInput.setAttribute("name", `New${Type}s[${index}].Name`)
 
-        let descriptionInput = document.createElement("input")
-        let descriptionLabel = document.createElement("label")
-        descriptionLabel.setAttribute("for", `${Type}-desc-${index + 1}`)
-        descriptionLabel.textContent = "Description "
-        descriptionInput.setAttribute("class", "control-label")
-        descriptionInput.setAttribute("Placeholder", "Ex. They have great hot chicken")
-        descriptionInput.setAttribute("class", "form-control")
-        descriptionInput.setAttribute("id", `${Type}-desc-${index + 1}`)
-        descriptionInput.setAttribute("data-val", true)
-        descriptionInput.setAttribute("name", `New${Type}s[${index}].Description`)
+        let nameValidator = document.createElement("span");
+        nameValidator.setAttribute("class", "text-danger field-validation-valid");
+        nameValidator.setAttribute("data-valmsg-for", `New${Type}s[${index}].Name`);
+        nameValidator.setAttribute("data-valmsg-replace", true);
 
-        newLocationGroup.appendChild(nameLabel)
-        newLocationGroup.appendChild(nameInput)
-        newLocationGroup.appendChild(descriptionLabel)
-        newLocationGroup.appendChild(descriptionInput)
+        let descTextarea = document.createElement("textarea")
+        descTextarea.setAttribute("Placeholder", "Description")
+        descTextarea.setAttribute("class", "form-control")
+        descTextarea.setAttribute("id", `${Type}-desc-${index + 1}`)
+        descTextarea.setAttribute("data-val", true)
+        descTextarea.setAttribute("name", `New${Type}s[${index}].Description`)
 
+        rightDiv.appendChild(nameInput);
+        rightDiv.appendChild(nameValidator);
+        rightDiv.appendChild(descTextarea);
+
+        innerDiv.appendChild(leftDiv);
+        innerDiv.appendChild(rightDiv);
+
+        newCard.appendChild(innerDiv);
+
+        container.appendChild(newCard);
 
         if (type === "food") {
-            newFoodDiv.appendChild(newLocationGroup)
-            newFoodDiv.appendChild(formGroup)
-            return foodIndex++
+            return foodI++
         } else {
-            newPlaceDiv.appendChild(newLocationGroup)
-            newPlaceDiv.appendChild(formGroup)
-            return placeIndex++
+            return placeI++
         }
 
     }
