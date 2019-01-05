@@ -12,61 +12,25 @@
         </form>
     </div>
 </div>
-@*<div>
-    <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="false">
-        <input type="text" name="Search" class="form-control" />
-    </form>
-</div>*@
 
-<table class="table">
-    <thead>  
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                Continent
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Location)
-            </th>
-            <th>
-                Dates of trip
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accommodation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Budget)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Continent.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TripDates)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Accommodation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Budget)
-            </td>
-            <td>
-                <a asp-controller="Trips" asp-action="Details" asp-route-id="@item.TripId">Details</a>
-            </td>
-        </tr>
+@foreach (var item in Model)
+{   <div class="card mb-3 p-2 finish-travoul-media">
+        <div class="card-text text-center">@item.Continent.Name</div>
+        <hr />
+        <div class="media">
+            <img class="m-2 index-trip-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="Generic placeholder image">
+            <div class="media-body mt-1 ml-3">
+                <h5 class="card-text">@item.Title</h5>
+                <div class="d-flex justify-content-start">
+                    <div class="card-text mr-4">@item.Location</div>
+                    <div class="card-text">@item.TripDates</div>
+                </div>
+                <div class="card-text">@item.Accommodation</div>
+                <div class="d-flex justify-content-end mt-4">
+                    <a class="btn btn-secondary btn-sm" asp-controller="Trips" asp-action="Details" asp-route-id="@item.TripId">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
+
