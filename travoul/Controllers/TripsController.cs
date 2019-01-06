@@ -49,7 +49,7 @@ namespace travoul.Controllers
            
             List<Trip> trips = await _context.Trip
                 .Include(t => t.Continent)
-                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && t.Title.Contains(search) || t.Location.Contains(search)).ToListAsync();
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && (t.Title.Contains(search) || t.Location.Contains(search) || t.Continent.Name.Contains(search))).ToListAsync();
 
             TripSearchViewModel viewModel = new TripSearchViewModel();
 
@@ -934,7 +934,7 @@ namespace travoul.Controllers
             _context.Update(trip);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Trips");
+            return RedirectToAction("Details", "Trips", new { id = trip.TripId });
         }
         
 
