@@ -77,6 +77,10 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 35%;
 }
 
+.width-30 {
+    width: 30%;
+}
+
 .width-50 {
     width: 50%;
 }
@@ -131,8 +135,16 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 
+/*Custom Styles for buttons*/
+.btn-delete:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
 
+.btn-edit {
 
+}
 
 
 

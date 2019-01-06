@@ -855,7 +855,7 @@ namespace travoul.Controllers
                 {
                     TripTravelType newTripTT = new TripTravelType()
                     {   //pulls tripid out of context bag 
-                        TripId = viewModel.Trip.TripId,
+                        TripId = trip.TripId,
                         TravelTypeId = TypeId
                     };
 
