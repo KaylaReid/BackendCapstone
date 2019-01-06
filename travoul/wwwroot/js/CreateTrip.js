@@ -1,15 +1,35 @@
-﻿//set incrementers for the food places and visit places
+﻿
+
+let locationInput = document.querySelector("#Trip_Location");
+
+
+locationInput.addEventListener("keyup", (e) => {
+
+    let locationText = e.target.value;
+
+    let googleQuery = "https://www.google.com/search?q=things+to+do+in+";
+
+    let newQuery = googleQuery + locationText.split(" ").join("+");
+
+    document.querySelector("#search-activity-btn").setAttribute("href", newQuery);
+})
+
+
+
+
+//set incrementers for the food places and visit places
 let foodI = 1
 let visitI = 1
+
 
 //add event listener to the visit locations container
 document.querySelector(".plan-create-locations-card").addEventListener("click", (e) => {
 
-    //prevent overall form submission
-    e.preventDefault();
 
     //perform actions when add food/add visit buttons are clicked
     if (e.target.id === "add-food-btn" || e.target.id === "add-visit-btn") {
+    //prevent overall form submission
+    e.preventDefault();
 
         //grab type (food or visit) from button ids
         let type = e.target.id.split("-")[1];
