@@ -44,6 +44,7 @@
                 <input asp-for="Trip.Budget" class="form-control" placeholder="1500" />
                 <span asp-validation-for="Trip.Budget" class="text-danger"></span>
             </div>
+
         </div>
         <div class="card p-2">
             <div class="card-text text-center font-weight-bold">Travel Plans</div>
@@ -64,6 +65,10 @@
         </div>
         <div class="card p-2 plan-create-locations-card">
             <div class="card-text text-center font-weight-bold">Plan Activities</div>
+            <hr />
+            <div class="card-text text-center">Search for Activities</div>
+            <a class="btn" href="https://www.google.com/search?q=things+to+do+in+@(Model.Trip.Location)" target="_blank" id="search-activity-btn">Search</a>
+
             <hr />
             <div class="card-text text-center mb-2">Foods to Try</div>
             <div class="food-container">
