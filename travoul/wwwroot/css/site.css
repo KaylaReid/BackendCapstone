@@ -1,15 +1,13 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
-/*body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}*/
+body {
+    position: relative;
+    z-index: -11;
+}
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
-.body-content {
 
-}
 
 
 /* Box Shadow Styles*/
@@ -48,6 +46,66 @@ for details on configuring this project to bundle and minify static web assets. 
     }
 
 
+.effect5 {
+    position: relative;
+}
+
+    .effect5:before, .effect5:after {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 25px;
+        left: 10px;
+        width: 50%;
+        top: 80%;
+        max-width: 300px;
+        background: #777;
+        -webkit-box-shadow: 0 35px 20px #777;
+        -moz-box-shadow: 0 35px 20px #777;
+        box-shadow: 0 35px 20px #777;
+        -webkit-transform: rotate(-8deg);
+        -moz-transform: rotate(-8deg);
+        -o-transform: rotate(-8deg);
+        -ms-transform: rotate(-8deg);
+        transform: rotate(-8deg);
+    }
+
+    .effect5:after {
+        -webkit-transform: rotate(8deg);
+        -moz-transform: rotate(8deg);
+        -o-transform: rotate(8deg);
+        -ms-transform: rotate(8deg);
+        transform: rotate(8deg);
+        right: 10px;
+        left: auto;
+    }
+
+
+.effect3 {
+    position: relative;
+}
+
+    .effect3:before {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 15px;
+        left: 10px;
+        width: 50%;
+        top: 80%;
+        max-width: 300px;
+        background: #777;
+        -webkit-box-shadow: 0 15px 10px #777;
+        -moz-box-shadow: 0 15px 10px #777;
+        box-shadow: 0 15px 10px #777;
+        -webkit-transform: rotate(-3deg);
+        -moz-transform: rotate(-3deg);
+        -o-transform: rotate(-3deg);
+        -ms-transform: rotate(-3deg);
+        transform: rotate(-3deg);
+    }
+
+
 
 /* Login Styles*/
 
@@ -66,6 +124,36 @@ for details on configuring this project to bundle and minify static web assets. 
 .half-width {
     width: 50% !important;
 }
+
+.bottom-layer {
+    position: relative;
+    z-index: -10;
+}
+
+.top-layer {
+    z-index: 0;
+}
+
+/*Home Page*/
+
+.home-page {
+    padding: 2em;
+    min-height: 100vh;
+    background: 
+        linear-gradient(rgba(255, 255, 255, .7), rgba(255, 255, 255, .9)),
+        url('../images/adolfo-felix-572763-unsplash.jpg');
+    background-size: cover;
+    position: relative;
+    z-index: -5;
+}
+
+.home-page-img {
+    width: 100%;
+    display: block;
+
+    border-radius: 3px;
+}
+
 
 
 /*Re-useable styles*/
@@ -161,11 +249,7 @@ for details on configuring this project to bundle and minify static web assets. 
     margin-top: 5px !important;
 }
 
-/*Home Page*/
-.home-page-img {
-    height: 550px;
-    width: 100%;
-}
+
 
 
 
