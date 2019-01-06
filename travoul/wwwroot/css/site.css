@@ -8,24 +8,59 @@ for details on configuring this project to bundle and minify static web assets. 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+
+/* Box Shadow Styles*/
+.effect2 {
+    position: relative;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+    .effect2:before, .effect2:after {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 15px;
+        left: 10px;
+        width: 50%;
+        top: 80%;
+        max-width: 300px;
+        background: #777;
+        -webkit-box-shadow: 0 15px 10px #777;
+        -moz-box-shadow: 0 15px 10px #777;
+        box-shadow: 0 15px 10px #777;
+        -webkit-transform: rotate(-3deg);
+        -moz-transform: rotate(-3deg);
+        -o-transform: rotate(-3deg);
+        -ms-transform: rotate(-3deg);
+        transform: rotate(-3deg);
+    }
+
+    .effect2:after {
+        -webkit-transform: rotate(3deg);
+        -moz-transform: rotate(3deg);
+        -o-transform: rotate(3deg);
+        -ms-transform: rotate(3deg);
+        transform: rotate(3deg);
+        right: 10px;
+        left: auto;
+    }
+
+
+
+/* Login Styles*/
+
+.login-page, 
+.register-page {
+    background: linear-gradient(to bottom right, #ffffe6, transparent 50%) no-repeat fixed, url("../images/travoul-login-bg copy.jpeg") no-repeat fixed;
+    background-size: cover;
+    padding: 2em;
+    min-height: 100vh;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+.register-page {
+    background: linear-gradient(to right, #ffffe6, transparent) no-repeat fixed, url("../images/travoul-login-bg copy.jpeg") no-repeat fixed;
 }
 
 .half-width {
