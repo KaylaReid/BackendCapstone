@@ -44,8 +44,16 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 30%;
 }
 
+.plan-create-details-card {
+    width: 40%;
+}
+
+.plan-create-locations-card {
+    width: 35%;
+}
+
 .search-container {
-    margin: 3em 0;
+    margin: 2em 0;
 }
 
 .search-bar-area {
@@ -61,18 +69,62 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 45%;
 }
 
-.plan-create-details-card {
-    width: 40%;
+.width-45 {
+    width: 45%;
 }
 
-.plan-create-locations-card {
+.width-35 {
     width: 35%;
 }
 
+.width-30 {
+    width: 30%;
+}
 
-/*Finished Trips index*/
+.width-50 {
+    width: 50%;
+}
+
+.width-65 {
+    width: 65%;
+}
+
+.width-10 {
+    width: 10%;
+}
+
+.width-85 {
+    width: 85%;
+}
 
 
+
+.my-trips-pagination .pagination .active a {
+    
+}
+
+
+
+/*Finished Trips */
+
+.details-img {
+    display:block;
+    width: 100%;
+}
+
+.index-trip-img {
+    width: 260px;
+    /*height: 120px;*/
+    -webkit-box-shadow: 0 8px 6px -6px rgba( 0, 0, 0, .6 );
+    -moz-box-shadow: 0 8px 6px -6px rgba( 0, 0, 0, .6 );
+    box-shadow: 0 8px 6px -6px rgba( 0, 0, 0, .6 );
+    border-radius: 3px;
+}
+
+
+.finish-travoul-media hr {
+    margin-top: 5px !important;
+}
 
 /*Home Page*/
 .home-page-img {
@@ -83,8 +135,16 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 
+/*Custom Styles for buttons*/
+.btn-delete:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
 
+.btn-edit {
 
+}
 
 
 

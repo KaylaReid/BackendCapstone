@@ -1,0 +1,125 @@
+﻿@model travoul.Models.ViewModels.TripSearchViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h3 class="text-center mt-3">Showing Results For</h3>
+<hr />
+<h5 class="text-center">"@Model.Search"</h5>
+<hr />
+
+@if (Model.Pager.EndPage > 1)
+{
+    <nav class="d-flex justify-content-center mt-2" aria-label="Page Navigation">
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                if (page == Model.Pager.CurrentPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-light border-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+                }
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+@foreach (Trip trip in Model.Trips)
+{<div class="card mb-3 p-2 finish-travoul-media">
+
+        <div class="media">
+            <img class="m-2 index-trip-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="Generic placeholder image">
+            <div class="media-body mt-1 ml-3">
+                <div class="card-text text-center">@trip.Continent.Name</div>
+                <hr />
+                <h5 class="card-text">@trip.Title</h5>
+                <div class="d-flex justify-content-start">
+                    <div class="card-text mr-4">@trip.Location</div>
+                    <div class="card-text">@trip.TripDates</div>
+                </div>
+                <div class="card-text">@trip.Accommodation</div>
+                <div class="d-flex justify-content-end mt-4">
+                    <a class="btn btn-secondary btn-sm" asp-controller="Trips" asp-action="Details" asp-route-id="@trip.TripId">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Pager.EndPage > 1)
+{
+    <nav class="d-flex justify-content-center mt-2" aria-label="Page Navigation">
+        <ul class="pagination">
+            @if (Model.Pager.CurrentPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search">First</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
+                </li>
+            }
+
+            @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+            {
+                if (page == Model.Pager.CurrentPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link bg-dark text-light border-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                    </li>
+                }
+            }
+
+            @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link text-dark" asp-controller="Trips" asp-action="TripSearch" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+
+
+<div class="d-flex justify-content-end">
+    <a class="btn btn-sm btn-secondary" asp-controller="Trips" asp-action="Index">Back to List</a>
+</div>

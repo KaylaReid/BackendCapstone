@@ -1,112 +1,134 @@
 ﻿@model travoul.Models.ViewModels.FinishTripViewModel
 
 @{
-    ViewData["Title"] = "FinishTrip";
+    ViewData["Title"] = "Finish Trip";
 }
 
 <h3>@Model.Trip.Title</h3>
-
-<div class="table">
-    <dl class="dl-horizontal">
-        <dt>
-            Title
-        </dt>
-        <dd>
-            @Model.Trip.Title
-        </dd>
-        <dt>
-            Continent
-        </dt>
-        <dd>
-            @Model.Trip.Continent
-        </dd>
-        <dt>
-            Location
-        </dt>
-        <dd>
-            @Model.Trip.Location
-        </dd>
-        <dt>
-            Dates of trip
-        </dt>
-        <dd>
-            @Model.Trip.TripDates
-        </dd>
-        <dt>
-            Accommodation
-        </dt>
-        <dd>
-            @Model.Trip.Accommodation
-        </dd>
-        <dt>
-            Budget
-        </dt>
-        <dd>
-            @Model.Trip.Budget
-
-        </dd>
-        <dt>Travel Type</dt>
-        <dd>
-            <ul>
-                @foreach (var TripTT in @Model.TravelTypes)
+<form asp-controller="Trips" asp-action="FinishTrip" asp-route-id="@Model.Trip.TripId">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card text-center">
+        <div class="card-header">
+            @Model.Trip.Continent.Name
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Trip.Title</h5>
+            <p class="card-text">@Model.Trip.Location</p>
+            <p class="card-text">Planned Dates: @Model.Trip.TripDates</p>
+            <p class="card-text">Where to Stay: @Model.Trip.Accommodation</p>
+            <p class="card-text">
+                Budget:
+                @if (Model.Trip.Budget == null)
                 {
-                    <li>@TripTT.Type</li>
+                    <span class="card-text font-italic text-muted">None</span>
                 }
-            </ul>
-        </dd>
-    </dl>
-    <div>
-        <form asp-action="FinishTripCreate" asp-route-id="@Model.Trip.TripId">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <hr />
-            <div class="retros-div">
+                else
+                {
+                    <span>$@Model.Trip.Budget</span>
+                }
+            </p>
+        </div>
+        <div class="card-footer text-muted">
+            <h5 class="card-text">Transportation Plans</h5>
+            @if (Model.TravelTypes.Count() == 0)
+            {
                 <div>
-                    <h3>Select the food places you made it to</h3>
-                    @foreach (var item in Model.FoodLocations)
+                    <p class="card-text font-italic">None</p>
+                </div>
+            }
+            else
+            {
+                <div class="d-flex flex-wrap justify-content-around">
+                    @foreach (var item in Model.AllTravelTypes)
                     {
-                        <div class="form-group">
+                        <div>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="SelectedLocationIds" value="@item.Value" />
+                                    <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" checked="@item.Selected" />
                                     @item.Text
                                 </label>
                             </div>
                         </div>
                     }
-                    <div id="new-food-container"></div>
-                    <button class="btn btn-sm btn-primary" id="add-food-btn">Add More</button>
                 </div>
-                <hr />
-                <div>
-                    <h3>Select the places you made it to</h3>
-                    @foreach (var item in Model.PlaceLocations)
-                    {
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="SelectedLocationIds" value="@item.Value" />
-                                    @item.Text
-                                </label>
-                            </div>
-                        </div>
-                    }
-                    <div id="new-place-container"></div>
-                    <button class="btn btn-sm btn-primary" id="add-place-btn">Add More</button>
-                </div>
-                <hr />
-                <div class="form-group">
-                    <label asp-for="@Model.DoAgain" class="control-label">What did you like about this trip/what would you do again?</label>
-                    <textarea asp-for="@Model.DoAgain" placeholder="It was awesome, if we go back we are doing the helicopter tour again!!!" rows="3" class="form-control"></textarea>
-                    <span asp-validation-for="@Model.DoAgain" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="@Model.DoDifferent" class="control-label">What did you like about this trip/what would you do again?</label>
-                    <textarea asp-for="@Model.DoDifferent" placeholder="I would splurge for a nicer hotel if we went back, it was really out of the way and a little dumpy." rows="3" class="form-control"></textarea>
-                    <span asp-validation-for="@Model.DoDifferent" class="text-danger"></span>
-                </div>
-            </div>
-            <button asp-controller="Trips" asp-action="FinishTrip" asp-route-id="@Model.Trip.TripId" type="submit" class="btn btn-sm btn-primary">Save</button>
-        </form>
+            }
+        </div>
     </div>
-    <a asp-controller="Trips" asp-action="PlannedTrips" asp-route-id="@Model.Trip.TripId">Balck To List</a>
+    <h5 class="text-center mt-3 mb-3">Experiences</h5>
+    <div class="d-flex justify-content-between experience-container">
+        <div class="card p-2 width-45">
+            <div class="card-text text-center">Food Related</div>
+            <hr />
+            <div class="card-text text-center text-muted font-italic">Check what You Completed</div>
+            <div class="food-container">
+                @foreach (var item in Model.FoodLocations)
+                {
+                    <div class="card p-2 bg-light mt-2 mb-2">
+                        <div class="d-flex justify-content-start">
+                            <div class="checkbox width-10 mr-2 d-flex flex-column justify-content-center">
+                                <label>
+                                    <input type="checkbox" name="SelectedLocationIds" value="@item.Value" />
+                                </label>
+                            </div>
+                            <div class="width-85">
+                                <div class="card-text">@Model.AllLocations.Single(tvl => tvl.TripVisitLocationId.ToString() == item.Value).Name</div>
+                                <div class="card-text text-muted font-italic">@Model.AllLocations.Single(tvl => tvl.TripVisitLocationId.ToString() == item.Value).Description</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div id="new-food-container"></div>
+            <button class="btn btn-block btn-secondary" id="add-food-btn">Add More</button>
+        </div>
+        <div class="card p-2 width-45">
+            <div class="card-text text-center">Place Related</div>
+            <hr />
+            <div class="card-text text-center text-muted font-italic">Check what You Completed</div>
+            <div class="place-container">
+                @foreach (var item in Model.PlaceLocations)
+                {
+                    <div class="card p-2 bg-light mt-2 mb-2">
+                        <div class="d-flex justify-content-start">
+                            <div class="mr-2 width-10 d-flex flex-column justify-content-center">
+                                <input type="checkbox" name="SelectedLocationIds" value="@item.Value" />
+                            </div>
+                            <div class="width-85">
+                                <div class="card-text">@Model.AllLocations.Single(tvl => tvl.TripVisitLocationId.ToString() == item.Value).Name</div>
+                                <div class="card-text text-muted font-italic">@Model.AllLocations.Single(tvl => tvl.TripVisitLocationId.ToString() == item.Value).Description</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div id="new-place-container"></div>
+            <button class="btn btn-block btn-secondary" id="add-place-btn">Add More</button>
+        </div>
+    </div>
+    <h5 class="text-center mt-2 mb-2">Travoul Retrospectives</h5>
+    <div class="d-flex justify-content-between">
+        <div class="card p-2 bg-light width-45">
+            <div class="form-group">
+                <div class="card-text text-center mb-2">Things to do Again</div>
+                <textarea asp-for="@Model.DoAgain.Description" placeholder="It was awesome, if we go back we are doing the helicopter tour again!!!" rows="5" class="form-control"></textarea>
+                <span asp-validation-for="@Model.DoAgain.Description" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card p-2 bg-light width-45">
+            <div class="form-group">
+                <div class="card-text text-center mb-2">Things to do Differently</div>
+                <textarea asp-for="@Model.DoDifferent.Description" placeholder="I would splurge for a nicer hotel if we went back, it was really out of the way and a little dumpy." rows="5" class="form-control"></textarea>
+                <span asp-validation-for="@Model.DoDifferent.Description" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-block btn-info mt-3">Save And Move to Finished Travouls</button>
+</form>
+
+<div class="mt-4">
+    <a class="btn btn-block btn-secondary mt-3" asp-controller="Trips" asp-action="PlannedTrips" asp-route-id="@Model.Trip.TripId">Back To List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

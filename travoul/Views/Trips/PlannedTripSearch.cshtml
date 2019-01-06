@@ -1,21 +1,17 @@
-﻿@model IEnumerable<travoul.Models.Trip>
+﻿@model travoul.Models.ViewModels.TripSearchViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Search";
 }
 
-<div class="search-container d-flex justify-content-center">
-    <div class="search-bar-area">
-        <h4 class="text-center">Search for planned Travouls</h4>
-        <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="true">
-            <input placeholder="Search by Name, Location, or Continent" type="search" name="search" class="form-control" />
-        </form>
-    </div>
-</div>
+<h3 class="text-center mt-3">Showing Results For</h3>
+<hr />
+<h5 class="text-center">"@Model.Search"</h5>
+<hr />
 
 <div class="d-flex flex-wrap justify-content-around">
-    @foreach (Trip trip in Model) 
-     {
+    @foreach (Trip trip in Model.Trips)
+    {
         <div class="card mt-3 pre-trip-card">
             <h5 class="card-header">@trip.Continent.Name</h5>
             <div class="card-body">
@@ -31,10 +27,14 @@
                 {
                     <p class="card-text">@trip.Budget</p>
                 }
-                <a asp-action="PlannedTripDetails" asp-route-id="@trip.TripId" class="btn btn-sm btn-secondary">Details</a>
+                <a asp-controller="Trips" asp-action="PlannedTripDetails" asp-route-id="@trip.TripId" class="btn btn-sm btn-secondary">Details</a>
             </div>
         </div>
-     }
-
+    }
 </div>
- 
+
+<div class="d-flex justify-content-end">
+    <a class="btn btn-sm btn-secondary" asp-controller="Trips" asp-action="PlannedTrips">Back to List</a>
+</div>
+
+

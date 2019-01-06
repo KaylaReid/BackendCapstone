@@ -11,15 +11,17 @@ namespace travoul.Models.ViewModels
     {
         public Trip Trip { get; set; }
 
-        [Required(ErrorMessage = "Please fill out this field")]
-        public string DoAgain { get; set; }
+        public TripRetro DoAgain { get; set; }
 
-        [Required(ErrorMessage = "Please fill out this field")]
-        public string DoDifferent { get; set; }
+        public TripRetro DoDifferent { get; set; }
 
         //public List<TripRetro> TripRetros { get; set; }
 
         public List<TravelType> TravelTypes { get; set; }
+
+        public List<SelectListItem> AllTravelTypes { get; set; }
+
+        public List<int> SelectedTravelTypeIds { get; set; }
 
         public List<SelectListItem> FoodLocations { get; set; }
 
@@ -30,5 +32,7 @@ namespace travoul.Models.ViewModels
         public List<TripVisitLocation> NewFoods { get; set; }
 
         public List<TripVisitLocation> NewPlaces { get; set; }
+
+        public List<TripVisitLocation> AllLocations { get; set; }
     }
 }

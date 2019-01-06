@@ -4,9 +4,26 @@ let foodI = document.querySelector(".food-container").children.length;
 
 let visitI = document.querySelector(".visit-container").children.length;
 
+let locationInput = document.querySelector("#Trip_Location");
+
+
+locationInput.addEventListener("keyup", (e) => {
+
+    let locationText = e.target.value;
+
+    let googleQuery = "https://www.google.com/search?q=things+to+do+in+";
+
+    let newQuery = googleQuery + locationText.split(" ").join("+");
+
+    document.querySelector("#search-activity-btn").setAttribute("href", newQuery);
+})
+
 locationContainer.addEventListener("click", (e) => {
-    e.preventDefault();
+
     if (e.target.id === "add-food-btn" || e.target.id === "add-visit-btn") {
+
+        e.preventDefault();
+
         let i = 0;
 
         let type = e.target.id.split("-")[1]
@@ -107,6 +124,8 @@ locationContainer.addEventListener("click", (e) => {
     }
 
     if (e.target.id.includes("remove")) {
+
+        e.preventDefault();
 
         let type = e.target.id.split("-")[1];
         let Type = type.charAt(0).toUpperCase() + type.slice(1);
