@@ -150,15 +150,41 @@ body {
 .home-page-img {
     width: 100%;
     display: block;
-
     border-radius: 3px;
 }
 
+/* All Trip Search */
 
+.all-trip-search-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
 
 /*Re-useable styles*/
+.bg-green {
+    background: #3e9d73 !important;
+}
 
+.bg-lightgreen {
+    background: #edf7f3 !important;
+}
 
+.bg-orange {
+    background: #ee8753 !important;
+}
+
+.border-green {
+    border-color: #3e9d73 !important;
+}
+
+.page-item .bg-lightgreen:hover {
+    background: #3e9d73 !important;
+    border-color: #3e9d73 !important;
+    color: white !important;
+
+}
 
 
 
