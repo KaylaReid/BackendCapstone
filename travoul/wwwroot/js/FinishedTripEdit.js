@@ -25,11 +25,6 @@ undoBtn.addEventListener("click", (e) => {
 
 })
 
-
-
-
-
-
 const parentDiv = document.querySelector("#all-locations-container");
 
 parentDiv.addEventListener("click", (e) => {
