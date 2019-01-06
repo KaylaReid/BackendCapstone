@@ -73,6 +73,18 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 45%;
 }
 
+.width-35 {
+    width: 35%;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.width-65 {
+    width: 65%;
+}
+
 .width-10 {
     width: 10%;
 }
@@ -82,11 +94,19 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 
+
 .my-trips-pagination .pagination .active a {
     
 }
 
+
+
 /*Finished Trips */
+
+.details-img {
+    display:block;
+    width: 100%;
+}
 
 .index-trip-img {
     width: 260px;
