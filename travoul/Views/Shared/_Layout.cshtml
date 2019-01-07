@@ -18,8 +18,8 @@
     </environment>
     <environment exclude="Development">
         @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
+            asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+            asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -52,14 +52,14 @@
                 {
 
                     <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Index" && ViewContext.RouteData.Values["Controller"].ToString() == "Trips" ? "active" : "")">
-                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Index">My Trips</a>
+                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Index">My Travouls</a>
                     </li>
 
                     <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Create" ? "active" : "")">
-                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Create">Plan the next one</a>
+                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="Create">Plan Next Travoul</a>
                     </li>
                     <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "PlannedTrips" ? "active" : "")">
-                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="PlannedTrips">Planned Trips</a>
+                        <a class="nav-link" asp-area="" asp-controller="Trips" asp-action="PlannedTrips">Planned Travouls</a>
                     </li>
                 }
             </ul>
@@ -67,48 +67,51 @@
 
         </div>
     </nav>
-        <partial name="_CookieConsentPartial" />
+    <partial name="_CookieConsentPartial" />
 
-        <div class="bottom-layer">
-            @RenderBody()
+    <div class="bottom-layer">
+        @RenderBody()
 
-            <footer class="d-flex justify-content-center">
-                <p>&copy; 2018 - Travoul</p>
-            </footer>
-        </div>
+        <footer class="d-flex justify-content-center text-center">
+            <div>
+                <small>&copy; 2019 - Travoul</small><br />
+                <small><a class="text-light" href="https://github.com/KaylaReid">Kayla Reid</a></small>
+            </div>
+        </footer>
+    </div>
 
-        <environment include="Development">
-            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-            @*<script src="~/lib/jquery/dist/jquery.js"></script>
-                <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
-            <script src="~/js/site.js" asp-append-version="true"></script>
-            @if (ViewData.ContainsKey("scripts"))
+    <environment include="Development">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        @*<script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @if (ViewData.ContainsKey("scripts"))
+        {
+            foreach (var script in (List<string>)ViewData["scripts"])
             {
-                foreach (var script in (List<string>)ViewData["scripts"])
-                {
-                    <script src=@(String.Format("{0}{1}{2}", "/js/", script, ".js"))></script>
-                }
-
+                <script src=@(String.Format("{0}{1}{2}", "/js/", script, ".js"))></script>
             }
-        </environment>
-        <environment exclude="Development">
-            @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                        asp-fallback-test="window.jQuery"
-                        crossorigin="anonymous"
-                        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-                </script>
-                <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                        asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                        asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                        crossorigin="anonymous"
-                        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-                </script>*@
-            <script src="~/js/site.min.js" asp-append-version="true"></script>
-        </environment>
 
-        @RenderSection("Scripts", required: false)
-    </body>
+        }
+    </environment>
+    <environment exclude="Development">
+        @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+            </script>*@
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
 </html>
