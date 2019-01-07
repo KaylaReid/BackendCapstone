@@ -57,7 +57,7 @@
     <div class="mt-5">
         @foreach (Trip trip in Model.Trips)
         {
-            <div class="card mb-4 p-2 finish-travoul-media effect2">
+            <div class="card mb-4 p-2 finish-travoul-media effect2 bg-@string.Join("", trip.Continent.Name.Split(" "))">
 
                 <div class="media">
                     <img class="m-2 index-trip-img effect3" src="~/images/chuttersnap-176806-unsplash.jpg" alt="Generic placeholder image">
@@ -134,4 +134,3 @@
         <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back to Home</a>
     </div>
 </div>
-
