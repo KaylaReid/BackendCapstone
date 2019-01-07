@@ -4,198 +4,204 @@
     ViewData["Title"] = "Edit";
 }
 
-<h3>Editing @Model.Trip.Title</h3>
+<div class="finish-trip-edit-page">
+
+    <h3 class="text-center mt-1 mb-4">Editing @Model.Trip.Title</h3>
 
 
-<form asp-controller="Trips" asp-action="FinishedTripEdit" asp-route-id="@Model.Trip.TripId">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="card">
-        <div class="card-header d-flex justify-content-center">
-            <div class="form-group width-45">
-                <div class="control-label text-center mb-2">Change Continent</div>
-                <select asp-for="Trip.ContinentId" class="form-control" asp-items="Model.AllContinentOptions"></select>
-                <span asp-validation-for="Trip.ContinentId" class="text-danger"></span>
+    <form asp-controller="Trips" asp-action="FinishedTripEdit" asp-route-id="@Model.Trip.TripId">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card border-0 mid-layer inset-shadow">
+            <div class="card-header header-blue text-light text-center d-flex justify-content-center">
+                <div class="form-group width-45">
+                    <h5 class="control-label text-center">Change Continent</h5>
+                    <select asp-for="Trip.ContinentId" class="form-control" asp-items="Model.AllContinentOptions"></select>
+                    <span asp-validation-for="Trip.ContinentId" class="text-danger"></span>
+                </div>
             </div>
-        </div>
-        <div class="card-body">
-            <div class="d-flex justify-content-between">
-                <div class="width-50">
-                    <div class="card-text text-center mt-2 mb-2">Current Image</div>
-                    <img class="details-img" id="trip-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="map" />
-                    <div class="control-label text-center mt-2 mb-2">New Image URL</div>
-                    <input class="form-control mt-2 mb-2" id="new-img-link" type="text" value="~/images/chuttersnap-176806-unsplash.jpg" />
-                    <div class="d-flex justify-content-center mt-3">
-                        <div class="btn-group">
-                            <button class="btn btn-secondary text-light" id="img-preview-btn">Preview</button>
-                            <button class="btn btn-secondary text-light" id="img-undo-btn">Undo</button>
+            <div class="card-body">
+                <div class="d-flex flex-wrap justify-content-between">
+                    <div class="width-50 text-blue">
+                        <h5 class="card-text text-center mt-2 mb-3">Current Image</h5>
+                        <div class="polaroid inset-shadow effect7">
+                            <img class="details-img" id="trip-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="map" />
+                            <div class="text-center sharpie" id="polaroid-img-title">@Model.Trip.Title</div>
+                        </div>
+                        <h5 class="control-label text-center mt-3 mb-3">New Image URL</h5>
+                        <input class="form-control mt-2 mb-2" id="new-img-link" type="text" value="~/images/chuttersnap-176806-unsplash.jpg" />
+                        <div class="d-flex justify-content-center mt-3">
+                            <div class="btn-group">
+                                <button class="btn btn-secondary text-light" id="img-preview-btn">Preview</button>
+                                <button class="btn btn-secondary text-light" id="img-undo-btn">Undo</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="width-50 text-blue p-2 d-flex flex-column justify-content-center">
+                        <div>
+                            <div class="form-group ml-4">
+                                <label asp-for="Trip.Title" class="control-label font-weight-bold"></label>
+                                <input asp-for="Trip.Title" class="form-control" />
+                                <span asp-validation-for="Trip.Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group ml-4">
+                                <label asp-for="Trip.Location" class="control-label font-weight-bold"></label>
+                                <input asp-for="Trip.Location" class="form-control" />
+                                <span asp-validation-for="Trip.Location" class="text-danger"></span>
+                            </div>
+                            <div class="form-group ml-4">
+                                <label asp-for="Trip.TripDates" class="control-label font-weight-bold">Dates of Trip</label>
+                                <input asp-for="Trip.TripDates" class="form-control" />
+                                <span asp-validation-for="Trip.TripDates" class="text-danger"></span>
+                            </div>
+                            <div class="form-group ml-4">
+                                <label asp-for="Trip.Accommodation" class="control-label font-weight-bold"></label>
+                                <input asp-for="Trip.Accommodation" Accommodation" class="form-control" />
+                                <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
+                            </div>
+                            <div class="form-group ml-4">
+                                <label asp-for="Trip.Budget" class="control-label font-weight-bold"></label>
+                                <input asp-for="Trip.Budget" Budget" class="form-control" />
+                                <span asp-validation-for="Trip.Budget" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="card border-0 p-2 ml-4 inset-shadow-blue effect6">
+                            <div class="card-text text-center mt-2">Modify Transportations</div>
+                            <hr />
+                            <div class="card-body">
+                                <div class="card-text d-flex flex-wrap justify-content-around">
+                                    @foreach (var item in Model.AllTravelTypes)
+                                    {
+                                        <div class="form-group mr-2">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" checked="@item.Selected" />
+                                                    @item.Text
+                                                </label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="width-50 p-2 d-flex flex-column justify-content-center">
-                    <div>
-                        <div class="form-group ml-4">
-                            <label asp-for="Trip.Title" class="control-label"></label>
-                            <input asp-for="Trip.Title" class="form-control" />
-                            <span asp-validation-for="Trip.Title" class="text-danger"></span>
-                        </div>
-                        <div class="form-group ml-4">
-                            <label asp-for="Trip.Location" class="control-label"></label>
-                            <input asp-for="Trip.Location" class="form-control" />
-                            <span asp-validation-for="Trip.Location" class="text-danger"></span>
-                        </div>
-                        <div class="form-group ml-4">
-                            <label asp-for="Trip.TripDates" class="control-label">Dates of Trip</label>
-                            <input asp-for="Trip.TripDates" class="form-control" />
-                            <span asp-validation-for="Trip.TripDates" class="text-danger"></span>
-                        </div>
-                        <div class="form-group ml-4">
-                            <label asp-for="Trip.Accommodation" class="control-label"></label>
-                            <input asp-for="Trip.Accommodation" Accommodation" class="form-control" />
-                            <span asp-validation-for="Trip.Accommodation" class="text-danger"></span>
-                        </div>
-                        <div class="form-group ml-4">
-                            <label asp-for="Trip.Budget" class="control-label"></label>
-                            <input asp-for="Trip.Budget" Budget" class="form-control" />
-                            <span asp-validation-for="Trip.Budget" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="card p-2 ml-4">
-                        <div class="card-text text-center">Modify Transportations</div>
-                        <hr />
-                        <div class="card-body">
-                            <div class="card-text d-flex flex-wrap justify-content-around">
-                                @foreach (var item in Model.AllTravelTypes)
-                                {
-                                    <div class="form-group mr-2">
-                                        <div class="checkbox">
+
+                <h5 class="text-center mt-4 mb-4">Experiences</h5>
+
+                <div class="d-flex flex-wrap justify-content-around" id="all-locations-container">
+                    <div class="card border-0 width-45 p-3 inset-shadow-orange effect6">
+                        <div class="card-text text-center font-weight-bold">Food Experiences</div>
+                        <div class="food-container">
+                            @for (var i = 0; i < Model.CurrentFoodLocations.Count; i++)
+                            {
+                                <div class="card p-2 mt-3 mb-2 @(Model.CurrentFoodLocations[i].IsCompleted == true ? "bg-light inset-shadow" : "border-0 bg-dark text-light inset-shadow-orange")" id="food-location-@(i+1)">
+                                    <div class="d-flex justify-content-start">
+                                        <div class="checkbox width-30 mr-2 ml-2 d-flex flex-column justify-content-center">
                                             <label>
-                                                <input type="checkbox" name="SelectedTravelTypeIds" value="@item.Value" checked="@item.Selected" />
-                                                @item.Text
+                                                @if (Model.CurrentFoodLocations[i].IsCompleted == true)
+                                                {
+                                                    <input type="checkbox" asp-for="@Model.NewFoodLocations[i].IsCompleted" checked="checked" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" asp-for="@Model.NewFoodLocations[i].IsCompleted" />
+                                                }
+                                                Completed?
                                             </label>
                                         </div>
+                                        <div class="width-65">
+                                            <div class="form-group">
+                                                <input asp-for="@Model.NewFoodLocations[i].Name" class="form-control" value="@Model.CurrentFoodLocations[i].Name" placeholder="Name" id="food-name-@(i + 1)" />
+                                                <span asp-validation-for="@Model.NewFoodLocations[i].Name" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea name="NewFoodLocations[@(i)].Description" class="form-control" id="food-desc-@(i + 1)">@Model.CurrentFoodLocations[i].Description</textarea>
+                                            </div>
+                                        </div>
                                     </div>
-                                }
-                            </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-sm btn-secondary btn-delete" id="remove-food-btn-@(i+1)">Remove</button>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+
+                        <button class="btn btn-block btn-secondary mt-3 mb-3" id="add-food-btn">Add More</button>
+
+                    </div>
+                    <div class="card border-0 width-45 p-3 inset-shadow-green effect6">
+                        <div class="card-text text-center font-weight-bold">Places To See Completed</div>
+                        <div class="visit-container">
+                            @for (var i = 0; i < Model.CurrentVisitLocations.Count; i++)
+                            {
+                                <div class="card p-2 bg-light mt-3 mb-2 @(Model.CurrentVisitLocations[i].IsCompleted == true ? "bg-light inset-shadow" : "border-0 bg-dark text-light inset-shadow-green")" id="visit-location-@(i+1)">
+                                    <div class="d-flex justify-content-start">
+                                        <div class="checkbox width-30 mr-2 ml-2 d-flex flex-column justify-content-center">
+                                            <label>
+                                                @if (Model.CurrentVisitLocations[i].IsCompleted == true)
+                                                {
+                                                    <input type="checkbox" asp-for="@Model.NewVisitLocations[i].IsCompleted" checked="checked" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" asp-for="@Model.NewVisitLocations[i].IsCompleted" />
+                                                }
+                                                Completed?
+                                            </label>
+                                        </div>
+                                        <div class="width-65">
+                                            <div class="form-group">
+                                                <input asp-for="@Model.NewVisitLocations[i].Name" class="form-control" value="@Model.CurrentVisitLocations[i].Name" placeholder="Name" id="visit-name-@(i + 1)" />
+                                                <span asp-validation-for="@Model.NewVisitLocations[i].Name" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea name="NewVisitLocations[@(i)].Description" class="form-control" id="visit-desc-@(i + 1)">@Model.CurrentVisitLocations[i].Description</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-sm btn-secondary btn-delete" id="remove-visit-btn-@(i+1)">Remove</button>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                        <button class="btn btn-block btn-secondary mt-3 mb-3" id="add-visit-btn">Add More</button>
+                    </div>
+                </div>
+
+                <h5 class="text-center mt-4 mb-4">Travoul Retrospectives</h5>
+                <hr />
+
+                <div class="d-flex flex-wrap justify-content-around mt-4">
+                    <div class="card border-0 width-45 p-3 inset-shadow-blue effect3">
+                        <h5 class="card-text text-center pt-2">Things I'd do again</h5>
+                        <hr />
+                        <div class="form-group">
+                            <textarea asp-for="DoAgainRetro.Description" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="DoAgainRetro.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card border-0 width-45 p-3 inset-shadow-blue effect4">
+                        <h5 class="card-text text-center pt-2">Things I'd do Different</h5>
+                        <hr />
+                        <div class="form-group">
+                            <textarea asp-for="DoDifferentRetro.Description" class="form-control" rows="4"></textarea>
+                            <span asp-validation-for="DoDifferentRetro" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <h5 class="text-center mt-4 mb-4">Experiences</h5>
-
-        <div class="d-flex justify-content-around" id="all-locations-container">
-            <div class="card width-45 p-2">
-                <div class="card-text text-center">Food Experiences</div>
-                <div class="food-container">
-                    @for (var i = 0; i < Model.CurrentFoodLocations.Count; i++)
-                    {
-                        <div class="card p-2 bg-light mt-3 mb-2" id="food-location-@(i+1)">
-                            <div class="d-flex justify-content-start">
-                                <div class="checkbox width-30 mr-2 d-flex flex-column justify-content-center">
-                                    <label>
-                                        @if (Model.CurrentFoodLocations[i].IsCompleted == true)
-                                        {
-                                            <input type="checkbox" asp-for="@Model.NewFoodLocations[i].IsCompleted" checked="checked" />
-                                        }
-                                        else
-                                        {
-                                            <input type="checkbox" asp-for="@Model.NewFoodLocations[i].IsCompleted" />
-                                        }
-                                        Completed?
-                                    </label>
-                                </div>
-                                <div class="width-65">
-                                    <div class="form-group">
-                                        <input asp-for="@Model.NewFoodLocations[i].Name" class="form-control" value="@Model.CurrentFoodLocations[i].Name" placeholder="Name" id="food-name-@(i + 1)" />
-                                        <span asp-validation-for="@Model.NewFoodLocations[i].Name" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea name="NewFoodLocations[@(i)].Description" class="form-control" id="food-desc-@(i + 1)">@Model.CurrentFoodLocations[i].Description</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-sm btn-danger" id="remove-food-btn-@(i+1)">Remove</button>
-                            </div>
-                        </div>
-
-                    }
-
-                </div>
-                
-                <button class="btn btn-block btn-secondary mt-3 mb-3" id="add-food-btn">Add More</button>
-                
-            </div>
-            <div class="card width-45 p-2">
-                <div class="card-text text-center">Places To See Completed</div>
-                <div class="visit-container">
-                    @for (var i = 0; i < Model.CurrentVisitLocations.Count; i++)
-                    {
-                        <div class="card p-2 bg-light mt-3 mb-2" id="visit-location-@(i+1)">
-                            <div class="d-flex justify-content-start">
-                                <div class="checkbox width-30 mr-2 d-flex flex-column justify-content-center">
-                                    <label>
-                                        @if (Model.CurrentVisitLocations[i].IsCompleted == true)
-                                        {
-                                            <input type="checkbox" asp-for="@Model.NewVisitLocations[i].IsCompleted" checked="checked" />
-                                        }
-                                        else
-                                        {
-                                            <input type="checkbox" asp-for="@Model.NewVisitLocations[i].IsCompleted" />
-                                        }
-                                        Completed?
-                                    </label>
-                                </div>
-                                <div class="width-65">
-                                    <div class="form-group">
-                                        <input asp-for="@Model.NewVisitLocations[i].Name" class="form-control" value="@Model.CurrentVisitLocations[i].Name" placeholder="Name" id="visit-name-@(i + 1)" />
-                                        <span asp-validation-for="@Model.NewVisitLocations[i].Name" class="text-danger"></span>
-                                    </div>
-                                    <div class="form-group">
-                                        <textarea name="NewVisitLocations[@(i)].Description" class="form-control" id="visit-desc-@(i + 1)">@Model.CurrentVisitLocations[i].Description</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-sm btn-danger" id="remove-visit-btn-@(i+1)">Remove</button>
-                            </div>
-                        </div>
-
-                    }
-                </div>
-                <button class="btn btn-block btn-secondary mt-3 mb-3" id="add-visit-btn">Add More</button>
-            </div>
         </div>
+        <button class="btn btn-block btn-blue mt-4">Save</button>
+    </form>
 
-        <h5 class="text-center mt-4 mb-4">Travoul Retrospectives</h5>
-        <hr />
 
-        <div class="d-flex justify-content-around mt-4">
-            <div class="card width-45 p-2">
-                <h5 class="card-text text-center pt-2">Things I'd do again</h5>
-                <hr />
-                <div class="form-group">
-                    <textarea asp-for="DoAgainRetro.Description" class="form-control" rows="4"></textarea>
-                    <span asp-validation-for="DoAgainRetro.Description" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="card width-45 p-2">
-                <h5 class="card-text text-center pt-2">Things I'd do Different</h5>
-                <hr />
-                <div class="form-group">
-                    <textarea asp-for="DoDifferentRetro.Description" class="form-control" rows="4"></textarea>
-                    <span asp-validation-for="DoDifferentRetro" class="text-danger"></span>
-                </div>
-            </div>
-        </div>
-        </div>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-secondary mt-4" asp-controller="Trips" asp-action="Index">Back to List</a>
     </div>
-    <button class="btn btn-block btn-secondary mt-4">Save</button>
-</form>
-
-
-<div>
-    <a class="btn btn-secondary mt-4" asp-controller="Trips" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
