@@ -284,6 +284,8 @@ body {
     min-height: 100vh;
     position: relative;
     z-index: -5;
+    background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .9)), url('../images/adolfo-felix-572763-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
 }
 
 .all-trips-card {
@@ -295,6 +297,12 @@ body {
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.inset-shadow-dark {
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.4) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.4) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.4) inset;
 }
 
 .inset-shadow-orange {
@@ -366,6 +374,18 @@ body {
         border-color: #33805d;
     }
 
+.btn-blue {
+    color: #fff;
+    background-color: #047b8e;
+    border-color: #047b8e;
+}
+
+    .btn-blue:hover {
+        color: #f2f2f2;
+        background-color: #035763;
+        border-color: #035763;
+    }
+
 .bg-lightgreen {
     background: #edf7f3 !important;
 }
@@ -406,6 +426,13 @@ body {
 }
 
 .header-orange {
+    background: #ee8753;
+    border-bottom: #ea6d2e;
+}
+
+.header-green {
+    background: #3e9d73;
+    border-bottom: #33805d;
 }
 
 .align-self-center {
@@ -413,18 +440,71 @@ body {
 }
 
 
+
 /*Planned Trips */
+.trip-create-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
+
+.planned-trips-index-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(to right, rgba(0,0,0, .1), rgba(0,0,0, .25)), url("https://images.unsplash.com/photo-1538061879026-7703d25d483c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=970&q=80") no-repeat fixed;
+    background-size: cover;
+}
+
+.planned-trips-search-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(to right, rgba(0,0,0, .1), rgba(0,0,0, .25)), url("https://images.unsplash.com/photo-1538061879026-7703d25d483c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=970&q=80") no-repeat fixed;
+    background-size: cover;
+}
+
+.planned-trip-details-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(to right, rgba(255,255,255, .85), rgba(255,255,255, .9)), url("https://images.unsplash.com/photo-1526667383715-3c42cbae3d60?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80") no-repeat fixed;
+    background-size: cover;
+}
+
+.planned-trip-edit-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
+
+.finish-trip-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
+
+.text-shadow {
+    text-shadow: 1px 3px 3px rgba(0,0,0,0.9);
+}
+
 .pre-trip-card {
     width: 30%;
 }
 
-.plan-create-details-card {
+/*.plan-create-details-card {
     width: 40%;
 }
 
 .plan-create-locations-card {
     width: 35%;
-}
+}*/
 
 .search-container {
     margin-bottom: 2em;
@@ -493,6 +573,15 @@ body {
     background-size: cover;
 }
 
+.finished-trip-search-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(rgba(255,255,255, .7), rgba(255,255,255, .85)), url('../images/colton-sturgeon-1059840-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
+}
+
 .finish-trip-details-page {
     padding: 3em;
     min-height: 100vh;
@@ -500,6 +589,13 @@ body {
     z-index: -5;
     background: linear-gradient(rgba(255,255,255, .5), rgba(255,255,255, .7)), url('../images/colton-sturgeon-1059840-unsplash.jpg') no-repeat fixed;
     background-size: cover;
+}
+
+.finish-trip-edit-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
 }
 
 .polaroid {
@@ -559,13 +655,11 @@ body {
 }
 
 
-
-
-
-
-
-
-
+footer {
+    padding: 2em;
+    background: #3e9d73;
+    color: white;
+}
 
 
 
@@ -577,5 +671,3 @@ body {
     }
 }
 
-
-3
