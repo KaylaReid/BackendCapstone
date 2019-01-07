@@ -17,10 +17,10 @@
                 @if (Model.Pager.CurrentPage > 1)
                 {
                     <li class="page-item">
-                        <a class="page-link text-dark bg-lightgreen" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search">First</a>
+                        <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search">First</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link text-dark bg-lightgreen" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
+                        <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage - 1)">Previous</a>
                     </li>
                 }
 
@@ -29,14 +29,14 @@
                     if (page == Model.Pager.CurrentPage)
                     {
                         <li class="page-item">
-                            <a class="page-link bg-green text-light border-green" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                            <a class="page-link bg-dark text-light" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
                         </li>
 
                     }
                     else
                     {
                         <li class="page-item">
-                            <a class="page-link text-dark bg-lightgreen" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                            <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
                         </li>
                     }
                 }
@@ -44,10 +44,10 @@
                 @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
                 {
                     <li class="page-item">
-                        <a class="page-link text-dark bg-lightgreen" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
+                        <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.CurrentPage + 1)">Next</a>
                     </li>
                     <li class="page-item">
-                        <a class="page-link text-dark bg-lightgreen" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
+                        <a class="page-link text-dark" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(Model.Pager.TotalPages)">Last</a>
                     </li>
                 }
             </ul>
@@ -57,9 +57,9 @@
     <div class="mt-5">
         @foreach (Trip trip in Model.Trips)
         {
-            <div class="card mb-4 p-2 finish-travoul-media effect2 bg-@string.Join("", trip.Continent.Name.Split(" "))">
+            <div class="card width-75 mb-4 p-2 finish-travoul-media effect2">
 
-                <div class="media">
+                <div class="media text-blue">
                     <img class="m-2 index-trip-img effect3" src="~/images/chuttersnap-176806-unsplash.jpg" alt="Generic placeholder image">
                     <div class="media-body mt-1 ml-3">
                         <div class="card-text text-center">@trip.Continent.Name</div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="card-text">@trip.Accommodation</div>
                         <div class="d-flex justify-content-end mt-4">
-                            <a class="btn btn-secondary btn-sm mr-1" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">Trip Details</a>
+                            <a class="btn btn-green btn-sm mr-1" asp-controller="Home" asp-action="AllTripsDetails" asp-route-id="@trip.TripId">Details</a>
                         </div>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                     if (page == Model.Pager.CurrentPage)
                     {
                         <li class="page-item">
-                            <a class="page-link bg-green text-light border-green" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
+                            <a class="page-link bg-dark text-light" asp-controller="Home" asp-action="TripSearchAll" asp-route-search="@Model.Search" asp-route-page="@(page)">@(page)</a>
                         </li>
 
                     }
@@ -130,7 +130,7 @@
     }
 
 
-    <div class="d-flex justify-content-end">
+    <div class="d-flex justify-content-center">
         <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back to Home</a>
     </div>
 </div>
