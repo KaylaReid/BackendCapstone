@@ -4,37 +4,41 @@
     ViewData["Title"] = "Index";
 }
 
-<div class="search-container d-flex justify-content-center">
-    <div class="search-bar-area">
-        <h4 class="text-center">Search for planned Travouls</h4>
-        <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="true">
-            <input placeholder="Search by Name, Location, or Continent" type="search" name="search" class="form-control" />
-        </form>
+<div class="planned-trips-index-page">
+
+    <div class="search-container d-flex justify-content-center">
+        <div class="search-bar-area">
+            <h3 class="text-center text-light mb-3 text-shadow">Search for planned Travouls</h3>
+            <form asp-controller="Trips" asp-action="TripSearch" asp-route-preTrip="true">
+                <input placeholder="Search by Name, Location, or Continent" type="search" name="search" class="form-control" />
+            </form>
+        </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-around">
+        @foreach (Trip trip in Model)
+        {
+            <div class="card mt-3 border-0 pre-trip-card effect7">
+                <h5 class="card-header header-orange text-light">@trip.Continent.Name</h5>
+                <div class="card-body text-blue inset-shadow-dark">
+                    <h5 class="card-title">@trip.Title</h5>
+                    <p class="card-text">@trip.Location</p>
+                    <p class="card-text">@trip.TripDates</p>
+                    <p class="card-text">@trip.Accommodation</p>
+                    @if (trip.Budget == null)
+                    {
+                        <p class="card-text text-muted font-italic">None</p>
+                    }
+                    else
+                    {
+                        <p class="card-text">@trip.Budget</p>
+                    }
+                    <div class="d-flex justify-content-end">
+                        <a asp-action="PlannedTripDetails" asp-route-id="@trip.TripId" class="btn btn-sm btn-blue">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+
     </div>
 </div>
-
-<div class="d-flex flex-wrap justify-content-around">
-    @foreach (Trip trip in Model) 
-     {
-        <div class="card mt-3 pre-trip-card">
-            <h5 class="card-header">@trip.Continent.Name</h5>
-            <div class="card-body">
-                <h5 class="card-title">@trip.Title</h5>
-                <p class="card-text">@trip.Location</p>
-                <p class="card-text">@trip.TripDates</p>
-                <p class="card-text">@trip.Accommodation</p>
-                @if (trip.Budget == null)
-                {
-                    <p class="card-text text-muted font-italic">None</p>
-                }
-                else
-                {
-                    <p class="card-text">@trip.Budget</p>
-                }
-                <a asp-action="PlannedTripDetails" asp-route-id="@trip.TripId" class="btn btn-sm btn-secondary">Details</a>
-            </div>
-        </div>
-     }
-
-</div>
- 
