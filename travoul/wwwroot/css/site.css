@@ -240,6 +240,7 @@ body {
 
 .register-page {
     background: linear-gradient(to right, #ffffe6, transparent) no-repeat fixed, url("../images/travoul-login-bg copy.jpeg") no-repeat fixed;
+    background-size: cover;
 }
 
 .half-width {
