@@ -1,5 +1,4 @@
-﻿
-let foodI = 0;
+﻿let foodI = 0;
 
 let placeI = 0;
 
@@ -24,7 +23,11 @@ parentDiv.addEventListener("click", (e) => {
         }
 
         let newCard = document.createElement("div");
-        newCard.setAttribute("class", "card p-2 bg-light mt-2 mb-2");
+        if (type === "food") {
+            newCard.setAttribute("class", "card p-2 bg-light mt-2 mb-2 inset-shadow-orange");
+        } else {
+            newCard.setAttribute("class", "card p-2 bg-light mt-2 mb-2 inset-shadow-green");
+        }
 
         let innerDiv = document.createElement("div");
         innerDiv.setAttribute("class", "d-flex justify-content-start");
@@ -55,7 +58,7 @@ parentDiv.addEventListener("click", (e) => {
 
         let nameValidator = document.createElement("span");
         nameValidator.setAttribute("class", "text-danger field-validation-valid");
-        nameValidator.setAttribute("data-valmsg-for", `New${Type}s[${index}].Name`);
+        nameValidator.setAttribute("data-valmsg-for", `${Type}-name-${index + 1}`);
         nameValidator.setAttribute("data-valmsg-replace", true);
 
         let descTextarea = document.createElement("textarea")
