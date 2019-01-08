@@ -1,5 +1,6 @@
-﻿let locationInput = document.querySelector("#Trip_Location");
+﻿
 
+let locationInput = document.querySelector("#Trip_Location");
 
 locationInput.addEventListener("keyup", (e) => {
 
