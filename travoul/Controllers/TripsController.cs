@@ -49,7 +49,9 @@ namespace travoul.Controllers
            
             List<Trip> trips = await _context.Trip
                 .Include(t => t.Continent)
-                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && (t.Title.Contains(search) || t.Location.Contains(search) || t.Continent.Name.Contains(search))).ToListAsync();
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && (t.Title.Contains(search) || t.Location.Contains(search) || t.Continent.Name.Contains(search)))
+                .OrderByDescending(t => t.DateFinished)
+                .ToListAsync();
 
             TripSearchViewModel viewModel = new TripSearchViewModel();
 
@@ -84,7 +86,9 @@ namespace travoul.Controllers
 
             List<Trip> UserTrips = await _context.Trip
                 .Include(t => t.Continent)
-                .Where(t => t.UserId == User.Id && t.IsPreTrip == false).ToListAsync();
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == false)
+                .OrderByDescending(t => t.DateFinished)
+                .ToListAsync();
 
             Pager pager = new Pager(UserTrips.Count(), page);
             
