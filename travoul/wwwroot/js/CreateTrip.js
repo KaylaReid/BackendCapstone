@@ -2,7 +2,6 @@
 
 let locationInput = document.querySelector("#Trip_Location");
 
-
 locationInput.addEventListener("keyup", (e) => {
 
     let locationText = e.target.value;
@@ -23,13 +22,13 @@ let visitI = 1
 
 
 //add event listener to the visit locations container
-document.querySelector(".plan-create-locations-card").addEventListener("click", (e) => {
+document.querySelector(".activities-container").addEventListener("click", (e) => {
 
 
     //perform actions when add food/add visit buttons are clicked
     if (e.target.id === "add-food-btn" || e.target.id === "add-visit-btn") {
-    //prevent overall form submission
-    e.preventDefault();
+        //prevent overall form submission
+        e.preventDefault();
 
         //grab type (food or visit) from button ids
         let type = e.target.id.split("-")[1];
@@ -52,7 +51,11 @@ document.querySelector(".plan-create-locations-card").addEventListener("click", 
 
         //create new card for new visit location and set attributes
         let newParent = document.createElement("div");
-        newParent.setAttribute("class", "card p-2 bg-light mb-2");
+        if (type === "food") {
+            newParent.setAttribute("class", "card p-2 bg-light mb-2 mr-3 ml-3 inset-shadow-orange");
+        } else {
+            newParent.setAttribute("class", "card p-2 bg-light mb-2 mr-3 ml-3 inset-shadow-green");
+        }
         newParent.setAttribute("id", `${type}-location-${i + 1}`);
 
         //create innerdiv to mirror what is on page currently

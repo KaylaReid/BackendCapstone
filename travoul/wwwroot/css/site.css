@@ -1,59 +1,514 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+﻿@import url('https://fonts.googleapis.com/css?family=Rock+Salt');
+
+/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
-/*body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}*/
+body {
+    position: relative;
+    z-index: -11;
+}
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+
+
+
+/* Box Shadow Styles*/
+.effect2 {
+    position: relative;
 }
 
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
+    .effect2:before, .effect2:after {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 15px;
+        left: 10px;
+        width: 50%;
+        top: 80%;
+        max-width: 300px;
+        background: #777;
+        -webkit-box-shadow: 0 15px 10px #777;
+        -moz-box-shadow: 0 15px 10px #777;
+        box-shadow: 0 15px 10px #777;
+        -webkit-transform: rotate(-3deg);
+        -moz-transform: rotate(-3deg);
+        -o-transform: rotate(-3deg);
+        -ms-transform: rotate(-3deg);
+        transform: rotate(-3deg);
+    }
+
+    .effect2:after {
+        -webkit-transform: rotate(3deg);
+        -moz-transform: rotate(3deg);
+        -o-transform: rotate(3deg);
+        -ms-transform: rotate(3deg);
+        transform: rotate(3deg);
+        right: 10px;
+        left: auto;
+    }
+
+.effect4 {
+    position: relative;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
+    .effect4:after {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 15px;
+        right: 10px;
+        left: auto;
+        width: 50%;
+        top: 80%;
+        max-width: 300px;
+        background: #777;
+        -webkit-box-shadow: 0 15px 10px #777;
+        -moz-box-shadow: 0 15px 10px #777;
+        box-shadow: 0 15px 10px #777;
+        -webkit-transform: rotate(3deg);
+        -moz-transform: rotate(3deg);
+        -o-transform: rotate(3deg);
+        -ms-transform: rotate(3deg);
+        transform: rotate(3deg);
+    }
+
+
+.effect5 {
+    position: relative;
 }
 
-/* QR code generator */
-#qrCode {
-    margin: 15px;
+    .effect5:before, .effect5:after {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 25px;
+        left: 10px;
+        width: 50%;
+        top: 80%;
+        max-width: 300px;
+        background: #777;
+        -webkit-box-shadow: 0 35px 20px #777;
+        -moz-box-shadow: 0 35px 20px #777;
+        box-shadow: 0 35px 20px #777;
+        -webkit-transform: rotate(-8deg);
+        -moz-transform: rotate(-8deg);
+        -o-transform: rotate(-8deg);
+        -ms-transform: rotate(-8deg);
+        transform: rotate(-8deg);
+    }
+
+    .effect5:after {
+        -webkit-transform: rotate(8deg);
+        -moz-transform: rotate(8deg);
+        -o-transform: rotate(8deg);
+        -ms-transform: rotate(8deg);
+        transform: rotate(8deg);
+        right: 10px;
+        left: auto;
+    }
+
+
+.effect3 {
+    position: relative;
+}
+
+    .effect3:before {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        bottom: 15px;
+        left: 10px;
+        width: 50%;
+        top: 80%;
+        max-width: 300px;
+        background: #777;
+        -webkit-box-shadow: 0 15px 10px #777;
+        -moz-box-shadow: 0 15px 10px #777;
+        box-shadow: 0 15px 10px #777;
+        -webkit-transform: rotate(-3deg);
+        -moz-transform: rotate(-3deg);
+        -o-transform: rotate(-3deg);
+        -ms-transform: rotate(-3deg);
+        transform: rotate(-3deg);
+    }
+
+.effect6 {
+    position: relative;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+    .effect6:before, .effect6:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        -webkit-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        -moz-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        top: 50%;
+        bottom: 0;
+        left: 10px;
+        right: 10px;
+        -moz-border-radius: 100px / 10px;
+        border-radius: 100px / 10px;
+    }
+
+    .effect6:after {
+        right: 10px;
+        left: auto;
+        -webkit-transform: skew(8deg) rotate(3deg);
+        -moz-transform: skew(8deg) rotate(3deg);
+        -ms-transform: skew(8deg) rotate(3deg);
+        -o-transform: skew(8deg) rotate(3deg);
+        transform: skew(8deg) rotate(3deg);
+    }
+
+.effect7 {
+    position: relative;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+    .effect7:before, .effect7:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        -webkit-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        -moz-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        top: 0;
+        bottom: 0;
+        left: 10px;
+        right: 10px;
+        -moz-border-radius: 100px / 10px;
+        border-radius: 100px / 10px;
+    }
+
+    .effect7:after {
+        right: 10px;
+        left: auto;
+        -webkit-transform: skew(8deg) rotate(3deg);
+        -moz-transform: skew(8deg) rotate(3deg);
+        -ms-transform: skew(8deg) rotate(3deg);
+        -o-transform: skew(8deg) rotate(3deg);
+        transform: skew(8deg) rotate(3deg);
+    }
+
+.effect8 {
+    position: relative;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+    .effect8:before, .effect8:after {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        -webkit-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        -moz-box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        top: 10px;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        -moz-border-radius: 100px / 10px;
+        border-radius: 100px / 10px;
+    }
+
+    .effect8:after {
+        right: 10px;
+        left: auto;
+        -webkit-transform: skew(8deg) rotate(3deg);
+        -moz-transform: skew(8deg) rotate(3deg);
+        -ms-transform: skew(8deg) rotate(3deg);
+        -o-transform: skew(8deg) rotate(3deg);
+        transform: skew(8deg) rotate(3deg);
+    }
+
+/* Login Styles*/
+
+.login-page,
+.register-page {
+    background: linear-gradient(to bottom right, #ffffe6, transparent 50%) no-repeat fixed, url("../images/travoul-login-bg copy.jpeg") no-repeat fixed;
+    background-size: cover;
+    padding: 2em;
+    min-height: 100vh;
+}
+
+.register-page {
+    background: linear-gradient(to right, #ffffe6, transparent) no-repeat fixed, url("../images/travoul-login-bg copy.jpeg") no-repeat fixed;
+    background-size: cover;
 }
 
 .half-width {
     width: 50% !important;
 }
 
+.bottom-layer {
+    position: relative;
+    z-index: -10;
+}
+
+.top-layer {
+    z-index: 0;
+}
+
+.mid-layer {
+    position: relative;
+    z-index: 3;
+}
+
+/*Home Page*/
+
+.home-page {
+    padding: 2em;
+    min-height: 100vh;
+    background: linear-gradient(rgba(255, 255, 255, .7), rgba(255, 255, 255, .9)), url('../images/adolfo-felix-572763-unsplash.jpg');
+    background-size: cover;
+    position: relative;
+    z-index: -5;
+}
+
+.home-page-img {
+    width: 100%;
+    display: block;
+    border-radius: 3px;
+}
+
+/* All Trip Search */
+
+.all-trip-search-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(rgba(255, 255, 255, .8), rgba(255, 255, 255, .9)), url('../images/adolfo-felix-572763-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
+}
+
+.all-trips-card {
+    background: linear-gradient(#edf7f3, #c9f0ee);
+}
 
 /*Re-useable styles*/
+.inset-shadow {
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
 
+.inset-shadow-dark {
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.4) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.4) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 0, 0, 0.4) inset;
+}
 
+.inset-shadow-orange {
+    -webkit-box-shadow: 0 1px 4px rgba(238, 135, 83, 0.6), 0 0 40px rgba(238, 135, 83, 0.4) inset;
+    -moz-box-shadow: 0 1px 4px rgba(238, 135, 83, 0.6), 0 0 40px rgba(238, 135, 83, 0.4) inset;
+    box-shadow: 0 1px 4px rgba(238, 135, 83, 0.6), 0 0 40px rgba(238, 135, 83, 0.4) inset;
+}
+
+.inset-shadow-green {
+    -webkit-box-shadow: 0 1px 4px rgba(62, 157, 115, 0.6), 0 0 40px rgba(62, 157, 115, 0.4) inset;
+    -moz-box-shadow: 0 1px 4px rgba(62, 157, 115, 0.6), 0 0 40px rgba(62, 157, 115, 0.4) inset;
+    box-shadow: 0 1px 4px rgba(62, 157, 115, 0.6), 0 0 40px rgba(62, 157, 115, 0.4) inset;
+}
+
+.inset-shadow-blue {
+    -webkit-box-shadow: 0 1px 4px rgba(4, 123, 142, 0.6), 0 0 40px rgba(4, 123, 142, 0.4) inset;
+    -moz-box-shadow: 0 1px 4px rgba(4, 123, 142, 0.6), 0 0 40px rgba(4, 123, 142, 0.4) inset;
+    box-shadow: 0 1px 4px rgba(4, 123, 142, 0.6), 0 0 40px rgba(4, 123, 142, 0.4) inset;
+}
+
+.bg-Oceania {
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 1) 40%, rgba(235, 250, 249, 1), rgba(235, 250, 249, .9), rgba(235, 250, 249, .8), transparent) border-box, url("https://images.unsplash.com/photo-1540202404-a2f29016b523?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1790&q=80") bottom no-repeat;
+    background-size: cover;
+}
+
+.bg-NorthAmerica {
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 1) 40%, rgba(235, 250, 249, 1), rgba(235, 250, 249, .9), rgba(235, 250, 249, .8), transparent) border-box, url("https://images.unsplash.com/photo-1483653364400-eedcfb9f1f88?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80") center no-repeat;
+    background-size: cover;
+}
+
+.bg-SouthAmerica {
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 1) 40%, rgba(253, 239, 232, 1), rgba(253, 239, 232, .9), rgba(253, 239, 232, .8), transparent) border-box, url("https://images.unsplash.com/photo-1476846097969-46bc4cd7da07?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1702&q=80") bottom no-repeat;
+    background-size: cover;
+}
+
+.bg-Europe {
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 1) 40%, rgba(253, 239, 232, 1), rgba(253, 239, 232, .9), rgba(253, 239, 232, .8), transparent) border-box, url("https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80") center no-repeat;
+    background-size: cover;
+}
+
+.bg-Africa {
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 1) 40%, rgba(253, 239, 232, 1), rgba(253, 239, 232, .9), rgba(253, 239, 232, .8), transparent) border-box, url("https://images.unsplash.com/photo-1481464904474-a575a33b44a0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1502&q=80") center no-repeat;
+    background-size: cover;
+}
+
+.bg-Antarctica {
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 1) 40%, rgba(235, 250, 249, 1), rgba(235, 250, 249, .9), rgba(235, 250, 249, .8), transparent) border-box, url("https://images.unsplash.com/photo-1515963763434-572a9708571f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1502&q=80") center no-repeat;
+    background-size: cover;
+}
+
+.bg-Asia {
+    background: linear-gradient( to bottom, rgba(255, 255, 255, 1) 40%, rgba(253, 239, 232, 1), rgba(253, 239, 232, .9), rgba(253, 239, 232, .8), transparent) border-box, url("https://images.unsplash.com/photo-1497672084222-89711929693e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80") center no-repeat;
+    background-size: cover;
+}
+
+.bg-green {
+    background: #3e9d73 !important;
+}
+
+.btn-green {
+    color: #fff;
+    background-color: #3e9d73;
+    border-color: #3e9d73;
+}
+
+    .btn-green:hover {
+        color: #f2f2f2;
+        background-color: #33805d;
+        border-color: #33805d;
+    }
+
+.btn-blue {
+    color: #fff;
+    background-color: #047b8e;
+    border-color: #047b8e;
+}
+
+    .btn-blue:hover {
+        color: #f2f2f2;
+        background-color: #035763;
+        border-color: #035763;
+    }
+
+.bg-lightgreen {
+    background: #edf7f3 !important;
+}
+
+.bg-orange {
+    background: #ee8753 !important;
+}
+
+.border-green {
+    border-color: #3e9d73 !important;
+}
+
+.bg-gray-light {
+    background: #f2f2f2;
+}
+
+.page-item .bg-lightgreen:hover {
+    background: #3e9d73 !important;
+    border-color: #3e9d73 !important;
+    color: white !important;
+}
+
+.text-blue {
+    color: #036c7c !important;
+}
+
+.text-light-gray {
+    color: #d9d9d9;
+}
+
+.header-blue {
+    background: #036c7c;
+    border-bottom: #046c7c;
+}
+
+.border-blue {
+    border-color: #046c7c;
+}
+
+.header-orange {
+    background: #ee8753;
+    border-bottom: #ea6d2e;
+}
+
+.header-green {
+    background: #3e9d73;
+    border-bottom: #33805d;
+}
+
+.align-self-center {
+    align-self: center;
+}
 
 
 
 /*Planned Trips */
+.trip-create-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
+
+.planned-trips-index-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(to bottom right, rgba(255,255,255, .8), rgba(255,255,255, .35)), url("https://images.unsplash.com/photo-1538061879026-7703d25d483c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=970&q=80") no-repeat fixed;
+    background-size: cover;
+}
+
+.planned-trips-search-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(to right, rgba(0,0,0, .1), rgba(0,0,0, .25)), url("https://images.unsplash.com/photo-1538061879026-7703d25d483c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=970&q=80") no-repeat fixed;
+    background-size: cover;
+}
+
+.planned-trip-details-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(to right, rgba(255,255,255, .85), rgba(255,255,255, .9)), url("https://images.unsplash.com/photo-1526667383715-3c42cbae3d60?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80") no-repeat fixed;
+    background-size: cover;
+}
+
+.planned-trip-edit-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
+
+.finish-trip-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
+
+.text-shadow {
+    text-shadow: 1px 3px 3px rgba(255,255,255,0.9);
+}
+
 .pre-trip-card {
     width: 30%;
 }
 
-.plan-create-details-card {
+/*.plan-create-details-card {
     width: 40%;
 }
 
 .plan-create-locations-card {
     width: 35%;
-}
+}*/
 
 .search-container {
-    margin: 2em 0;
+    margin-bottom: 2em;
 }
 
 .search-bar-area {
@@ -85,6 +540,10 @@ for details on configuring this project to bundle and minify static web assets. 
     width: 50%;
 }
 
+.width-75 {
+    width: 75%;
+}
+
 .width-65 {
     width: 65%;
 }
@@ -100,15 +559,61 @@ for details on configuring this project to bundle and minify static web assets. 
 
 
 .my-trips-pagination .pagination .active a {
-    
 }
 
 
 
 /*Finished Trips */
 
+.finished-trips-index-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(rgba(255,255,255, .7), rgba(255,255,255, .85)), url('../images/colton-sturgeon-1059840-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
+}
+
+.finished-trip-search-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(rgba(255,255,255, .7), rgba(255,255,255, .85)), url('../images/colton-sturgeon-1059840-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
+}
+
+.finish-trip-details-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+    background: linear-gradient(rgba(255,255,255, .5), rgba(255,255,255, .7)), url('../images/colton-sturgeon-1059840-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
+}
+
+.finish-trip-edit-page {
+    padding: 3em;
+    min-height: 100vh;
+    position: relative;
+    z-index: -5;
+}
+
+.polaroid {
+    background: #f2f2f2;
+    padding: 1em 1em 2.5em 1em;
+    border-radius: 3px;
+}
+
+.sharpie {
+    padding-top: 1.5em;
+    font-family: 'Rock Salt', cursive;
+    color: black !important;
+    font-weight: bold;
+}
+
 .details-img {
-    display:block;
+    display: block;
     width: 100%;
 }
 
@@ -122,15 +627,20 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 
+.finish-travoul-media {
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    margin: 3em auto;
+}
+
+}
+
 .finish-travoul-media hr {
     margin-top: 5px !important;
 }
 
-/*Home Page*/
-.home-page-img {
-    height: 550px;
-    width: 100%;
-}
+
 
 
 
@@ -143,17 +653,14 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .btn-edit {
-
 }
 
 
-
-
-
-
-
-
-
+footer {
+    padding: .7em;
+    background: #3e9d73;
+    color: white;
+}
 
 
 
@@ -164,6 +671,4 @@ for details on configuring this project to bundle and minify static web assets. 
         display: none;
     }
 }
-
-
 

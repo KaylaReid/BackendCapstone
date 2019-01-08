@@ -2,17 +2,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    @*<h3 class="text-center mt-3 mb-3">Hello, and welcome to Travoul!</h3>
-    <h5 class="text-center">A travel journal that allows you to plan details and activities as well as reflect on the good part of the trip that you would do again, or recomend for a friend to try vs what you didn't like and or would do different if you went back!</h5>*@
+<div class="home-page">
+    <h3 class="text-center mt-3 mb-3">Welcome to Travoul!</h3>
+    <div class="d-flex justify-content-center">
+        <h5 class="text-center width-50 text-muted font-weight-italic">Travoul acts as a Journal for your Travel plans that allows you to look back on past experiences in one convenient place, as well as look to the future for your next great adventure!</h5>
 
-    <div class="search-container d-flex justify-content-center">
+    </div>
+    @*<h5 class="text-center">A travel journal that allows you to plan details and activities as well as reflect on the good part of the trip that you would do again, or recomend for a friend to try vs what you didn't like and or would do different if you went back!</h5>*@
+
+    <div class="mt-4 mb-4 d-flex justify-content-center top-layer">
         <div class="search-bar-area">
-            <h4 class="text-center mb-3">Search for Travouls by Name, Location, or Continents</h4>
+            <h4 class="text-center mb-3">Search for Travouls</h4>
             <form asp-controller="Home" asp-action="TripSearchAll">
-                <input placeholder="Search" type="text" name="Search" class="form-control" />
+                <input placeholder="Search by Name, Location, or Continent" type="text" name="Search" class="form-control" />
             </form>
         </div>
     </div>
-    <img class="home-page-img" src="~/images/chris-lawton-346402-unsplash.jpg" alt="map" />
+    <div class="d-flex justify-content-center">
+        <div class="card bg-dark border-0 width-65 effect2">
+            <img class="home-page-img effect5" src="~/images/chris-lawton-346402-unsplash.jpg" alt="map" />
+        </div>
+    </div>
 </div>

@@ -1,4 +1,4 @@
-﻿const locationContainer = document.querySelector(".plan-create-locations-card");
+﻿const locationContainer = document.querySelector(".activities-container");
 
 let foodI = document.querySelector(".food-container").children.length;
 
@@ -39,7 +39,11 @@ locationContainer.addEventListener("click", (e) => {
         let container = document.querySelector(`.${type}-container`);
 
         let newParent = document.createElement("div");
-        newParent.setAttribute("class", "card p-2 bg-light mb-2");
+        if (type === "food") {
+            newParent.setAttribute("class", "card p-3 bg-light mb-3 ml-3 mr-3 inset-shadow-orange");
+        } else {
+            newParent.setAttribute("class", "card p-3 bg-light mb-3 ml-3 mr-3 inset-shadow-green");
+        }
         newParent.setAttribute("id", `${type}-location-${i + 1}`);
 
         let innerDiv = document.createElement("div");
@@ -47,7 +51,7 @@ locationContainer.addEventListener("click", (e) => {
         buttonDiv.setAttribute("class", "d-flex justify-content-end");
 
         let removeBtn = document.createElement("button");
-        removeBtn.setAttribute("class", "btn btn-sm btn-danger");
+        removeBtn.setAttribute("class", "btn btn-sm btn-secondary btn-delete");
         removeBtn.setAttribute("id", `remove-${type}-btn-${i + 1}`);
         removeBtn.textContent = "Remove";
 

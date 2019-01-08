@@ -4,399 +4,223 @@
     ViewData["Title"] = "Details";
 }
 
-<h3 class="text-center mt-3 mb-3">Details for @Model.Title</h3>
+<div class="finish-trip-details-page">
 
 
-<div class="card">
-    <div class="card-header text-center">
-        @Model.Continent.Name
-    </div>
-    <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <div class="width-65">
-                <img class="details-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="map" />
+    <h3 class="text-center mt-2 mb-5">Details for @Model.Title</h3>
 
-            </div>
-            <div class="width-35 p-2 d-flex flex-column justify-content-center">
-                <div>
-                    <h5 class="card-title ml-4">@Model.Title</h5>
-                    <p class="card-text ml-4">@Model.Location</p>
-                    <p class="card-text ml-4">@Model.TripDates</p>
-                    <p class="card-text ml-4">@Model.Accommodation</p>
-                    <p class="card-text ml-4">
-                        @if (Model.Budget != null)
-                        {
-                            <span>$@Model.Budget</span>
-                        }
-                        else
-                        {
-                            <span class="text-muted font-weight-italic">None</span>
-                        }
-                    </p>
-                    <div class="card p-2 ml-4">
-                        <div class="card-text text-center">Transportation</div>
-                        <hr />
-                        <div class="card-body">
-                            <div class="card-text d-flex flex-wrap justify-content-around">
-                                @if (Model.TripTravelTypes.Count > 0)
-                                {
-                                    @foreach (var tt in Model.TripTravelTypes)
+
+    <div class="card border-0 mid-layer inset-shadow">
+        <div class="card-header header-blue text-light text-center">
+            @Model.Continent.Name
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <div class="width-65 polaroid inset-shadow effect7">
+                    <img class="details-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="map" />
+                    <div class="text-center sharpie">@Model.Title</div>
+                </div>
+                <div class="width-35 p-2 d-flex flex-column justify-content-center">
+                    <div class="text-blue">
+                        <h5 class="card-title ml-4">@Model.Title</h5>
+                        <p class="card-text ml-4">@Model.Location</p>
+                        <p class="card-text ml-4">@Model.TripDates</p>
+                        <p class="card-text ml-4">@Model.Accommodation</p>
+                        <p class="card-text ml-4">
+                            @if (Model.Budget != null)
+                            {
+                                <span>$@Model.Budget</span>
+                            }
+                            else
+                            {
+                                <span class="text-muted font-weight-italic">None</span>
+                            }
+                        </p>
+                        <div class="card p-2 ml-4 inset-shadow-blue effect6">
+                            <div class="card-text text-center mt-2">Transportation</div>
+                            <hr />
+                            <div class="card-body">
+                                <div class="card-text d-flex flex-wrap justify-content-around">
+                                    @if (Model.TripTravelTypes.Count > 0)
                                     {
-                                        <span class="mr-2">@tt.TravelType.Type</span>
+                                        @foreach (var tt in Model.TripTravelTypes)
+                                        {
+                                            <span class="mr-2">@tt.TravelType.Type</span>
+                                        }
                                     }
-                                }
-                                else 
-                                { 
-                                    <span class="text-center text-muted font-weight-italic">None</span>
-                                }
+                                    else
+                                    {
+                                        <span class="text-center text-muted font-weight-italic">None</span>
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <h5 class="text-center mt-4 mb-4">Experiences</h5>
+            <hr />
+
+            <div class="d-flex justify-content-around">
+                <div class="card width-45 p-2 mt-2 inset-shadow-orange effect6">
+                    <div class="card-text text-center mt-2">Food Experiences Completed</div>
+                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 1).Count() > 0)
+                    {
+                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 1))
+                        {
+                            <div class="card width-85 align-self-center mt-3 p-2 bg-light">
+                                <div class="card-text">@tvl.Name</div>
+                                @if (tvl.Description != null)
+                                {
+                                    <div class="card-text text-muted font-weight-italic">@tvl.Description</div>
+                                }
+                                else
+                                {
+                                    <div class="card-text text-muted font-weight-italic">None</div>
+                                }
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="card-text text-center text-muted font-weight-italic mt-4">None Completed</div>
+                    }
+                    <div class="card-text text-center mt-3">Missed Food Experiences</div>
+                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 1).Count() > 0)
+                    {
+                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 1))
+                        {
+                            <div class="card width-85 align-self-center mt-3 mb-3 p-2 bg-secondary text-light">
+                                <div class="card-text">@tvl.Name</div>
+                                @if (tvl.Description != null)
+                                {
+                                    <div class="card-text text-light-gray font-weight-italic">@tvl.Description</div>
+                                }
+                                else
+                                {
+                                    <div class="card-text text-light-gray font-weight-italic">None</div>
+                                }
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="card-text text-center text-muted font-weight-italic mt-3 mb-3">None Missed</div>
+                    }
+
+                </div>
+                <div class="card width-45 p-2 mt-2 inset-shadow-green effect6">
+                    <div class="card-text text-center mt-2">Places To See Completed</div>
+                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 2).Count() > 0)
+                    {
+                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 2))
+                        {
+                            <div class="card width-85 align-self-center mt-3 p-2 bg-light">
+                                <div class="card-text">@tvl.Name</div>
+                                @if (tvl.Description != null)
+                                {
+                                    <div class="card-text text-muted font-weight-italic">@tvl.Description</div>
+                                }
+                                else
+                                {
+                                    <div class="card-text text-muted font-weight-italic">None</div>
+                                }
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="card-text text-center text-muted font-weight-italic mt-4">None Completed</div>
+                    }
+                    <div class="card-text text-center mt-3">Missed Places</div>
+                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 2).Count() > 0)
+                    {
+                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 2))
+                        {
+                            <div class="card width-85 align-self-center mt-3 p-2 bg-secondary text-light">
+                                <div class="card-text">@tvl.Name</div>
+                                @if (tvl.Description != null)
+                                {
+                                    <div class="card-text text-light-gray font-weight-italic">@tvl.Description</div>
+                                }
+                                else
+                                {
+                                    <div class="card-text text-light-gray font-weight-italic">None</div>
+                                }
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="card-text text-center text-muted font-weight-italic mt-3 mb-3">None Missed</div>
+                    }
+
+                </div>
+            </div>
+
+            <h5 class="text-center mt-4 mb-4">Travoul Retrospectives</h5>
+            <hr />
+
+            <div class="d-flex justify-content-around mt-4">
+                <div class="card width-45 p-2 inset-shadow-blue effect3">
+                    <div class="card-text text-center pt-2 mt-2">Things to do again</div>
+                    <hr />
+                    @foreach (TripRetro tripRetro in Model.TripRetros)
+                    {
+                        if (tripRetro.RetroTypeId == 1)
+                        {
+                            <div class="p-3">
+                                @tripRetro.Description
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="card width-45 p-2 inset-shadow-blue effect4">
+                    <div class="card-text text-center pt-2 mt-2">Things to do Differently</div>
+                    <hr />
+                    @foreach (TripRetro tripRetro in Model.TripRetros)
+                    {
+                        if (tripRetro.RetroTypeId == 2)
+                        {
+                            <div class="p-3">
+                                @tripRetro.Description
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
         </div>
+    </div>
 
-        <h5 class="text-center mt-4 mb-4">Experiences</h5>
-
-        <div class="d-flex justify-content-around">
-            <div class="card width-45 p-2">
-                <div class="card-text text-center">Food Experiences Completed</div>
-                @if (Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 1).Count() > 0)
-                {
-                    @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 1))
-                    {
-                        <div class="card mt-3 p-2 bg-light">
-                            <div class="card-text">@tvl.Name</div>
-                            @if (tvl.Description != null)
-                            {
-                                <div class="card-text text-muted font-weight-italic">@tvl.Description</div>
-                            }
-                            else
-                            {
-                                <div class="card-text text-muted font-weight-italic">None</div>
-                            }
-                        </div>
-                    }
-                }
-                else
-                {
-                    <div class="card-text text-muted font-weight-italic">None Completed</div>
-                }
-                <div class="card-text text-center mt-3">Missed Food Experiences</div>
-                @if (Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 1).Count() > 0)
-                {
-                    @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 1))
-                    {
-                        <div class="card mt-3 p-2 bg-dark text-light">
-                            <div class="card-text">@tvl.Name</div>
-                            @if (tvl.Description != null)
-                            {
-                                <div class="card-text text-muted font-weight-italic">@tvl.Description</div>
-                            }
-                            else
-                            {
-                                <div class="card-text text-muted font-weight-italic">None</div>
-                            }
-                        </div>
-                    }
-                }
-                else
-                {
-                    <div class="card-text text-muted font-weight-italic">None Missed</div>
-                }
-
-            </div>
-            <div class="card width-45 p-2">
-                <div class="card-text text-center">Places To See Completed</div>
-                @if (Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 2).Count() > 0)
-                {
-                    @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 2))
-                    {
-                        <div class="card mt-3 p-2 bg-light">
-                            <div class="card-text">@tvl.Name</div>
-                            @if (tvl.Description != null)
-                            {
-                                <div class="card-text text-muted font-weight-italic">@tvl.Description</div>
-                            }
-                            else
-                            {
-                                <div class="card-text text-muted font-weight-italic">None</div>
-                            }
-                        </div>
-                    }
-                }
-                else
-                {
-                    <div class="card-text text-center text-muted font-weight-italic mt-4">None Completed</div>
-                }
-                <div class="card-text text-center mt-3">Missed Places</div>
-                @if (Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 2).Count() > 0)
-                {
-                    @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 2))
-                    {
-                        <div class="card mt-3 p-2 bg-dark text-light">
-                            <div class="card-text">@tvl.Name</div>
-                            @if (tvl.Description != null)
-                            {
-                                <div class="card-text text-muted font-weight-italic">@tvl.Description</div>
-                            }
-                            else
-                            {
-                                <div class="card-text text-muted font-weight-italic">None</div>
-                            }
-                        </div>
-                    }
-                }
-                else
-                {
-                    <div class="card-text text-center text-muted font-weight-italic mt-4">None Missed</div>
-                }
-
-            </div>
+    <div class="d-flex justify-content-center mt-4">
+        <div class="btn-group">
+            <a class="btn btn-secondary text-white btn-edit" asp-controller="Trips" asp-action="FinishedTripEdit" asp-route-id="@Model.TripId">Edit</a>
+            <a class="btn btn-secondary text-white btn-delete" data-toggle="modal" data-target="#deletePlannedModal">Delete</a>
+            <a class="btn btn-secondary text-white" asp-action="Index">Back to List</a>
         </div>
+    </div>
 
-        <h5 class="text-center mt-4 mb-4">Travoul Retrospectives</h5>
-        <hr />
-
-        <div class="d-flex justify-content-around mt-4">
-            <div class="card width-45 p-2">
-                <h5 class="card-text text-center pt-2">Things I'd do again</h5>
-                <hr />
-                @foreach (TripRetro tripRetro in Model.TripRetros)
-                {
-                    if (tripRetro.RetroTypeId == 1)
-                    {
-                        <div class="pl-3 pr-3">
-                            @tripRetro.Description
-                        </div>
-                    }
-                }
-            </div>
-            <div class="card width-45 p-2">
-                <h5 class="card-text text-center pt-2">Things I'd do Different</h5>
-                <hr />
-                @foreach (TripRetro tripRetro in Model.TripRetros)
-                {
-                    if (tripRetro.RetroTypeId == 2)
-                    {
-                        <div class="pl-3 pr-3">
-                            @tripRetro.Description
-                        </div>
-                    }
-                }
+    <div class="modal fade" id="deletePlannedModal" tabindex="-1" data-backdrop="false" role="dialog" aria-labelledby="deletePlannedModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePlannedModalLabel">Delete Confimation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this trip? It will be permanetly removed.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form asp-controller="Trips" asp-action="DeleteTrip" asp-route-id="@Model.TripId">
+                        <button class="btn btn-danger text-white">Delete</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="d-flex justify-content-center mt-4">
-    <div class="btn-group">
-        <a class="btn btn-secondary text-white btn-edit" asp-controller="Trips" asp-action="FinishedTripEdit" asp-route-id="@Model.TripId">Edit</a>
-        <a class="btn btn-secondary text-white btn-delete" data-toggle="modal" data-target="#deletePlannedModal">Delete</a>
-        <a class="btn btn-secondary text-white" asp-action="Index">Back to List</a>
-    </div>
-</div>
-
-<div class="modal fade" id="deletePlannedModal" tabindex="-1" role="dialog" aria-labelledby="deletePlannedModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deletePlannedModalLabel">Delete Confimation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this trip? It will be permanetly removed.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form asp-controller="Trips" asp-action="DeleteTrip" asp-route-id="@Model.TripId">
-                    <button class="btn btn-danger text-white">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Title
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            Continent
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Continent.Name)
-        </dd>
-        <dt>
-            Location
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Location)
-        </dd>
-        <dt>
-            Dates of Trip
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TripDates)
-        </dd>
-        <dt>
-            Accomodation
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Accommodation)
-        </dd>
-        <dt>
-            Budget
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Budget)
-        </dd>
-        <dt>Travel Type</dt>
-        <dd>
-            <ul>
-                @foreach (var TripTT in Model.TripTravelTypes)
-                {
-                    <li>@TripTT.TravelType.Type</li>
-                }
-            </ul>
-        </dd>
-        <hr />
-        <dt>Things I wanted to do</dt>
-        <dd>
-            <ul>
-                @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 1 && t.IsCompleted == false).Count() > 0)
-                {
-                    <h4>Food</h4>
-                    @foreach (var TripL in Model.TripVisitLocations)
-                    {
-                        if (TripL.LocationType.Type == "Food" && TripL.IsCompleted == false)
-                        {
-                            <li>@TripL.Name<b>:</b> @TripL.Description</li>
-                        }
-                    }
-                }
-                @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 2 && t.IsCompleted == false).Count() > 0)
-                {
-                    <h4>Places</h4>
-                    @foreach (var TripL in Model.TripVisitLocations)
-                    {
-                        if (TripL.LocationType.Type == "Place" && TripL.IsCompleted == false)
-                        {
-                            <li>@TripL.Name<b>:</b> @TripL.Description</li>
-                        }
-                    }
-                }
-            </ul>
-        </dd>
-        <dt>Things I did do</dt>
-        <dd>
-            <ul>
-                @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 1 && t.IsCompleted == true).Count() > 0)
-                {
-                    <h4>Food</h4>
-                    @foreach (var TripL in Model.TripVisitLocations)
-                    {
-                        if (TripL.LocationType.Type == "Food" && TripL.IsCompleted == true)
-                        {
-                            <li>@TripL.Name<b>:</b> @TripL.Description</li>
-                        }
-                    }
-                }
-                @if (Model.TripVisitLocations.Where(t => t.LocationTypeId == 2 && t.IsCompleted == true).Count() > 0)
-                {
-                    <h4>Places</h4>
-                    @foreach (var TripL in Model.TripVisitLocations)
-                    {
-                        if (TripL.LocationType.Type == "Place" && TripL.IsCompleted == true)
-                        {
-                            <li>@TripL.Name<b>:</b> @TripL.Description</li>
-                        }
-                    }
-                }
-            </ul>
-        </dd>
-        <hr />
-        <dt>What I'd do again</dt>
-        @foreach (var TripR in Model.TripRetros)
-        {
-            if (TripR.RetroTypeId == 1)
-            {
-                <dd>@TripR.Description</dd>
-            }
-        }
-        <br />
-        <dt>What I'd do different</dt>
-        @foreach (var TripR in Model.TripRetros)
-        {
-            if (TripR.RetroTypeId == 2)
-            {
-                <dd>@TripR.Description</dd>
-            }
-        }
-    </dl>
-</div>
-<div>
-    <a asp-controller="Trips" asp-action="FinishedTripEdit" asp-route-id="@Model.TripId">Edit</a> |
-    <a class="btn btn-secondary text-white" data-toggle="modal" data-target="#deletePlannedModal">Delete</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@*modal for delete
-<div class="modal fade" id="deletePlannedModal" tabindex="-1" role="dialog" aria-labelledby="deletePlannedModal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deletePlannedModalLabel">Delete Confimation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this trip? It will be permanetly removed.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form asp-controller="Trips" asp-action="DeleteTrip" asp-route-id="@Model.TripId">
-                    <button class="btn btn-danger text-white">Delete</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>*@
