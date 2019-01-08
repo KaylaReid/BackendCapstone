@@ -4,6 +4,34 @@ let placeI = 0;
 
 const parentDiv = document.querySelector(".experience-container");
 
+document.querySelector("#preview-img-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    let src = document.querySelector("#Trip_ImagePath").value;
+
+    let title = document.querySelector("#Trip_Title").textContent;
+
+    let polaroid = document.createElement("div");
+    polaroid.setAttribute("class", "width-65 polaroid inset-shadow");
+
+    let image = document.createElement("img");
+    image.setAttribute("class", "details-img");
+    image.setAttribute("src", src);
+    image.setAttribute("alt", `${title} Image`);
+
+    let sharpie = document.createElement("div");
+    sharpie.setAttribute("class", "text-center sharpie");
+    sharpie.textContent = title;
+
+    polaroid.appendChild(image);
+    polaroid.appendChild(sharpie);
+
+    document.querySelector("#img-container").innerHTML = "";
+    document.querySelector("#img-container").appendChild(polaroid);
+
+
+})
+
 parentDiv.addEventListener("click", (e) => {
 
     if (e.target.id === "add-food-btn" || e.target.id === "add-place-btn") {

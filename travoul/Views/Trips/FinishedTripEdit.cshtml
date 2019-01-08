@@ -24,11 +24,11 @@
                     <div class="width-50 text-blue">
                         <h5 class="card-text text-center mt-2 mb-3">Current Image</h5>
                         <div class="polaroid inset-shadow effect7">
-                            <img class="details-img" id="trip-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="map" />
+                            <img class="details-img" id="trip-img" src="@(Model.Trip.ImagePath != null ? Model.Trip.ImagePath : "/images/chuttersnap-176806-unsplash.jpg")" alt="@Model.Trip.Title Image" />
                             <div class="text-center sharpie" id="polaroid-img-title">@Model.Trip.Title</div>
                         </div>
                         <h5 class="control-label text-center mt-3 mb-3">New Image URL</h5>
-                        <input class="form-control mt-2 mb-2" id="new-img-link" type="text" value="~/images/chuttersnap-176806-unsplash.jpg" />
+                        <input asp-for="@Model.Trip.ImagePath" class="form-control mt-2 mb-2" id="new-img-link" type="text" value="@(Model.Trip.ImagePath != null ? Model.Trip.ImagePath : "/images/chuttersnap-176806-unsplash.jpg")" />
                         <div class="d-flex justify-content-center mt-3">
                             <div class="btn-group">
                                 <button class="btn btn-secondary text-light" id="img-preview-btn">Preview</button>

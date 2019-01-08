@@ -17,7 +17,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <div class="width-65 polaroid inset-shadow effect7">
-                    <img class="details-img" src="~/images/chuttersnap-176806-unsplash.jpg" alt="map" />
+                    <img class="details-img" src="@(Model.ImagePath != null ? Model.ImagePath : "/images/chuttersnap-176806-unsplash.jpg")" alt="map" />
                     <div class="text-center sharpie">@Model.Title</div>
                 </div>
                 <div class="width-35 p-2 d-flex flex-column justify-content-center">

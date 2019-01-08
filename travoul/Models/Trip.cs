@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace travoul.Models
@@ -33,6 +34,10 @@ namespace travoul.Models
         public string Title { get; set; }
 
         public double? Budget { get; set; }
+
+        public string ImagePath { get; set; }
+
+        public DateTime DateFinished { get; set; }
 
         [Required]
         public bool IsPreTrip { get; set; }

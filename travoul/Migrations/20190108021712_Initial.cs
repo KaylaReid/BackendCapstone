@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace travoul.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -223,6 +223,8 @@ namespace travoul.Migrations
                     Accommodation = table.Column<string>(nullable: false),
                     Title = table.Column<string>(nullable: false),
                     Budget = table.Column<double>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    DateFinished = table.Column<DateTime>(nullable: false),
                     IsPreTrip = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -329,8 +331,8 @@ namespace travoul.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "State", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "32c1d491-5df4-49e1-8cc1-6447588952d7", 0, "Nashville", "dd21e85b-9e40-4aa6-998a-f052d504a171", "kayla@kayla.com", true, "Kayla", "Reid", false, null, "KAYLA@KAYLA.COM", "KAYLA@KAYLA.COM", "AQAAAAEAACcQAAAAEHUM5GEW7Z6B/0nrvJgKJ87KeyZWevH42Fks2uQehXa/h9KRMKz4mONSEAYhq26Ixg==", null, false, "336af88e-f91b-4a2b-a774-ca00f73e0b92", "TN", false, "kayla@kayla.com" },
-                    { "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3", 0, "Nashville", "17b96150-0fc4-483e-ad73-047d8603b6a7", "ricky@ricky.com", true, "Ricky", "Bruner", false, null, "RICKY@RICKY.COM", "RICKY@RICKY.COM", "AQAAAAEAACcQAAAAEIaDBY7zAT5RpEb7mTcQeSJwuz/VUACyW2MSxCVwDITYnjVHhiDOZcOhN83aL+rQcg==", null, false, "3e2b2889-a9fe-4777-82b2-d47ac0769559", "TN", false, "ricky@ricky.com" }
+                    { "c95a6a90-19a1-4ccd-b028-9776d91eb991", 0, "Nashville", "95a55c12-e1ec-4529-9215-8286d6a64458", "kayla@kayla.com", true, "Kayla", "Reid", false, null, "KAYLA@KAYLA.COM", "KAYLA@KAYLA.COM", "AQAAAAEAACcQAAAAEKHNVJaXO1l3fvMIn7qERtK8LUTuGHd0l4bTzXQQ9MefhNM/+b55r+zfY7yjMKUzRw==", null, false, "684a060d-cb5b-4836-9695-716e77ac8a2b", "TN", false, "kayla@kayla.com" },
+                    { "2afae0c5-52dc-4524-acee-7e9dc85d4995", 0, "Nashville", "0c13c6b9-b09d-4da2-b326-83e9c464a8c0", "ricky@ricky.com", true, "Ricky", "Bruner", false, null, "RICKY@RICKY.COM", "RICKY@RICKY.COM", "AQAAAAEAACcQAAAAELS0WBJo5AG8Jz3dxTdbZHkNmaW0gD+5PF/hzo5zWhrmGaA0K25zR02fVrzRMz3o7Q==", null, false, "9894671a-a56a-49da-b3ee-38a7be301d36", "TN", false, "ricky@ricky.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -382,13 +384,13 @@ namespace travoul.Migrations
 
             migrationBuilder.InsertData(
                 table: "Trip",
-                columns: new[] { "TripId", "Accommodation", "Budget", "ContinentId", "IsPreTrip", "Location", "Title", "TripDates", "UserId" },
+                columns: new[] { "TripId", "Accommodation", "Budget", "ContinentId", "DateFinished", "ImagePath", "IsPreTrip", "Location", "Title", "TripDates", "UserId" },
                 values: new object[,]
                 {
-                    { 2, "Campus", 2000.0, 1, false, "Uganda", "Mission Trip", "2010", "32c1d491-5df4-49e1-8cc1-6447588952d7" },
-                    { 1, "Cabana Bay", null, 5, false, "Orlando Flordia", "1st Harry Potter World Trip", "5/20/17-5/26/17", "32c1d491-5df4-49e1-8cc1-6447588952d7" },
-                    { 3, "Cabana Bay", null, 5, false, "Orlando Flordia", "1st Harry Potter World Trip/Engagement Trip", "5/20/17-5/26/17", "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3" },
-                    { 4, "Airbnb", null, 5, true, "Portland OR", "Visit H & T Trip", "2019", "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3" }
+                    { 2, "Campus", 2000.0, 1, new DateTime(2019, 1, 7, 20, 17, 11, 128, DateTimeKind.Local), "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", false, "Uganda", "Mission Trip", "2010", "c95a6a90-19a1-4ccd-b028-9776d91eb991" },
+                    { 1, "Cabana Bay", null, 5, new DateTime(2019, 1, 7, 20, 17, 11, 125, DateTimeKind.Local), "https://scontent.fbna1-1.fna.fbcdn.net/v/t31.0-8/19221504_10156323805382729_8735263925981311453_o.jpg?_nc_cat=111&_nc_ht=scontent.fbna1-1.fna&oh=27f178631784a8d9e88e2b7a117e8948&oe=5CC3F599", false, "Orlando Florida", "1st Harry Potter World Trip", "5/20/17-5/26/17", "c95a6a90-19a1-4ccd-b028-9776d91eb991" },
+                    { 3, "Cabana Bay", null, 5, new DateTime(2019, 1, 7, 20, 17, 11, 128, DateTimeKind.Local), "https://scontent.fbna1-1.fna.fbcdn.net/v/t31.0-8/19221723_10156323925257729_6632941831644369725_o.jpg?_nc_cat=108&_nc_ht=scontent.fbna1-1.fna&oh=25026fc7793a7dea17da4116d35de668&oe=5CC052A1", false, "Orlando Flordia", "1st Harry Potter World Trip/Engagement Trip", "5/20/17-5/26/17", "2afae0c5-52dc-4524-acee-7e9dc85d4995" },
+                    { 4, "Airbnb", null, 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, true, "Portland OR", "Visit H & T Trip", "2019", "2afae0c5-52dc-4524-acee-7e9dc85d4995" }
                 });
 
             migrationBuilder.InsertData(

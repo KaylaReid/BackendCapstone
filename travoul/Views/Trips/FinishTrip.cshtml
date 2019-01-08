@@ -15,7 +15,7 @@
                 @Model.Trip.Continent.Name
             </h5>
             <div class="card-body text-blue">
-                <h5 class="card-title">@Model.Trip.Title</h5>
+                <h5 class="card-title" id="Trip_Title">@Model.Trip.Title</h5>
                 <p class="card-text">@Model.Trip.Location</p>
                 <p class="card-text">Planned Dates: @Model.Trip.TripDates</p>
                 <p class="card-text">Where to Stay: @Model.Trip.Accommodation</p>
@@ -30,6 +30,17 @@
                         <span>$@Model.Trip.Budget</span>
                     }
                 </p>
+                <hr />
+                <h5 class="card-text mt-2 mb-2">Add an Image</h5>
+                <div class="d-flex justify-content-center">
+                    <input asp-for="@Model.Trip.ImagePath" id="Trip_ImagePath" class="form-control mt-2 mb-2 width-65" placeholder="Paste an Image URL here"/>
+                </div>
+                <div class="d-flex justify-content-center mb-2">
+                    <button class="btn btn-blue" id="preview-img-btn">Preview</button>
+                </div>
+                <div class="d-flex justify-content-center mt-3" id="img-container">
+                    
+                </div>
                 <hr />
                 <h5 class="card-text">Transportation Plans</h5>
                 @if (Model.TravelTypes.Count() == 0)

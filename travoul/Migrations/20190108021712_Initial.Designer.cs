@@ -10,8 +10,8 @@ using travoul.Data;
 namespace travoul.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181213210106_initial")]
-    partial class initial
+    [Migration("20190108021712_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -198,8 +198,8 @@ namespace travoul.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "32c1d491-5df4-49e1-8cc1-6447588952d7", AccessFailedCount = 0, City = "Nashville", ConcurrencyStamp = "dd21e85b-9e40-4aa6-998a-f052d504a171", Email = "kayla@kayla.com", EmailConfirmed = true, FirstName = "Kayla", LastName = "Reid", LockoutEnabled = false, NormalizedEmail = "KAYLA@KAYLA.COM", NormalizedUserName = "KAYLA@KAYLA.COM", PasswordHash = "AQAAAAEAACcQAAAAEHUM5GEW7Z6B/0nrvJgKJ87KeyZWevH42Fks2uQehXa/h9KRMKz4mONSEAYhq26Ixg==", PhoneNumberConfirmed = false, SecurityStamp = "336af88e-f91b-4a2b-a774-ca00f73e0b92", State = "TN", TwoFactorEnabled = false, UserName = "kayla@kayla.com" },
-                        new { Id = "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3", AccessFailedCount = 0, City = "Nashville", ConcurrencyStamp = "17b96150-0fc4-483e-ad73-047d8603b6a7", Email = "ricky@ricky.com", EmailConfirmed = true, FirstName = "Ricky", LastName = "Bruner", LockoutEnabled = false, NormalizedEmail = "RICKY@RICKY.COM", NormalizedUserName = "RICKY@RICKY.COM", PasswordHash = "AQAAAAEAACcQAAAAEIaDBY7zAT5RpEb7mTcQeSJwuz/VUACyW2MSxCVwDITYnjVHhiDOZcOhN83aL+rQcg==", PhoneNumberConfirmed = false, SecurityStamp = "3e2b2889-a9fe-4777-82b2-d47ac0769559", State = "TN", TwoFactorEnabled = false, UserName = "ricky@ricky.com" }
+                        new { Id = "c95a6a90-19a1-4ccd-b028-9776d91eb991", AccessFailedCount = 0, City = "Nashville", ConcurrencyStamp = "95a55c12-e1ec-4529-9215-8286d6a64458", Email = "kayla@kayla.com", EmailConfirmed = true, FirstName = "Kayla", LastName = "Reid", LockoutEnabled = false, NormalizedEmail = "KAYLA@KAYLA.COM", NormalizedUserName = "KAYLA@KAYLA.COM", PasswordHash = "AQAAAAEAACcQAAAAEKHNVJaXO1l3fvMIn7qERtK8LUTuGHd0l4bTzXQQ9MefhNM/+b55r+zfY7yjMKUzRw==", PhoneNumberConfirmed = false, SecurityStamp = "684a060d-cb5b-4836-9695-716e77ac8a2b", State = "TN", TwoFactorEnabled = false, UserName = "kayla@kayla.com" },
+                        new { Id = "2afae0c5-52dc-4524-acee-7e9dc85d4995", AccessFailedCount = 0, City = "Nashville", ConcurrencyStamp = "0c13c6b9-b09d-4da2-b326-83e9c464a8c0", Email = "ricky@ricky.com", EmailConfirmed = true, FirstName = "Ricky", LastName = "Bruner", LockoutEnabled = false, NormalizedEmail = "RICKY@RICKY.COM", NormalizedUserName = "RICKY@RICKY.COM", PasswordHash = "AQAAAAEAACcQAAAAELS0WBJo5AG8Jz3dxTdbZHkNmaW0gD+5PF/hzo5zWhrmGaA0K25zR02fVrzRMz3o7Q==", PhoneNumberConfirmed = false, SecurityStamp = "9894671a-a56a-49da-b3ee-38a7be301d36", State = "TN", TwoFactorEnabled = false, UserName = "ricky@ricky.com" }
                     );
                 });
 
@@ -306,6 +306,10 @@ namespace travoul.Migrations
 
                     b.Property<int>("ContinentId");
 
+                    b.Property<DateTime>("DateFinished");
+
+                    b.Property<string>("ImagePath");
+
                     b.Property<bool>("IsPreTrip");
 
                     b.Property<string>("Location")
@@ -329,10 +333,10 @@ namespace travoul.Migrations
                     b.ToTable("Trip");
 
                     b.HasData(
-                        new { TripId = 1, Accommodation = "Cabana Bay", ContinentId = 5, IsPreTrip = false, Location = "Orlando Flordia", Title = "1st Harry Potter World Trip", TripDates = "5/20/17-5/26/17", UserId = "32c1d491-5df4-49e1-8cc1-6447588952d7" },
-                        new { TripId = 2, Accommodation = "Campus", Budget = 2000.0, ContinentId = 1, IsPreTrip = false, Location = "Uganda", Title = "Mission Trip", TripDates = "2010", UserId = "32c1d491-5df4-49e1-8cc1-6447588952d7" },
-                        new { TripId = 3, Accommodation = "Cabana Bay", ContinentId = 5, IsPreTrip = false, Location = "Orlando Flordia", Title = "1st Harry Potter World Trip/Engagement Trip", TripDates = "5/20/17-5/26/17", UserId = "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3" },
-                        new { TripId = 4, Accommodation = "Airbnb", ContinentId = 5, IsPreTrip = true, Location = "Portland OR", Title = "Visit H & T Trip", TripDates = "2019", UserId = "2c4f71e2-b63e-46b6-982d-4a5ec8b294b3" }
+                        new { TripId = 1, Accommodation = "Cabana Bay", ContinentId = 5, DateFinished = new DateTime(2019, 1, 7, 20, 17, 11, 125, DateTimeKind.Local), ImagePath = "https://scontent.fbna1-1.fna.fbcdn.net/v/t31.0-8/19221504_10156323805382729_8735263925981311453_o.jpg?_nc_cat=111&_nc_ht=scontent.fbna1-1.fna&oh=27f178631784a8d9e88e2b7a117e8948&oe=5CC3F599", IsPreTrip = false, Location = "Orlando Florida", Title = "1st Harry Potter World Trip", TripDates = "5/20/17-5/26/17", UserId = "c95a6a90-19a1-4ccd-b028-9776d91eb991" },
+                        new { TripId = 2, Accommodation = "Campus", Budget = 2000.0, ContinentId = 1, DateFinished = new DateTime(2019, 1, 7, 20, 17, 11, 128, DateTimeKind.Local), ImagePath = "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60", IsPreTrip = false, Location = "Uganda", Title = "Mission Trip", TripDates = "2010", UserId = "c95a6a90-19a1-4ccd-b028-9776d91eb991" },
+                        new { TripId = 3, Accommodation = "Cabana Bay", ContinentId = 5, DateFinished = new DateTime(2019, 1, 7, 20, 17, 11, 128, DateTimeKind.Local), ImagePath = "https://scontent.fbna1-1.fna.fbcdn.net/v/t31.0-8/19221723_10156323925257729_6632941831644369725_o.jpg?_nc_cat=108&_nc_ht=scontent.fbna1-1.fna&oh=25026fc7793a7dea17da4116d35de668&oe=5CC052A1", IsPreTrip = false, Location = "Orlando Flordia", Title = "1st Harry Potter World Trip/Engagement Trip", TripDates = "5/20/17-5/26/17", UserId = "2afae0c5-52dc-4524-acee-7e9dc85d4995" },
+                        new { TripId = 4, Accommodation = "Airbnb", ContinentId = 5, DateFinished = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), IsPreTrip = true, Location = "Portland OR", Title = "Visit H & T Trip", TripDates = "2019", UserId = "2afae0c5-52dc-4524-acee-7e9dc85d4995" }
                     );
                 });
 
