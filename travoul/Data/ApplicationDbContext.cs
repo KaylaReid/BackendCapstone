@@ -218,12 +218,14 @@ namespace travoul.Data
                     TripId = 1,
                     UserId = Kayla.Id,
                     ContinentId = 5,
-                    Location = "Orlando Flordia",
+                    Location = "Orlando Florida",
                     TripDates = "5/20/17-5/26/17",
                     Accommodation = "Cabana Bay",
                     Title = "1st Harry Potter World Trip",
+                    ImagePath = "https://scontent.fbna1-1.fna.fbcdn.net/v/t31.0-8/19221504_10156323805382729_8735263925981311453_o.jpg?_nc_cat=111&_nc_ht=scontent.fbna1-1.fna&oh=27f178631784a8d9e88e2b7a117e8948&oe=5CC3F599",
                     Budget = null,
-                    IsPreTrip = false
+                    IsPreTrip = false,
+                    DateFinished = DateTime.Now
                 },
                 new Trip()
                 {
@@ -234,8 +236,10 @@ namespace travoul.Data
                     TripDates = "2010",
                     Accommodation = "Campus",
                     Title = "Mission Trip",
+                    ImagePath = "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
                     Budget = 2000.00,
-                    IsPreTrip = false
+                    IsPreTrip = false,
+                    DateFinished = DateTime.Now
                 },
                 new Trip()
                 {
@@ -247,7 +251,9 @@ namespace travoul.Data
                     Accommodation = "Cabana Bay",
                     Title = "1st Harry Potter World Trip/Engagement Trip",
                     Budget = null,
-                    IsPreTrip = false
+                    ImagePath= "https://scontent.fbna1-1.fna.fbcdn.net/v/t31.0-8/19221723_10156323925257729_6632941831644369725_o.jpg?_nc_cat=108&_nc_ht=scontent.fbna1-1.fna&oh=25026fc7793a7dea17da4116d35de668&oe=5CC052A1",
+                    IsPreTrip = false,
+                    DateFinished = DateTime.Now
                 },
                 new Trip()
                 {

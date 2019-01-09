@@ -60,7 +60,7 @@
             <div class="card width-75 mb-4 p-2 finish-travoul-media effect2">
 
                 <div class="media text-blue">
-                    <img class="m-2 index-trip-img effect3" src="~/images/chuttersnap-176806-unsplash.jpg" alt="Generic placeholder image">
+                    <img class="m-2 index-trip-img effect3" src="@(trip.ImagePath != null ? trip.ImagePath : "/images/chuttersnap-176806-unsplash.jpg")" alt="Generic placeholder image">
                     <div class="media-body mt-1 ml-3">
                         <div class="card-text text-center">@trip.Continent.Name</div>
                         <hr />

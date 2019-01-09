@@ -49,7 +49,9 @@ namespace travoul.Controllers
            
             List<Trip> trips = await _context.Trip
                 .Include(t => t.Continent)
-                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && (t.Title.Contains(search) || t.Location.Contains(search) || t.Continent.Name.Contains(search))).ToListAsync();
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == preTrip && (t.Title.Contains(search) || t.Location.Contains(search) || t.Continent.Name.Contains(search)))
+                .OrderByDescending(t => t.DateFinished)
+                .ToListAsync();
 
             TripSearchViewModel viewModel = new TripSearchViewModel();
 
@@ -84,7 +86,9 @@ namespace travoul.Controllers
 
             List<Trip> UserTrips = await _context.Trip
                 .Include(t => t.Continent)
-                .Where(t => t.UserId == User.Id && t.IsPreTrip == false).ToListAsync();
+                .Where(t => t.UserId == User.Id && t.IsPreTrip == false)
+                .OrderByDescending(t => t.DateFinished)
+                .ToListAsync();
 
             Pager pager = new Pager(UserTrips.Count(), page);
             
@@ -418,7 +422,15 @@ namespace travoul.Controllers
         [HttpPost]
         public async Task<IActionResult> FinishTrip(int id, FinishTripViewModel viewModel)
         {
+            ModelState.Remove("Trip.User");
+            ModelState.Remove("Trip.UserId");
+            ModelState.Remove("Trip.TripDates");
+            ModelState.Remove("Trip.Location");
+            ModelState.Remove("Trip.Accommodation");
+            ModelState.Remove("Trip.Title");
+            ModelState.Remove("Trip.ContinentId");
 
+            
             if (!ModelState.IsValid)
             {
 
@@ -508,17 +520,10 @@ namespace travoul.Controllers
             _context.Add(DoDifferent);
 
 
-
-            //if (viewModel.TripRetros != null)
-            //{ 
-            //    foreach (TripRetro tripRetro in viewModel.TripRetros)
-            //    {
-            //        tripRetro.TripId = id;
-            //        _context.Add(tripRetro);
-            //    };
-            //}
-
             trip.IsPreTrip = false;
+            trip.ImagePath = viewModel.Trip.ImagePath;
+            trip.DateFinished = DateTime.Now;
+
             _context.Update(trip);
 
             await _context.SaveChangesAsync();
@@ -929,7 +934,7 @@ namespace travoul.Controllers
             trip.IsPreTrip = false;
             trip.Title = viewModel.Trip.Title;
             trip.TripDates = viewModel.Trip.TripDates;
-                    
+            trip.ImagePath = viewModel.Trip.ImagePath;                    
 
             _context.Update(trip);
             await _context.SaveChangesAsync();
