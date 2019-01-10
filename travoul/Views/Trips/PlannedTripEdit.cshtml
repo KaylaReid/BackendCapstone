@@ -133,6 +133,9 @@
         <h4 class="text-center mt-3 mb-3">Finished?</h4>
         <button class="btn btn-blue btn-block mt-3">Save</button>
     </form>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-secondary align-self-center mt-4" asp-controller="Trips" asp-action="PlannedTripDetails" asp-route-id="@Model.Trip.TripId">Cancel</a>
+    </div>
 </div>
 
 @section Scripts {
