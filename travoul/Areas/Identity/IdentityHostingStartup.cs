@@ -1,13 +1,7 @@
-using System;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using travoul.Data;
+using travoul.Areas.Identity;
 
-[assembly: HostingStartup(typeof(travoul.Areas.Identity.IdentityHostingStartup))]
+[assembly: HostingStartup(typeof(IdentityHostingStartup))]
 namespace travoul.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup

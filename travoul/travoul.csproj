@@ -13,5 +13,9 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.1.0-preview1-final" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\travoul.Core\travoul.Core.csproj" />
+    <ProjectReference Include="..\travoul.Entity\travoul.Entity.csproj" />
+  </ItemGroup>
 
 </Project>

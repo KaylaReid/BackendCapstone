@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -37,21 +35,17 @@ namespace travoul.Controllers
         }
 
         //Results of searching all trips
-        public async Task<IActionResult> TripSearchAll(int? page, string Search, TripSearchViewModel viewModel)
+        public async Task<IActionResult> TripSearchAll(int? page, string search, TripSearchViewModel viewModel)
         {
-            List<Trip> trips = await _context.Trip
+            var trips = await _context.Trip
                 .Include(t => t.Continent)
                 .Include(t => t.User)
                 .Where(t => t.IsPreTrip == false && (t.Title.Contains(viewModel.Search) || t.Location.Contains(viewModel.Search) || t.Continent.Name.Contains(viewModel.Search)))
                 .OrderByDescending(t => t.DateFinished)
                 .ToListAsync();
 
-            Pager pager = new Pager(trips.Count(), page);
-
-
-            viewModel.Trips = trips.Skip((pager.CurrentPage - 1) * pager.PageSize)
-                .Take(pager.PageSize).ToList();
-            viewModel.Pager = pager;
+            viewModel.Pager = new Pager(trips.Count(), page);
+            viewModel.Trips = trips.Skip((viewModel.Pager.CurrentPage - 1) * viewModel.Pager.PageSize).Take(viewModel.Pager.PageSize).ToList();
             
             return View(viewModel);
         }
@@ -74,6 +68,7 @@ namespace travoul.Controllers
                 .Include(t => t.TripRetros)
                 .ThenInclude(tr => tr.RetroType)
                 .FirstOrDefaultAsync(t => t.TripId == id);
+
             if (trip == null)
             {
                 return NotFound();
