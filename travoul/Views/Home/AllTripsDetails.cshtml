@@ -1,4 +1,4 @@
-﻿@model travoul.Models.Trip
+﻿@model Trip
 
 @{
     ViewData["Title"] = Model.Title + " Details";
@@ -42,7 +42,7 @@
                                 <div class="card-text d-flex flex-wrap justify-content-around">
                                     @if (Model.TripTravelTypes.Count > 0)
                                     {
-                                        @foreach (var tt in Model.TripTravelTypes)
+                                        foreach (var tt in Model.TripTravelTypes)
                                         {
                                             <span class="mr-2">@tt.TravelType.Type</span>
                                         }
@@ -64,9 +64,9 @@
             <div class="d-flex justify-content-around">
                 <div class="card width-45 p-2 mt-2 inset-shadow-orange effect6">
                     <div class="card-text text-center mt-2">Food Experiences Completed</div>
-                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 1).Count() > 0)
+                    @if (Model.TripVisitLocations.Count(t => t.IsCompleted && t.LocationTypeId == 1) > 0)
                     {
-                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 1))
+                        foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted && t.LocationTypeId == 1))
                         {
                             <div class="card width-85 align-self-center mt-3 p-2 bg-light">
                                 <div class="card-text">@tvl.Name</div>
@@ -86,9 +86,9 @@
                         <div class="card-text text-center text-muted font-weight-italic mt-4">None Completed</div>
                     }
                     <div class="card-text text-center mt-3">Missed Food Experiences</div>
-                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 1).Count() > 0)
+                    @if (Model.TripVisitLocations.Count(t => t.IsCompleted == false && t.LocationTypeId == 1) > 0)
                     {
-                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 1))
+                        foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 1))
                         {
                             <div class="card width-85 align-self-center mt-3 mb-3 p-2 bg-secondary text-light">
                                 <div class="card-text">@tvl.Name</div>
@@ -111,9 +111,9 @@
                 </div>
                 <div class="card width-45 p-2 mt-2 inset-shadow-green effect6">
                     <div class="card-text text-center mt-2">Places To See Completed</div>
-                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 2).Count() > 0)
+                    @if (Model.TripVisitLocations.Count(t => t.IsCompleted && t.LocationTypeId == 2) > 0)
                     {
-                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == true && t.LocationTypeId == 2))
+                        foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted && t.LocationTypeId == 2))
                         {
                             <div class="card width-85 align-self-center mt-3 p-2 bg-light">
                                 <div class="card-text">@tvl.Name</div>
@@ -133,9 +133,9 @@
                         <div class="card-text text-center text-muted font-weight-italic mt-4">None Completed</div>
                     }
                     <div class="card-text text-center mt-3">Missed Places</div>
-                    @if (Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 2).Count() > 0)
+                    @if (Model.TripVisitLocations.Count(t => t.IsCompleted == false && t.LocationTypeId == 2) > 0)
                     {
-                        @foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 2))
+                        foreach (var tvl in Model.TripVisitLocations.Where(t => t.IsCompleted == false && t.LocationTypeId == 2))
                         {
                             <div class="card width-85 align-self-center mt-3 p-2 bg-secondary text-light">
                                 <div class="card-text">@tvl.Name</div>
@@ -165,7 +165,7 @@
                 <div class="card width-45 p-2 inset-shadow-blue effect3">
                     <div class="card-text text-center pt-2 mt-2">Things to do again</div>
                     <hr />
-                    @foreach (TripRetro tripRetro in Model.TripRetros)
+                    @foreach (var tripRetro in Model.TripRetros)
                     {
                         if (tripRetro.RetroTypeId == 1)
                         {
@@ -178,7 +178,7 @@
                 <div class="card width-45 p-2 inset-shadow-blue effect4">
                     <div class="card-text text-center pt-2 mt-2">Things to do Differently</div>
                     <hr />
-                    @foreach (TripRetro tripRetro in Model.TripRetros)
+                    @foreach (var tripRetro in Model.TripRetros)
                     {
                         if (tripRetro.RetroTypeId == 2)
                         {

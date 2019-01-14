@@ -1,4 +1,4 @@
-﻿@model travoul.Models.Trip
+﻿@model Trip
 
 @{
     ViewData["Title"] = Model.Title + " Plan Details";
@@ -38,7 +38,7 @@
                     }
                     else
                     {
-                        @foreach (TripTravelType tt in Model.TripTravelTypes)
+                        foreach (var tt in Model.TripTravelTypes)
                         {
                             <div>
                                 <p class="card-text">@tt.TravelType.Type</p>

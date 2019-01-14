@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -85,12 +83,12 @@ namespace travoul.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser 
                 {
-                UserName = Input.Email,
-                Email = Input.Email,
-                FirstName = Input.FirstName,
-                LastName = Input.LastName,
-                City = Input.City,
-                State = Input.State
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    City = Input.City,
+                    State = Input.State
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -101,7 +99,7 @@ namespace travoul.Areas.Identity.Pages.Account
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { userId = user.Id, code = code },
+                        values: new { userId = user.Id, code },
                         protocol: Request.Scheme);
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",

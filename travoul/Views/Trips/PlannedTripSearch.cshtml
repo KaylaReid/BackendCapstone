@@ -11,7 +11,7 @@
     <hr />
 
     <div class="d-flex flex-wrap justify-content-around">
-        @foreach (Trip trip in Model.Trips)
+        @foreach (var trip in Model.Trips)
         {
             <div class="card mt-3 border-0 pre-trip-card effect7">
                 <h5 class="card-header header-orange text-light">@trip.Continent.Name</h5>

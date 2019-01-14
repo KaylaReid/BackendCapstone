@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "travoul", "travoul\travoul.csproj", "{D5F192BD-447E-473A-A343-C67EFC353831}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "travoul", "travoul\travoul.csproj", "{D5F192BD-447E-473A-A343-C67EFC353831}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "travoul.Entity", "travoul.Entity\travoul.Entity.csproj", "{2D467730-7ADA-4A52-94C2-1D1E2B77BC1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "travoul.Core", "travoul.Core\travoul.Core.csproj", "{E353B053-6771-40CE-8E38-8798DB7729CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D5F192BD-447E-473A-A343-C67EFC353831}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5F192BD-447E-473A-A343-C67EFC353831}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5F192BD-447E-473A-A343-C67EFC353831}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D467730-7ADA-4A52-94C2-1D1E2B77BC1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D467730-7ADA-4A52-94C2-1D1E2B77BC1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D467730-7ADA-4A52-94C2-1D1E2B77BC1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D467730-7ADA-4A52-94C2-1D1E2B77BC1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E353B053-6771-40CE-8E38-8798DB7729CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E353B053-6771-40CE-8E38-8798DB7729CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E353B053-6771-40CE-8E38-8798DB7729CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E353B053-6771-40CE-8E38-8798DB7729CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
